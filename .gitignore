@@ -1,3 +1,11 @@
+# 배포 시크릿 (IP, SSH 키 경로)
+.env
+.env.local
+
+# OS
+.DS_Store
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

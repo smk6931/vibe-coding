@@ -1,0 +1,38 @@
+{
+  "kpis": {
+    "revenueDaily": 47000,
+    "revenueWeekly": 312000,
+    "revenueMonthly": 1180000,
+    "reservationsOpen": 14,
+    "reservationsFilled": 32,
+    "noShowRate": 0.09,
+    "memberCount": 124,
+    "newMembersThisWeek": 11,
+    "inquiriesPending": 3
+  },
+  "upcomingClasses": [
+    { "id": "evt-001", "title": "Cursor로 2시간 만에 내 사이드프로젝트 시드 만들기", "startAt": "2026-04-27T15:00:00+09:00", "filled": 4, "capacity": 6, "venue": "강남역 인근 스터디룸" },
+    { "id": "evt-002", "title": "Claude로 비전공자도 만드는 토이 SaaS 랜딩", "startAt": "2026-05-04T11:00:00+09:00", "filled": 2, "capacity": 6, "venue": "수원역 인근 스터디룸" },
+    { "id": "evt-003", "title": "스터디: 수요일 저녁 모각작 (수원)", "startAt": "2026-04-29T19:00:00+09:00", "filled": 3, "capacity": 8, "venue": "광교 카페 코너" }
+  ],
+  "recentMembers": [
+    { "id": "mem-012", "nickname": "한이", "joinedAt": "2026-04-05", "enrollmentCount": 0 },
+    { "id": "mem-011", "nickname": "윤서", "joinedAt": "2026-04-01", "enrollmentCount": 1 },
+    { "id": "mem-010", "nickname": "태오", "joinedAt": "2026-03-25", "enrollmentCount": 2 }
+  ],
+  "pendingExternalEvents": [
+    { "id": "ext-pending-1", "title": "[인천] AI 코딩 모각작", "submittedBy": "mem-006", "submittedAt": "2026-04-24T18:00:00+09:00", "sourceUrl": "https://www.daangn.com/example1" },
+    { "id": "ext-pending-2", "title": "[성수] Cursor 핸즈온", "submittedBy": "mem-008", "submittedAt": "2026-04-24T09:30:00+09:00", "sourceUrl": "https://event-us.kr/example2" }
+  ],
+  "inquiries": [
+    { "id": "inq-001", "from": "mem-002", "topic": "환불 문의", "preview": "4/27 강의 못 가게 됐는데 환불 어떻게 하나요?", "createdAt": "2026-04-24T20:10:00+09:00", "status": "pending" },
+    { "id": "inq-002", "from": "mem-005", "topic": "결제 확인", "preview": "어제 입금했는데 입장권이 안 와요.", "createdAt": "2026-04-24T11:20:00+09:00", "status": "pending" },
+    { "id": "inq-003", "from": "비회원", "topic": "출강 문의", "preview": "기업 출강 가능한가요?", "createdAt": "2026-04-23T15:00:00+09:00", "status": "pending" }
+  ],
+  "weeklyRevenueSeries": [
+    { "week": "W14", "amount": 220000 },
+    { "week": "W15", "amount": 180000 },
+    { "week": "W16", "amount": 285000 },
+    { "week": "W17", "amount": 312000 }
+  ]
+}

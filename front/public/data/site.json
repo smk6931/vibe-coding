@@ -1,0 +1,18 @@
+{
+  "brand": "바이브 세션",
+  "tagline": "수원-서울, 2시간으로 끝내는 바이브코딩 라이트 클래스",
+  "subTagline": "한국 바이브코딩 모임을 지도·캘린더로 한눈에",
+  "kakaoOpenChatUrl": "https://open.kakao.com/o/PLACEHOLDER",
+  "instagramUrl": "https://instagram.com/PLACEHOLDER",
+  "danggeunUrl": "https://www.daangn.com/PLACEHOLDER",
+  "nextEventId": "evt-001",
+  "operator": {
+    "name": "운영자(본인)",
+    "intro": "주말마다 수원-서울 라인에서 2시간 라이트 클래스를 운영합니다. Cursor, Claude, Next.js를 활용한 사이드프로젝트 시드 만들기를 가장 좋아합니다."
+  },
+  "refundPolicy": [
+    "강의 24시간 전까지: 100% 환불",
+    "강의 24시간 이내: 50% 환불",
+    "강의 시작 후 / 노쇼: 환불 불가"
+  ]
+}
