@@ -18,3 +18,4 @@ AI가 작업 시 필요한 컨텍스트만 골라 읽는 참조용 문서 모음
 |------|----------|
 | [컴포넌트 위치 규칙](frontend/component-placement.md) | 새 컴포넌트 파일 어디 만들지 결정할 때 |
 | [가이드 페이지 구조](frontend/guide-page-structure.md) | 가이드 페이지 수정, 사이드바/레이아웃 손볼 때 |
+| [EventDetail 모듈화 기획](frontend/event-detail-modularization.md) | EventDetail 수정, 신청·지도·강의안 컴포넌트 분리할 때 |

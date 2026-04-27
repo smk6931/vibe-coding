@@ -1,39 +1,28 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+const TOP_LINKS = [
+  { to: '/guide/oneday/install', label: '수업 전 준비 가이드' },
+];
+
 const NAV_GROUPS = [
-  {
-    label: '원데이 클래스',
-    base: '/guide/oneday',
-    items: [
-      { to: '/guide/oneday/install', label: '수업 전 준비 가이드' },
-      { to: '/guide/oneday/preview', label: '강의 맛보기' },
-    ],
-  },
   {
     label: '4주차 미니홈피 클래스',
     base: '/guide/oneday/week',
     items: [
-      { to: '/events/evt-001', label: '1강 — 환경세팅 + 첫 웹페이지' },
-      { to: '/guide/oneday/week2', label: '2강 — 미니홈피 프로필', soon: true },
-      { to: '/guide/oneday/week3', label: '3강 — 카드 + 다이어리', soon: true },
-      { to: '/guide/oneday/week4', label: '4강 — 꾸미기 + 배포', soon: true },
+      { to: '/events/evt-001', label: '1주차' },
+      { to: '/guide/oneday/week2', label: '2주차', soon: true },
+      { to: '/guide/oneday/week3', label: '3주차', soon: true },
+      { to: '/guide/oneday/week4', label: '4주차', soon: true },
     ],
-  },
-  {
-    label: '입문',
-    base: '/guide/beginner',
-    items: [{ to: '/guide/beginner', label: '강의 목록', soon: true }],
-  },
-  {
-    label: 'Claude 활용',
-    base: '/guide/claude',
-    items: [{ to: '/guide/claude', label: '강의 목록', soon: true }],
   },
 ];
 
 function getCurrentLabel(pathname) {
   if (pathname === '/guide') return '가이드 홈';
+  for (const link of TOP_LINKS) {
+    if (pathname === link.to) return link.label;
+  }
   for (const g of NAV_GROUPS) {
     for (const item of g.items) {
       if (pathname === item.to) return item.label;
@@ -58,6 +47,21 @@ function NavContent({ pathname, onNavigate }) {
       >
         가이드 홈
       </Link>
+
+      {TOP_LINKS.map(link => (
+        <Link
+          key={link.to}
+          to={link.to}
+          onClick={onNavigate}
+          className={`flex items-center px-3 py-2 rounded-lg text-[13px] font-medium transition-colors ${
+            pathname === link.to
+              ? 'bg-brand-50 text-brand-700 font-semibold'
+              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+          }`}
+        >
+          {link.label}
+        </Link>
+      ))}
 
       <div className="space-y-5 pt-3">
         {NAV_GROUPS.map(g => {
