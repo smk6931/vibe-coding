@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Header from './components/Header';
 import { communityRoutes, guideRoutes } from './routes';
+import { RoleProvider } from './lib/RoleContext';
 
 const Home        = lazy(() => import('./pages/Home'));
 const EventDetail = lazy(() => import('./pages/EventDetail'));
@@ -25,6 +26,7 @@ export default function App() {
         v7_relativeSplatPath: true,
       }}
     >
+      <RoleProvider>
       <Header />
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
@@ -37,6 +39,7 @@ export default function App() {
           {guideRoutes.map(r => <Route key={r.path} path={r.path} element={r.element} />)}
         </Routes>
       </Suspense>
+      </RoleProvider>
     </BrowserRouter>
   );
 }

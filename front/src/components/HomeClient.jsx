@@ -3,6 +3,7 @@ import { useMemo, useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EventCard from './EventCard';
 import Accordion from './Accordion';
+import MiniHompy from '../pages/guide/oneday/MiniHompy';
 import dynamic from '@/lib/dynamic';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '@/lib/format';
 
@@ -224,12 +225,13 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
         </div>
       </section>
 
-      {/* === 운영자 추천 === */}
-      {recommended && (
-        <section className="container-wide pt-3">
-          <RecommendedHero event={recommended} />
-        </section>
-      )}
+      {/* === 운영자 추천 + 준비가이드 === */}
+      <section className="container-wide pt-3">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          <GuidePreviewCard />
+          {recommended && <RecommendedHero event={recommended} />}
+        </div>
+      </section>
 
       {/* === 메인 콘텐츠 === */}
       <section className="container-wide pt-3 pb-6 sm:pb-8">
@@ -377,44 +379,82 @@ function MapLegend() {
   );
 }
 
+function GuidePreviewCard() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="card overflow-hidden flex flex-col border-brand-200">
+      <Link to="/guide/oneday/install" className="block relative overflow-hidden h-[150px] sm:h-[170px] shrink-0">
+        <div style={{
+          position: 'absolute', top: 0, left: '50%',
+          transform: 'translateX(-50%) scale(0.42)',
+          transformOrigin: 'top center',
+          width: '380px', pointerEvents: 'none',
+        }}>
+          <MiniHompy />
+        </div>
+        <span className="absolute top-2 left-2 badge bg-brand-600 text-white text-[9px] sm:text-[10px] font-semibold">수업 전 준비</span>
+      </Link>
+      <div className="p-2 sm:p-3 flex flex-col flex-1">
+        <button
+          onClick={() => setOpen(o => !o)}
+          className="w-full text-left font-bold text-[12px] sm:text-[13px] text-slate-900 leading-snug flex items-start justify-between gap-1"
+        >
+          <span className="line-clamp-2">수업 전 준비 가이드 — VSCode · Claude Code 설치</span>
+          <svg className={`w-3 h-3 shrink-0 mt-0.5 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        {open ? (
+          <p className="mt-1.5 text-[11px] text-slate-500 leading-relaxed">
+            GitHub · VSCode · Node.js 설치부터 Claude Code 또는 Codex 연결까지 단계별로 안내해 드려요.
+          </p>
+        ) : (
+          <span className="mt-1 text-[10px] text-brand-600 font-medium">가이드 보러 가기 →</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function RecommendedHero({ event }) {
+  const [open, setOpen] = useState(false);
   const sold = event.remaining === 0;
   return (
-    <Link to={`/events/${event.id}`} className="card overflow-hidden border-warm-200 hover:border-warm-300 block">
-      <div className="flex">
-        <div className="relative shrink-0 w-[110px] sm:w-[180px] bg-gradient-to-br from-warm-50 to-brand-100">
-          {event.thumbnail && (
-            <img src={event.thumbnail} alt={event.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-          )}
-          <span className="absolute top-2 left-1.5 badge bg-warm-500 text-white text-[9px] sm:text-[10px] font-semibold">
-            ★ 운영자 추천
-          </span>
-        </div>
-        <div className="flex-1 min-w-0 p-3 sm:p-4 flex flex-col gap-1 justify-between">
-          <div>
-            <div className="flex items-center gap-1 flex-wrap text-[10px] text-slate-500 mb-1">
-              <span className="badge bg-brand-50 text-brand-700">{eventTypeLabel(event.type)}</span>
-              <span className="badge bg-slate-100 text-slate-600">{dDay(event.startAt)}</span>
-              <span>{event.level}</span>
-            </div>
-            <h2 className="text-[14px] sm:text-[16px] font-bold leading-snug text-slate-900 line-clamp-2">{event.title}</h2>
-            <p className="text-[11px] sm:text-[12px] text-slate-500 line-clamp-1 mt-0.5 hidden sm:block">{event.description}</p>
-          </div>
-          <div className="flex items-end justify-between">
-            <div className="min-w-0">
-              <div className="text-[11px] text-slate-500 truncate">📍 {event.venue.name}</div>
-              <div className="text-[10px] text-slate-400">{formatDateTime(event.startAt).slice(0, 16)}</div>
-            </div>
-            <div className="text-right shrink-0 ml-2">
-              <div className="text-[14px] font-bold text-slate-900">{formatKRW(event.price)}</div>
-              <div className="text-[10px] text-slate-500">
-                {sold ? <span className="text-rose-500">마감</span> : <>잔여 <strong>{event.remaining}</strong>/{event.capacity}</>}
+    <div className="card overflow-hidden flex flex-col border-warm-200">
+      <Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[130px] sm:h-[160px] shrink-0 bg-gradient-to-br from-warm-50 to-brand-100">
+        {event.thumbnail && (
+          <img src={event.thumbnail} alt={event.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+        )}
+        <span className="absolute top-2 left-2 badge bg-warm-500 text-white text-[9px] sm:text-[10px] font-semibold">★ 운영자 추천</span>
+      </Link>
+      <div className="p-2 sm:p-3 flex flex-col flex-1">
+        <button
+          onClick={() => setOpen(o => !o)}
+          className="w-full text-left font-bold text-[12px] sm:text-[13px] text-slate-900 leading-snug flex items-start justify-between gap-1"
+        >
+          <span className="line-clamp-2">{event.title}</span>
+          <svg className={`w-3 h-3 shrink-0 mt-0.5 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        {open ? (
+          <div className="mt-1.5 text-[11px] text-slate-500 space-y-1">
+            <p className="line-clamp-3 leading-relaxed">{event.description}</p>
+            <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+              <div className="min-w-0">
+                <div className="truncate">📍 {event.venue?.name}</div>
+                <div className="text-slate-400">{formatDateTime(event.startAt).slice(0, 10)}</div>
+              </div>
+              <div className="text-right shrink-0 ml-2">
+                <div className="font-bold text-slate-900 text-[12px]">{formatKRW(event.price)}</div>
+                <div>{sold ? <span className="text-rose-500">마감</span> : <>잔여 <strong>{event.remaining}</strong>/{event.capacity}</>}</div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="mt-1 flex items-center justify-between">
+            <div className="text-[10px] text-slate-500 truncate">📍 {event.venue?.name}</div>
+            <div className="text-[12px] font-bold text-slate-900 shrink-0 ml-1">{formatKRW(event.price)}</div>
+          </div>
+        )}
       </div>
-    </Link>
+    </div>
   );
 }
 

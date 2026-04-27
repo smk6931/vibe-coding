@@ -2,6 +2,17 @@
 
 선행 문서: `docs/plan/2026-04-25/1043_바이브코딩_소모임_플랫폼_1차기획안.md`, `docs/plan/2026-04-25/1121_프로토타입_데모_기획.md`
 
+## Agent 참조 문서 (agents/)
+
+작업 전 관련 문서만 골라 읽는다. 전체 목록: [`agents/README.md`](agents/README.md)
+
+| 작업 상황 | 읽을 문서 |
+|----------|----------|
+| 카드 UI (썸네일+토글) 만들 때 | `agents/ui/card-thumbnail-toggle.md` |
+| MiniHompy 수정/scale 조정 | `agents/ui/mini-hompy-demo.md` |
+| 새 컴포넌트 파일 위치 결정 | `agents/frontend/component-placement.md` |
+| 가이드 페이지 레이아웃 수정 | `agents/frontend/guide-page-structure.md` |
+
 ## 1. 디자인 원칙 — **모바일 우선**
 
 이 사이트의 대다수 사용자는 휴대폰으로 진입한다 (인스타·당근·카톡 공유 → 모바일 클릭).

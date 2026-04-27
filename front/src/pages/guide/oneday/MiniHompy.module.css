@@ -1,17 +1,37 @@
-/* ── Wrapper (replaces fixed-position body/app) ── */
+/* ── Wrapper ── */
 .wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(135deg, #1a0030 0%, #2d0050 40%, #1a0030 100%);
+  background: linear-gradient(135deg, #0d001a 0%, #220045 35%, #0d001a 65%, #1a0038 100%);
   border-radius: 20px;
-  padding: 40px 16px 48px;
+  padding: 44px 24px 52px;
   display: flex;
   justify-content: center;
-  min-height: 680px;
+  min-height: 660px;
 }
 
-/* ── Star Canvas (scoped to wrapper) ── */
+.wrapper::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(168,85,247,0.45) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -40px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(236,72,153,0.38) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Star Canvas ── */
 .starCanvas {
   position: absolute;
   inset: 0;
@@ -21,26 +41,27 @@
   height: 100%;
 }
 
-/* ── Minihompy Card ── */
+/* ── Card ── */
 .minihompy {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(18px);
-  border: 1.5px solid rgba(232, 121, 249, 0.3);
+  max-width: 660px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(22px);
+  border: 1.5px solid rgba(232, 121, 249, 0.45);
   border-radius: 28px;
-  padding: 32px 28px 28px;
+  padding: 32px 36px 28px;
   box-shadow:
-    0 0 40px rgba(168, 85, 247, 0.25),
-    0 0 80px rgba(232, 121, 249, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 0 60px rgba(168, 85, 247, 0.4),
+    0 0 120px rgba(232, 121, 249, 0.18),
+    0 0 240px rgba(168, 85, 247, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
   animation: mhFadeUp 0.6s ease both;
 }
 
 @keyframes mhFadeUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -49,36 +70,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
 .headerTitle {
   font-family: 'Cute Font', cursive;
-  font-size: 1.7rem;
-  background: linear-gradient(90deg, #e879f9, #a855f7, #ec4899);
+  font-size: 2.1rem;
+  background: linear-gradient(90deg, #f5d0fe, #e879f9, #a855f7, #ec4899, #f5d0fe);
+  background-size: 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  animation: mhShimmer 3.5s linear infinite;
+  filter: drop-shadow(0 0 14px rgba(232, 121, 249, 0.65));
+}
+
+@keyframes mhShimmer {
+  0%   { background-position: 0%; }
+  100% { background-position: 250%; }
 }
 
 .headerDeco {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   animation: mhSpin 4s linear infinite;
   display: inline-block;
+  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 0.7));
 }
 
 @keyframes mhSpin {
   0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.2) rotate(180deg); }
+  50%       { transform: scale(1.25) rotate(180deg); }
 }
 
 /* ── Profile ── */
 .profileSection {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 26px;
   margin-bottom: 24px;
 }
 
@@ -88,21 +118,22 @@
 }
 
 .profilePhoto {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
   position: relative;
   z-index: 1;
-  border: 3px solid rgba(232, 121, 249, 0.6);
+  border: 3px solid rgba(232, 121, 249, 0.65);
+  box-shadow: 0 0 20px rgba(232, 121, 249, 0.4);
 }
 
 .photoRing {
   position: absolute;
-  inset: -6px;
+  inset: -7px;
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: 2.5px solid transparent;
   background: linear-gradient(135deg, #e879f9, #a855f7, #ec4899) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
@@ -123,36 +154,39 @@
 
 .profileName {
   font-family: 'Cute Font', cursive;
-  font-size: 1.8rem;
-  background: linear-gradient(90deg, #f0abfc, #c084fc);
+  font-size: 2.1rem;
+  background: linear-gradient(90deg, #f5d0fe, #c084fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.5));
 }
 
 .profileStatus {
-  font-size: 0.82rem;
-  color: #d8b4fe;
-  background: rgba(168, 85, 247, 0.15);
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  font-size: 0.85rem;
+  color: #e9d5ff;
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.4);
   border-radius: 20px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   display: inline-block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
 }
 
 /* ── Visitor Counter ── */
 .visitorBox {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .visitorLabel {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: #c084fc;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .visitorCount {
@@ -165,61 +199,62 @@
   background: linear-gradient(180deg, #4c1d95, #2e1065);
   color: #e879f9;
   font-family: 'Nanum Gothic Coding', monospace;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  width: 20px;
-  height: 24px;
-  line-height: 24px;
+  width: 22px;
+  height: 26px;
+  line-height: 26px;
   text-align: center;
-  border-radius: 4px;
-  border: 1px solid rgba(232, 121, 249, 0.4);
-  box-shadow: 0 0 6px rgba(232, 121, 249, 0.3);
+  border-radius: 5px;
+  border: 1px solid rgba(232, 121, 249, 0.5);
+  box-shadow: 0 0 8px rgba(232, 121, 249, 0.35);
 }
 
 /* ── Divider ── */
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.4), transparent);
-  margin: 20px 0;
+  background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.5), rgba(168, 85, 247, 0.3), transparent);
+  margin: 22px 0;
 }
 
 /* ── Section Title ── */
 .sectionTitle {
   font-family: 'Cute Font', cursive;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: #f0abfc;
   margin-bottom: 14px;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(240, 171, 252, 0.4);
 }
 
 /* ── Favorites ── */
 .favGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
 .favCard {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(232, 121, 249, 0.2);
+  border: 1px solid rgba(232, 121, 249, 0.22);
   border-radius: 16px;
-  padding: 16px 8px;
+  padding: 16px 6px 14px;
   text-align: center;
   cursor: default;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .favCard:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
-  border-color: rgba(232, 121, 249, 0.5);
-  background: rgba(168, 85, 247, 0.1);
+  transform: translateY(-5px) scale(1.04);
+  box-shadow: 0 10px 28px rgba(168, 85, 247, 0.35);
+  border-color: rgba(232, 121, 249, 0.6);
+  background: rgba(168, 85, 247, 0.12);
 }
 
 .favEmoji {
-  font-size: 1.8rem;
-  margin-bottom: 6px;
-  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 0.5));
+  font-size: 1.9rem;
+  margin-bottom: 7px;
+  filter: drop-shadow(0 0 10px rgba(232, 121, 249, 0.55));
 }
 
 .favLabel {
@@ -227,10 +262,11 @@
   font-size: 0.95rem;
   color: #e879f9;
   margin-bottom: 4px;
+  text-shadow: 0 0 8px rgba(232, 121, 249, 0.4);
 }
 
 .favDesc {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: #c4b5fd;
   line-height: 1.4;
 }
@@ -248,22 +284,22 @@
 
 .diaryInput {
   flex: 1;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1.5px solid rgba(168, 85, 247, 0.35);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(168, 85, 247, 0.4);
   border-radius: 14px;
-  padding: 10px 14px;
+  padding: 10px 16px;
   color: #f3e8ff;
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .diaryInput::placeholder { color: rgba(196, 181, 253, 0.5); }
 
 .diaryInput:focus {
   border-color: #e879f9;
-  box-shadow: 0 0 10px rgba(232, 121, 249, 0.2);
+  box-shadow: 0 0 14px rgba(232, 121, 249, 0.25);
 }
 
 .diaryBtn {
@@ -272,15 +308,16 @@
   border-radius: 14px;
   color: #fff;
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  padding: 10px 16px;
+  padding: 10px 20px;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.15s;
   white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
 }
 
-.diaryBtn:hover { opacity: 0.88; transform: scale(1.04); }
+.diaryBtn:hover { opacity: 0.88; transform: scale(1.05); }
 
 .diaryList {
   display: flex;
@@ -295,11 +332,11 @@
 .diaryItem {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 12px;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.18);
   border-radius: 12px;
-  padding: 10px 14px;
+  padding: 10px 16px;
   animation: mhSlideIn 0.25s ease both;
 }
 
@@ -316,23 +353,24 @@
 }
 
 .diaryText {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #e9d5ff;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 /* ── Footer ── */
 .hompyFooter {
-  margin-top: 24px;
+  margin-top: 26px;
   text-align: center;
-  font-size: 0.7rem;
-  color: rgba(196, 181, 253, 0.45);
-  letter-spacing: 0.05em;
+  font-size: 0.72rem;
+  color: rgba(196, 181, 253, 0.5);
+  letter-spacing: 0.06em;
 }
 
 /* ── Responsive ── */
-@media (max-width: 480px) {
-  .minihompy { padding: 20px 14px 18px; }
+@media (max-width: 520px) {
+  .minihompy { padding: 22px 16px 20px; }
   .profileSection { flex-direction: column; text-align: center; }
-  .favGrid { grid-template-columns: 1fr; }
+  .favGrid { grid-template-columns: repeat(2, 1fr); }
+  .profilePhoto { width: 100px; height: 100px; }
 }

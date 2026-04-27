@@ -1,0 +1,347 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #0d0018;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Star Canvas ── */
+.star-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── App Shell ── */
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px 60px;
+  background: linear-gradient(135deg, #1a0030 0%, #2d0050 40%, #1a0030 100%);
+}
+
+/* ── Minihompy Card ── */
+.minihompy {
+  width: 100%;
+  max-width: 540px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+  border: 1.5px solid rgba(232, 121, 249, 0.3);
+  border-radius: 28px;
+  padding: 32px 28px 28px;
+  box-shadow:
+    0 0 40px rgba(168, 85, 247, 0.25),
+    0 0 80px rgba(232, 121, 249, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: fadeUp 0.6s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ── */
+.hompy-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.header-title {
+  font-family: 'Cute Font', cursive;
+  font-size: 1.7rem;
+  background: linear-gradient(90deg, #e879f9, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.05em;
+  text-shadow: none;
+}
+
+.header-deco {
+  font-size: 1.4rem;
+  animation: spin 4s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(180deg); }
+}
+
+/* ── Profile ── */
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
+.profile-photo-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border: 3px solid rgba(232, 121, 249, 0.6);
+}
+
+.photo-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, #e879f9, #a855f7, #ec4899) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  animation: rotateBorder 3s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotateBorder {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-name {
+  font-family: 'Cute Font', cursive;
+  font-size: 2rem;
+  background: linear-gradient(90deg, #f0abfc, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+}
+
+.profile-status {
+  font-size: 0.85rem;
+  color: #d8b4fe;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 20px;
+  padding: 4px 12px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+/* ── Visitor Counter ── */
+.visitor-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.visitor-label {
+  font-size: 0.75rem;
+  color: #c084fc;
+  font-weight: 600;
+}
+
+.visitor-count {
+  display: flex;
+  gap: 3px;
+}
+
+.digit {
+  display: inline-block;
+  background: linear-gradient(180deg, #4c1d95, #2e1065);
+  color: #e879f9;
+  font-family: 'Nanum Gothic Coding', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  width: 20px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid rgba(232, 121, 249, 0.4);
+  box-shadow: 0 0 6px rgba(232, 121, 249, 0.3);
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.4), transparent);
+  margin: 20px 0;
+}
+
+/* ── Section Title ── */
+.section-title {
+  font-family: 'Cute Font', cursive;
+  font-size: 1.2rem;
+  color: #f0abfc;
+  margin-bottom: 14px;
+  letter-spacing: 0.03em;
+}
+
+/* ── Favorites ── */
+.fav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.fav-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(232, 121, 249, 0.2);
+  border-radius: 18px;
+  padding: 18px 10px;
+  text-align: center;
+  cursor: default;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.fav-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
+  border-color: rgba(232, 121, 249, 0.5);
+  background: rgba(168, 85, 247, 0.1);
+}
+
+.fav-emoji {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 0.5));
+}
+
+.fav-label {
+  font-family: 'Cute Font', cursive;
+  font-size: 1rem;
+  color: #e879f9;
+  margin-bottom: 4px;
+}
+
+.fav-desc {
+  font-size: 0.72rem;
+  color: #c4b5fd;
+  line-height: 1.4;
+}
+
+/* ── Diary ── */
+.diary-section {
+  margin-bottom: 8px;
+}
+
+.diary-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.diary-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(168, 85, 247, 0.35);
+  border-radius: 14px;
+  padding: 10px 14px;
+  color: #f3e8ff;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.diary-input::placeholder { color: rgba(196, 181, 253, 0.5); }
+
+.diary-input:focus {
+  border-color: #e879f9;
+  box-shadow: 0 0 10px rgba(232, 121, 249, 0.2);
+}
+
+.diary-btn {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.diary-btn:hover {
+  opacity: 0.88;
+  transform: scale(1.04);
+}
+
+.diary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.4) transparent;
+}
+
+.diary-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  border-radius: 12px;
+  padding: 10px 14px;
+  animation: slideIn 0.25s ease both;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.diary-date {
+  font-size: 0.7rem;
+  color: #a78bfa;
+  white-space: nowrap;
+  font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.diary-text {
+  font-size: 0.82rem;
+  color: #e9d5ff;
+  line-height: 1.4;
+}
+
+/* ── Footer ── */
+.hompy-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.72rem;
+  color: rgba(196, 181, 253, 0.45);
+  letter-spacing: 0.05em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 400px) {
+  .minihompy { padding: 24px 16px 20px; }
+  .profile-section { flex-direction: column; text-align: center; }
+  .fav-grid { grid-template-columns: 1fr; }
+}

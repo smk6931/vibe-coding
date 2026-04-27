@@ -1,10 +1,10 @@
-// 기존: front/app/events/[id]/page.tsx
 import { useParams, Link } from 'react-router-dom';
 import eventsData from '../../public/data/events.json';
 import siteData from '../../public/data/site.json';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '../lib/format';
 import EventLocationMap from '../components/EventLocationMap';
 import OnedayClassCurriculum from '../components/OnedayClassCurriculum';
+import { useRole } from '../lib/RoleContext';
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -20,9 +20,11 @@ export default function EventDetail() {
     );
   }
 
-  const isInternal  = event.source === 'internal';
-  const sold        = event.remaining === 0;
+  const { role } = useRole();
+  const isInternal     = event.source === 'internal';
+  const sold           = event.remaining === 0;
   const showCurriculum = isInternal && event.type === 'oneday_class';
+  const isAdmin        = role === 'admin';
 
   return (
     <div className="container-page py-5 sm:py-8">
@@ -30,6 +32,7 @@ export default function EventDetail() {
         <Link to="/" className="text-[13px] text-slate-400 hover:text-brand-700">← 전체 모임</Link>
       </div>
 
+      {/* 이벤트 info 2열 그리드 */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-4 sm:gap-6">
         <article>
           {event.thumbnail && (
@@ -75,7 +78,10 @@ export default function EventDetail() {
               </div>
             )}
 
-            {showCurriculum && <OnedayClassCurriculum kakaoUrl={siteData.kakaoOpenChatUrl} />}
+            {/* 일반 유저: prologue를 카드 안에 */}
+            {showCurriculum && !isAdmin && (
+              <OnedayClassCurriculum kakaoUrl={siteData.kakaoOpenChatUrl} isAdmin={false} />
+            )}
           </div>
         </article>
 
@@ -116,6 +122,11 @@ export default function EventDetail() {
           </div>
         </aside>
       </div>
+
+      {/* 어드민: 교안을 그리드 밖 풀폭으로 */}
+      {showCurriculum && isAdmin && (
+        <OnedayClassCurriculum kakaoUrl={siteData.kakaoOpenChatUrl} isAdmin={true} />
+      )}
     </div>
   );
 }

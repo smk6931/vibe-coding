@@ -11,6 +11,16 @@ const NAV_GROUPS = [
     ],
   },
   {
+    label: '4주차 미니홈피 클래스',
+    base: '/guide/oneday/week',
+    items: [
+      { to: '/events/evt-001', label: '1강 — 환경세팅 + 첫 웹페이지' },
+      { to: '/guide/oneday/week2', label: '2강 — 미니홈피 프로필', soon: true },
+      { to: '/guide/oneday/week3', label: '3강 — 카드 + 다이어리', soon: true },
+      { to: '/guide/oneday/week4', label: '4강 — 꾸미기 + 배포', soon: true },
+    ],
+  },
+  {
     label: '입문',
     base: '/guide/beginner',
     items: [{ to: '/guide/beginner', label: '강의 목록', soon: true }],

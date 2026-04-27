@@ -16,6 +16,7 @@ function StarParticles() {
       canvas.height = wrapper.offsetHeight;
     };
     resize();
+    window.addEventListener('resize', resize);
 
     const stars = Array.from({ length: 120 }, () => ({
       x: Math.random() * canvas.width,
@@ -43,7 +44,10 @@ function StarParticles() {
     };
     draw();
 
-    return () => cancelAnimationFrame(animId);
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
+    };
   }, []);
 
   return <canvas ref={canvasRef} className={s.starCanvas} />;
@@ -160,6 +164,7 @@ export default function MiniHompy() {
             <FavoriteCard emoji="☕" label="커피" desc="아메리카노 하루 세 잔은 기본" />
             <FavoriteCard emoji="🎵" label="음악" desc="Lo-fi & Indie Pop 최애" />
             <FavoriteCard emoji="✈️" label="여행" desc="새로운 곳, 새로운 나" />
+            <FavoriteCard emoji="💻" label="클로드" desc="AI랑 바이브코딩 중" />
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useRole } from '../lib/RoleContext';
 
 const MAIN_NAV = [
   { href: '/',          label: '모임' },
@@ -10,6 +11,7 @@ const KAKAO_URL = import.meta.env.VITE_KAKAO_OPENCHAT_URL || '#';
 
 export default function Header() {
   const location = useLocation();
+  const { role, toggleRole } = useRole();
 
   function isActive(href) {
     if (href === '/') return location.pathname === '/';
@@ -43,6 +45,19 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
+          {import.meta.env.DEV && (
+            <button
+              onClick={toggleRole}
+              title="뷰 전환 (로컬 전용)"
+              className={`mr-1 px-2 py-1 rounded-lg text-[11px] font-bold border transition-colors ${
+                role === 'admin'
+                  ? 'bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100'
+                  : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+              }`}
+            >
+              {role === 'admin' ? '교안' : '프롤로그'}
+            </button>
+          )}
           <Link to="/me" title="마이" aria-label="마이"
             className={`p-1.5 rounded-lg transition-colors ${
               isActive('/me') ? 'bg-brand-50 text-brand-700' : 'text-slate-400 hover:bg-slate-100 hover:text-slate-700'
