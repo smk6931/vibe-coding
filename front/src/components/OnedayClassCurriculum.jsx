@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GitHubGuide from './GitHubGuide';
 
@@ -128,31 +129,41 @@ const PREP = [
 ];
 
 export default function OnedayClassCurriculum({ kakaoUrl, isAdmin = false }) {
+  const [mode, setMode] = useState(isAdmin ? 'guide' : 'prologue');
+  const isGuide = mode === 'guide';
+
   return (
     <div className="mt-8 space-y-6">
       <div className="border-t border-slate-100 pt-6 flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg sm:text-xl font-bold text-slate-900">1주차 커리큘럼</h2>
           <p className="mt-1 text-[13px] text-slate-500">
-            {isAdmin
+            {isGuide
               ? '교안 모드 — 타임라인 상세 + 운영 노트가 보입니다.'
               : '코드 한 줄 몰라도 됩니다. Claude가 다 알려줘요.'}
           </p>
         </div>
-        {isAdmin && (
-          <span className="shrink-0 text-[10px] bg-rose-100 text-rose-600 font-bold px-2.5 py-1 rounded-full border border-rose-200">
-            교안 모드
-          </span>
-        )}
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => setMode(isGuide ? 'prologue' : 'guide')}
+            className={`text-[11px] font-bold px-3 py-1.5 rounded-full border transition-colors ${
+              isGuide
+                ? 'bg-rose-100 text-rose-600 border-rose-200 hover:bg-rose-200'
+                : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+            }`}
+          >
+            {isGuide ? '교안 모드' : '프롤로그'}
+          </button>
+        </div>
       </div>
 
-      {isAdmin ? <FullTimeline /> : <PrologueTimeline />}
+      {isGuide ? <FullTimeline /> : <PrologueTimeline />}
 
       <PrepSection />
 
-      <GitHubGuide isAdmin={isAdmin} />
+      <GitHubGuide isAdmin={isGuide} />
 
-      {isAdmin && <PromptsSection />}
+      {isGuide && <PromptsSection />}
 
       <div className="rounded-2xl bg-brand-600 text-white p-5 sm:p-6 text-center">
         <h3 className="font-bold text-[15px] sm:text-lg">자리가 얼마 안 남았어요</h3>

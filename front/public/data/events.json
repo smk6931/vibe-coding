@@ -15,7 +15,7 @@
     "level": "입문",
     "description": "Cursor + Claude로 빈 폴더에서 시작해서 Next.js 사이드프로젝트의 첫 화면을 만들어 봅니다. 오늘 끝나면 본인의 GitHub에 레포 1개가 남는 것이 목표.",
     "tags": ["Cursor", "Next.js", "사이드프로젝트"],
-    "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+    "thumbnail": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
     "ctaUrl": null
   },
   {
@@ -213,7 +213,7 @@
     "level": "초중급",
     "description": "외부 워크숍. 본인 사이드프로젝트 1개를 들고 와야 함.",
     "tags": ["Next.js", "배포"],
-    "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+    "thumbnail": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
     "ctaUrl": "https://www.somoim.co.kr/?utm_source=vibe_session&utm_medium=demo"
   },
   {
