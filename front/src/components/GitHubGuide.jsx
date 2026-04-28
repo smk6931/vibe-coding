@@ -158,7 +158,7 @@ export default function GitHubGuide({ isAdmin = false }) {
     <div className={s.wrap}>
       <div className={s.header}>
         <div>
-          <h2 className={s.title}>GitHub 리포 생성 가이드</h2>
+          <h2 className={s.title}>Chapter 1 — GitHub 리포 생성</h2>
           <p className={s.subtitle}>
             {isAdmin
               ? '교안 모드 — 스크린샷 포함 전체 가이드'

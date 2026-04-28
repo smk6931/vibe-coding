@@ -419,11 +419,16 @@ function RecommendedHero({ event }) {
   const sold = event.remaining === 0;
   return (
     <div className="card overflow-hidden flex flex-col border-warm-200">
-      <Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[130px] sm:h-[160px] shrink-0 bg-gradient-to-br from-warm-50 to-brand-100">
-        {event.thumbnail && (
-          <img src={event.thumbnail} alt={event.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-        )}
-        <span className="absolute top-2 left-2 badge bg-warm-500 text-white text-[9px] sm:text-[10px] font-semibold">★ 운영자 추천</span>
+      <Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[130px] sm:h-[160px] shrink-0">
+        <div style={{
+          position: 'absolute', top: 0, left: '50%',
+          transform: 'translateX(-50%) scale(0.42)',
+          transformOrigin: 'top center',
+          width: '380px', pointerEvents: 'none',
+        }}>
+          <MiniHompy />
+        </div>
+        <span className="absolute top-2 left-2 badge bg-warm-500 text-white text-[9px] sm:text-[10px] font-semibold z-10">★ 운영자 추천</span>
       </Link>
       <div className="p-2 sm:p-3 flex flex-col flex-1">
         <button

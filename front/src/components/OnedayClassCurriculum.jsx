@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GitHubGuide from './GitHubGuide';
+import MiniHompyGuide from './MiniHompyGuide';
 
 const TIMELINE = [
   {
@@ -162,6 +163,8 @@ export default function OnedayClassCurriculum({ kakaoUrl, isAdmin = false }) {
       <PrepSection />
 
       <GitHubGuide isAdmin={isGuide} />
+
+      <MiniHompyGuide isAdmin={isGuide} />
 
       {isGuide && <PromptsSection />}
 
