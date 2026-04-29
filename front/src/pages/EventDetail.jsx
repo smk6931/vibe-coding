@@ -3,7 +3,6 @@ import eventsData from '../../public/data/events.json';
 import siteData from '../../public/data/site.json';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '../lib/format';
 import OnedayClassCurriculum from '../components/OnedayClassCurriculum';
-import { useRole } from '../lib/RoleContext';
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -19,11 +18,9 @@ export default function EventDetail() {
     );
   }
 
-  const { role } = useRole();
   const isInternal     = event.source === 'internal';
   const sold           = event.remaining === 0;
   const showCurriculum = isInternal && event.type === 'oneday_class';
-  const isAdmin        = role === 'admin';
 
   return (
     <div className="container-page py-5 sm:py-8">
@@ -76,7 +73,7 @@ export default function EventDetail() {
           )}
 
           {showCurriculum && (
-            <OnedayClassCurriculum kakaoUrl={siteData.kakaoOpenChatUrl} isAdmin={isAdmin} />
+            <OnedayClassCurriculum kakaoUrl={siteData.kakaoOpenChatUrl} />
           )}
         </div>
       </article>

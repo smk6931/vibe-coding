@@ -100,29 +100,6 @@ const TIMELINE = [
   },
 ];
 
-const PROMPTS = [
-  {
-    label: '프로젝트 처음 만들 때',
-    code: '나는 코딩 초보야. React로 미니홈피 웹사이트를 만들고 싶어.\n지금 VSCode 터미널이 열려 있어.\n프로젝트 만드는 명령어부터 순서대로 알려줘.\n명령어는 복사할 수 있게 코드블록으로.',
-  },
-  {
-    label: '2페이지 + 사이드바 만들 때',
-    code: '지금 React + Vite 프로젝트가 있어.\nReact Router로 2페이지 구조 만들어줘:\n- 홈 페이지 (/)\n- 소개 페이지 (/about)\n왼쪽 사이드바에 이동 버튼 넣어줘. 설치 명령어도 포함.',
-  },
-  {
-    label: '사진으로 소개글 만들 때',
-    code: '[사진을 Claude에 드래그 후]\n이 사진 보고 내 소개 페이지 글 써줘.\n- 이름, 한 줄 소개, 관심사 3가지, 자기소개 문단\nAbout.jsx에 바로 쓸 수 있게 JSX 코드로.',
-  },
-  {
-    label: '오류가 났을 때',
-    code: '아래 오류가 났어. 왜 이런지 쉽게 설명하고\n수정 방법이랑 수정된 전체 코드 보여줘.\n\n[오류 메시지 붙여넣기]',
-  },
-  {
-    label: 'Git + 배포 모를 때',
-    code: '지금 React 프로젝트를 GitHub에 올리고\nVercel로 배포해서 실제 URL 만들고 싶어.\n처음부터 순서대로 알려줘. 명령어는 복사 가능하게.',
-  },
-];
-
 const PREP = [
   { icon: '💻', t: '노트북 지참 필수', d: 'Windows / Mac 모두 OK. 충전기도 가져오세요.' },
   { icon: '🌐', t: '인터넷 연결 확인', d: '와이파이 제공, LTE 핫스팟 백업 추천.' },
@@ -130,42 +107,23 @@ const PREP = [
   { icon: '💾', t: 'GitHub 계정', d: 'github.com 가입 (무료). 현장에서도 OK.' },
 ];
 
-export default function OnedayClassCurriculum({ kakaoUrl, isAdmin = false }) {
-  const [mode, setMode] = useState(isAdmin ? 'guide' : 'prologue');
-  const isGuide = mode === 'guide';
-
+export default function OnedayClassCurriculum({ kakaoUrl }) {
   return (
     <div className="mt-8 space-y-6">
-      <div className="border-t border-slate-100 pt-6 flex items-start justify-between gap-4">
-        <div>
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900">1주차 커리큘럼</h2>
-          <p className="mt-1 text-[13px] text-slate-500">
-            {isGuide
-              ? '교안 모드 — 타임라인 상세 + 운영 노트가 보입니다.'
-              : '코드 한 줄 몰라도 됩니다. Claude가 다 알려줘요.'}
-          </p>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={() => setMode(isGuide ? 'prologue' : 'guide')}
-            className={`text-[11px] font-bold px-3 py-1.5 rounded-full border transition-colors ${
-              isGuide
-                ? 'bg-rose-100 text-rose-600 border-rose-200 hover:bg-rose-200'
-                : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
-            }`}
-          >
-            {isGuide ? '교안 모드' : '프롤로그'}
-          </button>
-        </div>
+      <div className="border-t border-slate-100 pt-6">
+        <h2 className="text-lg sm:text-xl font-bold text-slate-900">1주차 커리큘럼</h2>
+        <p className="mt-1 text-[13px] text-slate-500">
+          코드 한 줄 몰라도 됩니다. Claude가 다 알려줘요. 아래 챕터 펼치면 단계별 캡처+프롬프트가 그대로.
+        </p>
       </div>
 
-      {isGuide ? <FullTimeline /> : <PrologueTimeline />}
+      <PrologueTimeline />
+
+      <ClassPreview />
 
       <PrepSection />
 
-      <ChapterAccordion isAdmin={isGuide} />
-
-      {isGuide && <PromptsSection />}
+      <ChapterAccordion />
 
       <div className="rounded-2xl bg-brand-600 text-white p-5 sm:p-6 text-center">
         <h3 className="font-bold text-[15px] sm:text-lg">자리가 얼마 안 남았어요</h3>
@@ -187,84 +145,98 @@ export default function OnedayClassCurriculum({ kakaoUrl, isAdmin = false }) {
   );
 }
 
-/* ── 일반 유저: 심플 타임라인 ── */
+/* ── 일반 유저: 2x3 그리드 (모바일에서도 2열 유지) ── */
 function PrologueTimeline() {
   return (
-    <div className="space-y-2">
+    <div className="grid grid-cols-2 gap-2 sm:gap-3">
       {TIMELINE.map((step, i) => (
-        <div key={i} className="flex items-start gap-3 p-3 sm:p-4 rounded-xl border border-slate-100 bg-slate-50">
-          <div className={`w-7 h-7 rounded-full ${step.color} flex items-center justify-center text-white text-[11px] font-bold shrink-0 mt-0.5`}>
-            {i + 1}
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-semibold text-[13px] sm:text-[14px] text-slate-900">{step.title}</span>
-              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full text-white ${step.color}`}>{step.label}</span>
+        <div
+          key={i}
+          className="relative p-3 sm:p-4 rounded-xl border border-slate-100 bg-slate-50 flex flex-col gap-1.5"
+        >
+          <div className="flex items-center gap-1.5">
+            <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full ${step.color} flex items-center justify-center text-white text-[10px] sm:text-[11px] font-bold shrink-0`}>
+              {i + 1}
             </div>
-            <p className="text-[12px] text-slate-500 mt-0.5 leading-snug">{step.desc}</p>
+            <span className={`text-[9px] sm:text-[10px] font-semibold px-1.5 py-0.5 rounded-full text-white ${step.color}`}>
+              {step.label}
+            </span>
+            <span className="text-[9px] sm:text-[10px] font-mono text-slate-300 ml-auto shrink-0">
+              {step.time.replace(/\s/g, '')}
+            </span>
           </div>
-          <span className="text-[11px] font-mono text-slate-300 shrink-0 pt-0.5">{step.time}</span>
+          <div className="font-semibold text-[12px] sm:text-[13.5px] text-slate-900 leading-snug line-clamp-2">
+            {step.title}
+          </div>
+          <p className="text-[11px] sm:text-[12px] text-slate-500 leading-snug line-clamp-2">
+            {step.desc}
+          </p>
         </div>
       ))}
     </div>
   );
 }
 
-/* ── 어드민: 상세 타임라인 + 교안 노트 ── */
-function FullTimeline() {
+/* ── 수업 미리보기 — 챕터 캡처에서 가장 임팩트 있는 4장만 가로 갤러리 ── */
+const PREVIEW_SHOTS = [
+  {
+    src: '/images/guide/week1/chapter2-3-content.png',
+    label: '사진 → AI → 미니홈피',
+    desc: '사진 한 장 드래그하면 AI가 컴포넌트 4개를 한 번에 생성',
+  },
+  {
+    src: '/images/guide/week1/chapter3-3-ai-guide.png',
+    label: 'AI가 배포 가이드까지',
+    desc: '"Vercel 어떻게?" 물으면 마크다운 가이드로 답해줌',
+  },
+  {
+    src: '/images/guide/week1/chapter3-9-deploy-success.png',
+    label: '1분만에 배포 완료',
+    desc: 'GitHub 연결 → Deploy 한 번 → 폭죽 + 진짜 URL',
+  },
+  {
+    src: '/images/guide/week1/chapter3-10-domain.png',
+    label: '인터넷에 내 미니홈피',
+    desc: 'xxx.vercel.app 주소로 친구한테 카톡 공유',
+  },
+];
+
+function ClassPreview() {
   return (
-    <div className="relative">
-      <div className="absolute left-[19px] top-4 bottom-4 w-px bg-slate-200" aria-hidden />
-      <ol className="space-y-4">
-        {TIMELINE.map((step, i) => (
-          <li key={i} className="flex gap-3 sm:gap-4">
-            <div className="shrink-0 w-10 flex flex-col items-center gap-0.5 pt-1">
-              <div className={`w-5 h-5 rounded-full ${step.color} flex items-center justify-center text-white text-[10px] font-bold z-10`}>
-                {i + 1}
+    <div>
+      <div className="flex items-baseline justify-between gap-2 mb-3">
+        <h3 className="font-bold text-[14px] sm:text-[15px] text-slate-800">
+          이런 결과물이 나옵니다
+        </h3>
+        <span className="text-[11px] text-slate-400">아래 챕터 펼치면 풀 캡처</span>
+      </div>
+      <div className="-mx-4 sm:mx-0 px-4 sm:px-0 overflow-x-auto sm:overflow-visible">
+        <div className="flex sm:grid sm:grid-cols-4 gap-3 sm:gap-3 pb-1 sm:pb-0">
+          {PREVIEW_SHOTS.map((shot, i) => (
+            <figure
+              key={i}
+              className="shrink-0 w-[220px] sm:w-auto rounded-xl overflow-hidden border border-slate-200 bg-white"
+            >
+              <div className="aspect-[16/10] bg-slate-100 overflow-hidden">
+                <img
+                  src={shot.src}
+                  alt={shot.label}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
               </div>
-            </div>
-            <div className="flex-1 min-w-0 card p-4 sm:p-5">
-              <div className="flex items-start justify-between gap-2 flex-wrap mb-2">
-                <div>
-                  <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full text-white mb-1 ${step.color}`}>
-                    {step.label}
-                  </span>
-                  <h3 className="font-bold text-[14px] sm:text-[15px] text-slate-900 leading-snug">{step.title}</h3>
+              <figcaption className="px-2.5 py-2 sm:px-3 sm:py-2.5">
+                <div className="font-semibold text-[11px] sm:text-[12px] text-slate-800 leading-tight">
+                  {shot.label}
                 </div>
-                <span className="text-[11px] font-mono text-slate-400 shrink-0">{step.time}</span>
-              </div>
-              <p className="text-[12px] sm:text-[13px] text-slate-600 mb-2">{step.desc}</p>
-              <ul className="space-y-1">
-                {step.items.map((item, j) => (
-                  <li key={j} className="flex gap-2 text-[12px] sm:text-[13px] text-slate-700">
-                    <span className="text-slate-300 shrink-0 mt-0.5">▸</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              {step.tip && (
-                <div className="mt-3 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2 text-[11px] sm:text-[12px] text-amber-800">
-                  {step.tip}
-                </div>
-              )}
-              {step.prompt && (
-                <div className="mt-3">
-                  <div className="text-[10px] text-slate-400 mb-1 uppercase tracking-wider">프롬프트 예시</div>
-                  <pre className="bg-slate-900 text-emerald-400 rounded-lg p-3 text-[11px] sm:text-[12px] leading-relaxed overflow-x-auto whitespace-pre-wrap">
-                    {step.prompt}
-                  </pre>
-                </div>
-              )}
-              {step.adminNote && (
-                <div className="mt-3 bg-rose-50 border border-rose-200 rounded-lg px-3 py-2.5">
-                  <div className="text-[10px] font-bold text-rose-400 uppercase tracking-wider mb-1">교안 노트</div>
-                  <p className="text-[11px] sm:text-[12px] text-rose-800 leading-relaxed">{step.adminNote}</p>
-                </div>
-              )}
-            </div>
-          </li>
-        ))}
-      </ol>
+                <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 leading-snug line-clamp-2">
+                  {shot.desc}
+                </p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -288,7 +260,7 @@ function PrepSection() {
   );
 }
 
-function ChapterAccordion({ isAdmin }) {
+function ChapterAccordion() {
   const [openSet, setOpenSet] = useState(new Set());
 
   const toggle = (id) => {
@@ -388,7 +360,7 @@ function ChapterAccordion({ isAdmin }) {
             </button>
             {open && (
               <div className={`px-4 sm:px-5 pt-2 pb-5 sm:pb-6 border-t border-slate-100 ${ch.bg}`}>
-                <ch.Component isAdmin={isAdmin} />
+                <ch.Component isAdmin />
               </div>
             )}
           </div>
@@ -398,25 +370,3 @@ function ChapterAccordion({ isAdmin }) {
   );
 }
 
-function PromptsSection() {
-  return (
-    <div>
-      <h3 className="font-bold text-[14px] text-slate-800 mb-3">현장에서 쓸 프롬프트 모음</h3>
-      <div className="space-y-2.5">
-        {PROMPTS.map((p, i) => (
-          <details key={i} className="card">
-            <summary className="p-3 sm:p-4 cursor-pointer font-medium text-[13px] text-slate-800 flex items-center justify-between">
-              <span>{p.label}</span>
-              <span className="text-slate-400 text-xs">펼치기</span>
-            </summary>
-            <div className="px-3 pb-3 sm:px-4 sm:pb-4">
-              <pre className="bg-slate-900 text-emerald-400 rounded-lg p-3 text-[11px] sm:text-[12px] leading-relaxed overflow-x-auto whitespace-pre-wrap">
-                {p.code}
-              </pre>
-            </div>
-          </details>
-        ))}
-      </div>
-    </div>
-  );
-}

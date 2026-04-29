@@ -3,7 +3,7 @@
     "id": "evt-001",
     "source": "internal",
     "type": "oneday_class",
-    "title": "Cursor로 2시간 만에 내 사이드프로젝트 시드 만들기",
+    "title": "AI랑 만드는 내 미니홈피 + 인터넷 공개 (2시간)",
     "host": { "name": "운영자(본인)", "handle": "@vibe_session" },
     "startAt": "2026-04-27T15:00:00+09:00",
     "endAt":   "2026-04-27T17:00:00+09:00",
@@ -13,9 +13,9 @@
     "capacity": 6,
     "remaining": 2,
     "level": "입문",
-    "description": "Cursor + Claude로 빈 폴더에서 시작해서 Next.js 사이드프로젝트의 첫 화면을 만들어 봅니다. 오늘 끝나면 본인의 GitHub에 레포 1개가 남는 것이 목표.",
-    "tags": ["Cursor", "Next.js", "사이드프로젝트"],
-    "thumbnail": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+    "description": "Claude/Cursor로 빈 폴더에서 시작 → 사진 한 장 드래그로 미니홈피 한 채 → Vercel로 인터넷 공개까지. 끝나면 친구한테 카톡으로 보낼 진짜 URL이 남습니다. 코드 한 줄 몰라도 됩니다.",
+    "tags": ["Claude", "Vite+React", "미니홈피", "Vercel"],
+    "thumbnail": "/images/event-thumbnails/evt-001-minihome.png",
     "ctaUrl": null
   },
   {
