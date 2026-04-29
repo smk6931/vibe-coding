@@ -82,24 +82,53 @@ function SomeCard() {
 - `grid-cols-2` 고정: 모바일에서도 항상 나란히 2열
 - `sm:gap-3`: 데스크탑에서 gap 조금 더
 
-## MiniHompy를 썸네일로 쓸 때 (live 컴포넌트 썸네일)
+## 라이브 컴포넌트를 썸네일로 쓸 때
+
+홈 화면 두 카드는 정적 이미지 대신 **실제 라이브 컴포넌트를 scale 축소**해서 썸네일로 씀.
+배지에는 `z-10` 필수 (썸네일 위에 떠야 가려지지 않음).
+
+### 좌측 — MiniHompy (보라 1페이지)
 
 ```jsx
 <Link to="/guide/oneday/install" className="block relative overflow-hidden h-[150px] sm:h-[170px] shrink-0">
   <div style={{
-    position: 'absolute',
-    top: 0,
-    left: '50%',
+    position: 'absolute', top: 0, left: '50%',
     transform: 'translateX(-50%) scale(0.42)',
-    transformOrigin: 'top center',   // 상단부터 보임 (헤더+프로필)
+    transformOrigin: 'top center',
     width: '380px',
     pointerEvents: 'none',
   }}>
     <MiniHompy />
   </div>
+  <span className="absolute top-2 left-2 badge bg-brand-600 text-white z-10">수업 전 준비</span>
 </Link>
 ```
 
-- `top: 0` + `transformOrigin: 'top center'` → 컴포넌트의 최상단(헤더)부터 보임
-- `scale(0.42)` + `width: 380px` → 시각적 너비 ≈ 160px로 카드 안을 꽉 채움
-- `pointerEvents: 'none'` 필수 (캔버스 클릭 막아야 Link가 동작)
+### 우측 — MiniHompyLive (KUROMI 미니홈피, thumbnail 모드)
+
+사이드바 빼고 홈 페이지만 보여주는 `thumbnail` prop 사용:
+
+```jsx
+<Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[150px] sm:h-[170px] shrink-0">
+  <div style={{
+    position: 'absolute', top: 0, left: '50%',
+    transform: 'translateX(-50%) scale(0.46)',
+    transformOrigin: 'top center',
+    width: '420px',
+    pointerEvents: 'none',
+  }}>
+    <MiniHompyLive thumbnail />
+  </div>
+  <span className="absolute top-2 left-2 badge bg-warm-500 text-white z-10">★ 운영자 추천</span>
+</Link>
+```
+
+### 공통 원칙
+
+- `top: 0` + `transformOrigin: 'top center'` → 컴포넌트 최상단(헤더)부터 보임
+- `pointerEvents: 'none'` 필수 — 캔버스/내부 인터랙션 막아 Link 클릭 정상 동작
+- 배지에 `z-10` — scale된 컴포넌트 위에 표시되도록
+- scale 결정: container_width(180~280px) / element_width(380~420px) ≈ 시각 채움 비율
+- 두 카드 외형은 다르되 **같은 다크 보라 톤**이라 시각적 통일감 유지
+
+MiniHompyLive 자세한 통합 전략은 [mini-hompy-demo.md](mini-hompy-demo.md) 참조.

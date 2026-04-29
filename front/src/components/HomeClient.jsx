@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import EventCard from './EventCard';
 import Accordion from './Accordion';
 import MiniHompy from '../pages/guide/oneday/MiniHompy';
+import MiniHompyLive from '../pages/guide/oneday/MiniHompyLive';
 import dynamic from '@/lib/dynamic';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '@/lib/format';
 
@@ -392,7 +393,7 @@ function GuidePreviewCard() {
         }}>
           <MiniHompy />
         </div>
-        <span className="absolute top-2 left-2 badge bg-brand-600 text-white text-[9px] sm:text-[10px] font-semibold">수업 전 준비</span>
+        <span className="absolute top-2 left-2 badge bg-brand-600 text-white text-[9px] sm:text-[10px] font-semibold z-10">수업 전 준비</span>
       </Link>
       <div className="p-2 sm:p-3 flex flex-col flex-1">
         <button
@@ -419,14 +420,14 @@ function RecommendedHero({ event }) {
   const sold = event.remaining === 0;
   return (
     <div className="card overflow-hidden flex flex-col border-warm-200">
-      <Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[130px] sm:h-[160px] shrink-0">
+      <Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[150px] sm:h-[170px] shrink-0">
         <div style={{
           position: 'absolute', top: 0, left: '50%',
-          transform: 'translateX(-50%) scale(0.42)',
+          transform: 'translateX(-50%) scale(0.46)',
           transformOrigin: 'top center',
-          width: '380px', pointerEvents: 'none',
+          width: '420px', pointerEvents: 'none',
         }}>
-          <MiniHompy />
+          <MiniHompyLive thumbnail />
         </div>
         <span className="absolute top-2 left-2 badge bg-warm-500 text-white text-[9px] sm:text-[10px] font-semibold z-10">★ 운영자 추천</span>
       </Link>

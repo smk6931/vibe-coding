@@ -10,7 +10,8 @@ AI가 작업 시 필요한 컨텍스트만 골라 읽는 참조용 문서 모음
 | 문서 | 언제 읽나 |
 |------|----------|
 | [카드 썸네일+토글 패턴](ui/card-thumbnail-toggle.md) | 썸네일 있는 카드 UI 만들 때, 아코디언 토글 붙일 때 |
-| [MiniHompy 데모 컴포넌트](ui/mini-hompy-demo.md) | MiniHompy 수정, 썸네일 scale 조정, CSS 충돌 방지할 때 |
+| [미니홈피 라이브 데모](ui/mini-hompy-demo.md) | MiniHompy / MiniHompyLive 수정, 썸네일 scale, 외부 React 프로젝트 컴포넌트 떼올 때 |
+| [강의 교안 가이드 폼팩터](ui/lecture-guide-component.md) | 새 챕터/주차 강의 가이드 컴포넌트 만들 때, 단계별 카드 + 스크린샷 + 프롬프트 박스 + 라이브 데모 통합할 때 |
 
 ## 프론트엔드 구조
 

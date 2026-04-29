@@ -17,7 +17,11 @@
 
 [Django API :8000]
     └── PostgreSQL :5432 (동일 VM)
-```
+```  
+
+  ⏵⏵ bypass permissions on (shift+tab to cycle)                          
+                                                         ⧉ In README.md
+             Update available! Run: winget upgrade Anthropic.ClaudeCode
 
 ---
 

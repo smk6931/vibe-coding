@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GitHubGuide from './GitHubGuide';
 import MiniHompyGuide from './MiniHompyGuide';
+import VercelGuide from './VercelGuide';
 
 const TIMELINE = [
   {
@@ -162,9 +163,7 @@ export default function OnedayClassCurriculum({ kakaoUrl, isAdmin = false }) {
 
       <PrepSection />
 
-      <GitHubGuide isAdmin={isGuide} />
-
-      <MiniHompyGuide isAdmin={isGuide} />
+      <ChapterAccordion isAdmin={isGuide} />
 
       {isGuide && <PromptsSection />}
 
@@ -285,6 +284,116 @@ function PrepSection() {
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function ChapterAccordion({ isAdmin }) {
+  const [openSet, setOpenSet] = useState(new Set());
+
+  const toggle = (id) => {
+    setOpenSet(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const chapters = [
+    {
+      id: 'ch1',
+      num: 1,
+      title: 'GitHub 환경 세팅 + 첫 push',
+      time: '0:00~0:35',
+      steps: 11,
+      color: 'from-indigo-500 to-indigo-600',
+      bg: 'bg-indigo-50/40',
+      desc: 'VS Code Source Control + GitLens + GitHub 로그인 → repo init → first commit → publish',
+      Component: GitHubGuide,
+    },
+    {
+      id: 'ch2',
+      num: 2,
+      title: '미니홈피 바이브 코딩 (5단계)',
+      time: '0:35~1:45',
+      steps: 5,
+      color: 'from-pink-500 to-purple-500',
+      bg: 'bg-pink-50/40',
+      desc: 'Vite+React → Router → 사진 드래그 멀티모달 → 이미지 자산 → 반응형',
+      Component: MiniHompyGuide,
+    },
+    {
+      id: 'ch3',
+      num: 3,
+      title: 'Vercel 무료 배포 (10스텝)',
+      time: '1:45~2:25',
+      steps: 10,
+      color: 'from-emerald-500 to-teal-500',
+      bg: 'bg-emerald-50/40',
+      desc: 'Git 푸쉬 → AI 가이드 → Vercel 가입 → Import → Deploy → 도메인',
+      Component: VercelGuide,
+    },
+  ];
+
+  const allOpen = openSet.size === chapters.length;
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-baseline justify-between gap-2 mb-1">
+        <h3 className="font-bold text-[14px] sm:text-[15px] text-slate-800">
+          Chapter별 상세 가이드
+        </h3>
+        <button
+          type="button"
+          onClick={() => setOpenSet(allOpen ? new Set() : new Set(chapters.map(c => c.id)))}
+          className="text-[11px] text-slate-500 hover:text-slate-800 underline-offset-2 hover:underline"
+        >
+          {allOpen ? '모두 접기' : '모두 펼치기'}
+        </button>
+      </div>
+
+      {chapters.map(ch => {
+        const open = openSet.has(ch.id);
+        return (
+          <div
+            key={ch.id}
+            className={`rounded-2xl border border-slate-200 overflow-hidden transition-shadow ${
+              open ? 'shadow-sm' : ''
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => toggle(ch.id)}
+              aria-expanded={open}
+              className="w-full flex items-center gap-3 sm:gap-4 px-4 py-3.5 sm:px-5 sm:py-4 bg-white hover:bg-slate-50 transition-colors text-left"
+            >
+              <span
+                className={`shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${ch.color} text-white flex flex-col items-center justify-center leading-none`}
+              >
+                <span className="text-[8.5px] font-semibold opacity-80 tracking-wider">CHAP</span>
+                <span className="text-[16px] sm:text-[17px] font-bold">{ch.num}</span>
+              </span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="font-bold text-[13px] sm:text-[14px] text-slate-900">{ch.title}</span>
+                  <span className="text-[10px] font-mono text-slate-400">{ch.time}</span>
+                  <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">{ch.steps} steps</span>
+                </div>
+                <p className="text-[11px] sm:text-[12px] text-slate-500 mt-0.5 line-clamp-1">{ch.desc}</p>
+              </div>
+              <span className={`shrink-0 text-slate-400 text-sm transition-transform ${open ? 'rotate-180' : ''}`}>
+                ▾
+              </span>
+            </button>
+            {open && (
+              <div className={`px-4 sm:px-5 pt-2 pb-5 sm:pb-6 border-t border-slate-100 ${ch.bg}`}>
+                <ch.Component isAdmin={isAdmin} />
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

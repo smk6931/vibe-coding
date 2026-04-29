@@ -1,12 +1,23 @@
 ---
-Title: MiniHompy 데모 컴포넌트
-Description: 사이월드풍 미니홈피 라이브 React 컴포넌트. 가이드 페이지 결과물 시연 + 홈 카드 썸네일 두 곳에서 사용.
-When-To-Read: MiniHompy 수정, 썸네일 scale 조정, 캔버스 별 애니메이션 문제, CSS 충돌 방지
-Keywords: MiniHompy, CSS Modules, canvas, star particles, localStorage, cyworld, minihompy
+Title: 미니홈피 라이브 데모 컴포넌트 (MiniHompy / MiniHompyLive)
+Description: 사이월드풍 미니홈피 라이브 React 컴포넌트 2종 — install 페이지용 단순판(MiniHompy)과 vibe-coding-minihome 외부 프로젝트를 통째로 떼와 격리한 풀버전(MiniHompyLive). 가이드 라이브 데모 + 홈 카드 썸네일에서 사용.
+When-To-Read: MiniHompy/MiniHompyLive 수정, 썸네일 scale 조정, 캔버스 별 애니메이션 문제, CSS 충돌 방지, 외부 React 프로젝트 컴포넌트 떼와 통합할 때
+Keywords: MiniHompy, MiniHompyLive, CSS Modules, canvas, star particles, localStorage, cyworld, minihompy, external project embed, KUROMI, vibe-coding-minihome
 Priority: high
 ---
 
-# MiniHompy 데모 컴포넌트
+# 미니홈피 라이브 데모 컴포넌트
+
+## 두 컴포넌트의 역할 분담
+
+| 컴포넌트 | 위치 | 용도 |
+|----------|------|------|
+| `MiniHompy` | `pages/guide/oneday/MiniHompy.jsx` | install 페이지 5단계 마무리 시연 + 홈 좌측 카드 썸네일 (단일 페이지 보라 톤) |
+| `MiniHompyLive` | `pages/guide/oneday/MiniHompyLive.jsx` | evt-001 Chapter 2 가이드 마지막 라이브 데모 + 홈 우측 카드 썸네일 (KUROMI 미니홈피 — 사이드바 포함 풀버전) |
+
+둘 다 같은 다크 보라 톤이지만 결과물이 다르므로 좌·우 카드 의미 구분이 됨.
+
+# MiniHompy (단일 페이지 보라 미니홈피)
 
 ## 역할
 
@@ -87,3 +98,141 @@ scale 조정 기준:
 - profilePhoto: 120px, 회전하는 그라디언트 테두리 ring
 - favGrid: 4열 (☕커피, 🎵음악, ✈️여행, 💻클로드)
 - 반응형: 520px 이하에서 2열 favorites, 프로필 세로 배치
+
+---
+
+# MiniHompyLive (vibe-coding-minihome 외부 프로젝트 임베드)
+
+## 출처
+
+별도 프로젝트 `C:\GitHub\vibe-coding-minihome` (Vite + React 19 + React Router 7).
+실제 수업에서 학생들이 만들 결과물의 레퍼런스 구현.
+
+## 통합 전략 — "통째로 떼서 격리"
+
+원본 프로젝트의 컴포넌트들을 vibe-coding/front 안으로 복사하되, **단일 파일 + CSS Module 격리**:
+
+```
+front/src/pages/guide/oneday/
+├── MiniHompyLive.jsx           ← 원본 5개 컴포넌트(StarParticles, VisitorCounter,
+│                                  KuromiPhoto, FavoritesCard, DiaryMemo) + Sidebar +
+│                                  Home/About 페이지 모두 단일 파일에 인라인
+└── MiniHompyLive.module.css    ← 원본 index.css + App.css + StarParticles.css 통합
+                                   (모든 클래스명 CSS Module로 자동 hashing)
+
+front/public/kuromi.png         ← 원본 public/kuromi.png 복사 (이미지 자산)
+```
+
+## 외부 프로젝트 임베드 시 주의 4가지
+
+### 1. 글로벌 CSS 격리
+
+원본은 `:root` CSS 변수 + 글로벌 `.card`, `.sidebar` 클래스 사용. 그대로 import하면 vibe-coding 앱 전체 클래스명과 충돌.
+
+→ **해결**: CSS Module(`*.module.css`)로 import. 모든 클래스 자동 hashing. CSS 변수는 `.frame` 루트에 정의해서 그 안에서만 유효.
+
+```css
+.frame {
+  --pink: #ff4dc4;
+  --purple: #c084fc;
+  /* ... 원본 :root 변수들 .frame scope으로 옮김 */
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: /* 원본 body 배경 그대로 */;
+}
+```
+
+### 2. position: fixed → absolute
+
+원본 `StarParticles.css`의 `position: fixed`는 화면 전체에 별이 깔림 → 임베드된 박스 안에서만 별이 보이게:
+
+```css
+.stars { position: absolute; inset: 0; }   /* fixed → absolute */
+```
+
+### 3. 라우터 → 내부 state 토글
+
+원본은 `react-router-dom`의 `<NavLink>`로 / 와 /about 전환. 임베드된 컴포넌트가 evt-001 페이지(이미 라우터 안) 안에 들어가면 nested router 깨짐.
+
+→ **해결**: 사이드바 NavLink를 `<button onClick={() => setPage('home')}>`로 교체. 페이지 컴포넌트도 if/else로 분기.
+
+```jsx
+const [page, setPage] = useState('home');
+// ...
+<button onClick={() => setPage('home')} className={page==='home' ? s.navLinkActive : s.navLink}>홈</button>
+{page === 'home' ? <HomePage /> : <AboutPage />}
+```
+
+### 4. localStorage 키 prefix
+
+원본 `VisitorCounter`는 `'minihome:visitorCount'` 키 사용. 학생이 vibe-coding-minihome 프로젝트와 vibe-coding 사이트 둘 다 띄울 때 같은 도메인이면 키 충돌.
+
+→ **해결**: 임베드용 prefix(`mhl:`)로 변경:
+```js
+const VISITOR_KEY = 'mhl:visitorCount';
+const DIARY_KEY = 'mhl:diary';
+```
+
+## thumbnail prop (썸네일 모드)
+
+홈 카드 썸네일에서는 사이드바 빼고 홈 페이지만 보여줌:
+
+```jsx
+export default function MiniHompyLive({ thumbnail = false }) {
+  const [page, setPage] = useState('home');
+  if (thumbnail) {
+    return (
+      <div className={`${s.frame} ${s.thumbnailMode}`}>
+        <StarParticles />
+        <div className={s.layout}>
+          <main className={s.main}><HomePage /></main>
+        </div>
+      </div>
+    );
+  }
+  // ... 풀 버전 (사이드바 + 토글)
+}
+```
+
+CSS:
+```css
+.thumbnailMode .layout { min-height: 0; }
+.thumbnailMode .main { padding: 18px 20px 22px; }
+```
+
+## 사용 위치
+
+| 위치 | 모드 | 비고 |
+|------|------|------|
+| `MiniHompyGuide.jsx` 마지막 | full | Chapter 2 라이브 결과물 |
+| `HomeClient.jsx > RecommendedHero` | `thumbnail` | 홈 우측 운영자 추천 카드 썸네일 |
+
+썸네일 scale (홈 우측 카드):
+```jsx
+<Link className="block relative overflow-hidden h-[150px] sm:h-[170px] shrink-0">
+  <div style={{
+    position: 'absolute', top: 0, left: '50%',
+    transform: 'translateX(-50%) scale(0.46)',
+    transformOrigin: 'top center',
+    width: '420px', pointerEvents: 'none',
+  }}>
+    <MiniHompyLive thumbnail />
+  </div>
+  <span className="badge ... z-10">★ 운영자 추천</span>   {/* z-10 필수 */}
+</Link>
+```
+
+## 외부 프로젝트 추가 통합 체크리스트
+
+다른 외부 React 프로젝트도 같은 방식으로 떼올 수 있음. 순서:
+
+1. 원본의 `index.css` + `App.css` + 컴포넌트별 CSS 다 읽고 → 단일 `*.module.css`로 합치기
+2. `:root` CSS 변수 → 임베드 wrapper 클래스(`.frame`) 안으로
+3. `position: fixed` → `position: absolute` (글로벌 → 컴포넌트 scope)
+4. `react-router-dom` → 내부 state 토글
+5. `localStorage` 키에 prefix 붙이기 (충돌 방지)
+6. 자산(이미지 등) `public/`에 복사
+7. 단일 컴포넌트 파일에 모든 서브컴포넌트 인라인 (관리 편의)
+8. (선택) `thumbnail` prop으로 썸네일 모드 추가
+

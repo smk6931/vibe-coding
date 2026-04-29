@@ -9,7 +9,8 @@
 | 작업 상황 | 읽을 문서 |
 |----------|----------|
 | 카드 UI (썸네일+토글) 만들 때 | `agents/ui/card-thumbnail-toggle.md` |
-| MiniHompy 수정/scale 조정 | `agents/ui/mini-hompy-demo.md` |
+| MiniHompy/MiniHompyLive 수정 또는 외부 프로젝트 통합 | `agents/ui/mini-hompy-demo.md` |
+| 새 챕터·주차 강의 교안 가이드 컴포넌트 만들 때 | `agents/ui/lecture-guide-component.md` |
 | 새 컴포넌트 파일 위치 결정 | `agents/frontend/component-placement.md` |
 | 가이드 페이지 레이아웃 수정 | `agents/frontend/guide-page-structure.md` |
 
