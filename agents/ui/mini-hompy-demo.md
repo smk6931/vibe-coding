@@ -174,39 +174,81 @@ const VISITOR_KEY = 'mhl:visitorCount';
 const DIARY_KEY = 'mhl:diary';
 ```
 
-## thumbnail prop (썸네일 모드)
+## 3종 렌더링 모드 (full / thumbnail / banner)
 
-홈 카드 썸네일에서는 사이드바 빼고 홈 페이지만 보여줌:
+세 가지 사용처에서 같은 컴포넌트가 다른 레이아웃으로 보이게:
+
+| mode | 레이아웃 | 주 용도 |
+|------|---------|--------|
+| `full` (기본) | 사이드바 + 메인 (홈/소개 토글) — 세로 스택 | Chapter 2 라이브 결과물 |
+| `thumbnail` | 사이드바 빼고 홈 페이지만, 같은 세로 스택 | 홈 우측 카드 썸네일 (~170h, 상단 크롭) |
+| `banner` | 헤더 위 + 3열 가로 (counter \| photo \| favorites×4) — diary 제외 | EventDetail 16:8 배너 |
+
+### prop 시그니처
 
 ```jsx
-export default function MiniHompyLive({ thumbnail = false }) {
-  const [page, setPage] = useState('home');
-  if (thumbnail) {
-    return (
-      <div className={`${s.frame} ${s.thumbnailMode}`}>
-        <StarParticles />
-        <div className={s.layout}>
-          <main className={s.main}><HomePage /></main>
-        </div>
-      </div>
-    );
-  }
-  // ... 풀 버전 (사이드바 + 토글)
+<MiniHompyLive />                  // full mode
+<MiniHompyLive thumbnail />        // thumbnail mode (구버전 prop, 하위 호환)
+<MiniHompyLive mode="banner" />    // banner mode
+```
+
+내부적으로 `mode = mode ?? (thumbnail ? 'thumbnail' : 'full')`.
+
+### Banner 모드 — 왜 별도 레이아웃이 필요한가
+
+세로 스택 풀모드를 16:8 배너에 그냥 scale로 축소하면:
+- 풀 페이지 콘텐츠 높이 ~700px → 16:8(예: 1232×616) 컨테이너에 맞추려면 scale 0.88
+- 가로 폭은 1080×0.88 ≈ 950, 컨테이너 1232 대비 280px 빈 공간
+- 또는 가로 채우려고 scale 1.14 → 세로가 800px 되어 184px 잘림 → KUROMI 헤더가 잘림
+
+**해결: 16:8용 가로 레이아웃을 자체 디자인.**
+- `BannerHome` 컴포넌트가 별도 레이아웃 렌더 (3열 grid)
+- diary 제거 (가로 배너에 textarea는 어색)
+- favorites는 4개로 제한 (`<FavoritesCard limit={4} />`)
+- counter / photo / favorites 모두 같은 높이로 stretch
+
+`FavoritesCard`는 `limit` prop을 받음:
+```jsx
+function FavoritesCard({ limit }) {
+  const items = typeof limit === 'number' ? FAVORITES.slice(0, limit) : FAVORITES;
+  ...
 }
 ```
 
-CSS:
+### CSS 핵심
+
 ```css
-.thumbnailMode .layout { min-height: 0; }
-.thumbnailMode .main { padding: 18px 20px 22px; }
+/* 풀모드 모바일 압축 — favList 1col로 떨어지면 8행 쌓여서 페이지 너무 길어짐 */
+@media (max-width: 540px) {
+  .favList { grid-template-columns: 1fr 1fr; }  /* 2col 유지! */
+  .glitterTitle { font-size: 24px; }
+  .card { padding: 12px 14px; }
+  /* 등 */
+}
+
+/* Banner 모드 */
+.bannerMode { padding: 22px 28px 26px; overflow: hidden; }
+.bannerLayout { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+.bannerRow {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr 1.4fr;  /* counter, photo, favorites */
+  gap: 12px;
+  align-items: stretch;
+}
+.bannerRow .kuromiImg { height: 170px; }
+.bannerRow .favList { grid-template-columns: 1fr 1fr; }  /* 2x2 */
 ```
 
-## 사용 위치
+### 사용 위치
 
 | 위치 | 모드 | 비고 |
 |------|------|------|
-| `MiniHompyGuide.jsx` 마지막 | full | Chapter 2 라이브 결과물 |
-| `HomeClient.jsx > RecommendedHero` | `thumbnail` | 홈 우측 운영자 추천 카드 썸네일 |
+| `MiniHompyGuide.jsx` 마지막 | `full` | Chapter 2 라이브 결과물 |
+| `HomeClient.jsx > RecommendedHero` | `banner` | 홈 우측 운영자 추천 카드 (~150-170h, 좁은 카드라 scale 0.21~0.32) |
+| `EventDetail.jsx > MinihomeBanner` | `banner` | 16:8 배너 (showCurriculum일 때 정적 이미지 대체) |
+| `MiniHompy.jsx` (별도 컴포넌트) | (해당 없음) | install 페이지 + 홈 좌측 카드 — 다른 단일 페이지 미니홈피 |
+
+홈 카드와 EventDetail이 같은 banner 모드 사용 → 시각적 일관성. 카드 크기 차이는 scale로 흡수.
 
 썸네일 scale (홈 우측 카드):
 ```jsx

@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useRole } from '../lib/RoleContext';
+import ThemeToggle from './ThemeToggle';
 
 const MAIN_NAV = [
   { href: '/',          label: '모임' },
@@ -56,6 +57,7 @@ export default function Header() {
           >
             {role === 'admin' ? '교안' : '프롤로그'}
           </button>
+          <ThemeToggle />
           <Link to="/me" title="마이" aria-label="마이"
             className={`p-1.5 rounded-lg transition-colors ${
               isActive('/me') ? 'bg-brand-50 text-brand-700' : 'text-slate-400 hover:bg-slate-100 hover:text-slate-700'

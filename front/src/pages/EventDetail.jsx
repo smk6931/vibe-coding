@@ -3,6 +3,7 @@ import eventsData from '../../public/data/events.json';
 import siteData from '../../public/data/site.json';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '../lib/format';
 import OnedayClassCurriculum from '../components/OnedayClassCurriculum';
+import MiniHompyLive from './guide/oneday/MiniHompyLive';
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -29,11 +30,17 @@ export default function EventDetail() {
       </div>
 
       <article>
-        {event.thumbnail && (
-          <div className="relative aspect-[16/8] rounded-2xl overflow-hidden mb-5 bg-slate-100">
-            <img src={event.thumbnail} alt={event.title} className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
+        {(event.thumbnail || showCurriculum) && (
+          <div className={`relative aspect-[16/8] rounded-2xl overflow-hidden mb-5 ${showCurriculum ? 'bg-[#1a0824]' : 'bg-slate-100'}`}>
+            {showCurriculum ? (
+              <MinihomeBanner />
+            ) : (
+              <>
+                <img src={event.thumbnail} alt={event.title} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              </>
+            )}
+            <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5 z-10">
               <span className={`badge text-[11px] ${isInternal ? 'bg-brand-600 text-white' : 'bg-black/60 text-white'}`}>
                 {isInternal ? '★ 자체 운영' : `외부 · ${event.externalSource}`}
               </span>
@@ -78,6 +85,22 @@ export default function EventDetail() {
         </div>
       </article>
     </div>
+  );
+}
+
+/* 16:8 배너 — banner 모드 (헤더 위 + 3열 가로). design width 1080px 기준 컨테이너 폭에 맞춰 스케일. */
+function MinihomeBanner() {
+  return (
+    <>
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute top-1/2 left-1/2 origin-center pointer-events-none w-[1080px] -translate-x-1/2 -translate-y-1/2 scale-[0.34] sm:scale-[0.58] md:scale-[0.70] lg:scale-[0.94] xl:scale-[1.16]"
+        >
+          <MiniHompyLive mode="banner" />
+        </div>
+      </div>
+      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
+    </>
   );
 }
 

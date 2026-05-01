@@ -5,6 +5,22 @@
 @layer base {
   * { box-sizing: border-box; }
   body { @apply bg-white text-slate-900 antialiased; }
+
+  /* 전역 다크 모드 — filter invert 트릭 (agents/ui/theme-toggle-filter.md 참조).
+     기본은 라이트, html.dark 일 때만 반전. 이미지·영상은 다시 invert 해서 원본 색 유지. */
+  html { transition: filter 0.35s ease; }
+
+  html.dark {
+    filter: invert(0.92) hue-rotate(180deg);
+    color-scheme: dark;
+  }
+
+  html.dark img,
+  html.dark video,
+  html.dark iframe,
+  html.dark .preserve-color {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }
 
 @layer components {

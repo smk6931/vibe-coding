@@ -49,9 +49,38 @@
   z-index: 1;
 }
 
-/* Thumbnail mode: no sidebar, tighter padding */
+/* Thumbnail mode: no sidebar, tighter padding, smaller assets */
 .thumbnailMode .layout { min-height: 0; }
-.thumbnailMode .main { padding: 18px 20px 22px; }
+.thumbnailMode .main { padding: 16px 20px 20px; }
+.thumbnailMode .kuromiImg { height: 200px; }
+.thumbnailMode .cardGrid { gap: 12px; }
+.thumbnailMode .pageHead { padding: 4px 0 2px; }
+
+/* Banner mode (16:8) — 헤더 위 + 3열 가로 (counter | photo | favorites×4). diary 제외 */
+.bannerMode { padding: 22px 28px 26px; min-height: 0; overflow: hidden; }
+.bannerLayout { display: flex; flex-direction: column; gap: 14px; min-height: 0; position: relative; z-index: 1; justify-content: center; }
+.bannerPage { gap: 12px; }
+.bannerMode .pageHead { padding: 0; }
+.bannerMode .glitterTitle { font-size: 36px; margin: 4px 0 2px; }
+.bannerMode .subtitle { font-size: 12px; }
+.bannerRow {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr 1.4fr;
+  gap: 12px;
+  align-items: stretch;
+}
+.bannerRow > .card { padding: 14px 16px; }
+.bannerRow .cardTitle { font-size: 12px; margin-bottom: 8px; letter-spacing: 1.5px; }
+.bannerRow .cardFoot { font-size: 10px; margin-top: 8px; }
+.bannerRow .lcd { padding: 12px 8px; gap: 4px; }
+.bannerRow .lcdDigit { font-size: 22px; width: 18px; }
+.bannerRow .kuromiCard { display: flex; flex-direction: column; }
+.bannerRow .kuromiFrame { padding: 8px; margin: 4px auto; }
+.bannerRow .kuromiImg { height: 170px; }
+.bannerRow .kuromiTape { width: 44px; height: 14px; }
+.bannerRow .favList { grid-template-columns: 1fr 1fr; gap: 6px 8px; }
+.bannerRow .favItem { font-size: 11px; padding: 5px 8px; gap: 6px; }
+.bannerRow .favEmoji { font-size: 13px; }
 @media (max-width: 768px) {
   .layout { flex-direction: column; }
   .main { padding: 18px 14px 30px; }
@@ -154,7 +183,14 @@
   filter: drop-shadow(0 0 14px rgba(255, 77, 196, 0.55));
   animation: mhlShimmer 4s linear infinite;
 }
-@media (max-width: 540px) { .glitterTitle { font-size: 26px; letter-spacing: 0.5px; } }
+@media (max-width: 540px) {
+  .glitterTitle { font-size: 24px; letter-spacing: 0.5px; margin: 6px 0 4px; }
+  .subtitle { font-size: 11px; }
+  .pageHead { padding: 4px 0 0; }
+  .page { gap: 12px; }
+  .card { padding: 12px 14px; border-radius: 14px; }
+  .cardTitle { font-size: 12px; margin-bottom: 8px; }
+}
 
 @keyframes mhlShimmer { to { background-position: 200% center; } }
 
@@ -228,8 +264,8 @@
   border-radius: 8px;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
 }
-@media (max-width: 720px) { .kuromiImg { height: 220px; } }
-@media (max-width: 420px) { .kuromiImg { height: 180px; } }
+@media (max-width: 720px) { .kuromiImg { height: 180px; } }
+@media (max-width: 420px) { .kuromiImg { height: 150px; } }
 .kuromiTape {
   position: absolute;
   width: 56px;
@@ -264,6 +300,10 @@
   background: rgba(255, 77, 196, 0.06);
   border-radius: 4px;
 }
+@media (max-width: 540px) {
+  .lcd { padding: 8px 8px; gap: 3px; }
+  .lcdDigit { font-size: 18px; width: 16px; }
+}
 
 /* Favorites */
 .favoritesCard { display: flex; flex-direction: column; }
@@ -288,7 +328,12 @@
   font-size: 13px;
 }
 .favEmoji { font-size: 16px; filter: drop-shadow(0 0 4px var(--pink)); }
-@media (max-width: 540px) { .favList { grid-template-columns: 1fr; } }
+/* 모바일에서도 favorites 2열 유지 (1열로 떨어지면 8행 쌓여서 페이지 너무 길어짐) */
+@media (max-width: 540px) {
+  .favList { grid-template-columns: 1fr 1fr; gap: 6px 8px; }
+  .favItem { font-size: 11.5px; padding: 5px 8px; gap: 6px; }
+  .favEmoji { font-size: 14px; }
+}
 
 /* Diary */
 .diaryStatus {

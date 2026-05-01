@@ -420,15 +420,13 @@ function RecommendedHero({ event }) {
   const sold = event.remaining === 0;
   return (
     <div className="card overflow-hidden flex flex-col border-warm-200">
-      <Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[150px] sm:h-[170px] shrink-0">
-        <div style={{
-          position: 'absolute', top: 0, left: '50%',
-          transform: 'translateX(-50%) scale(0.46)',
-          transformOrigin: 'top center',
-          width: '420px', pointerEvents: 'none',
-        }}>
-          <MiniHompyLive thumbnail />
+      <Link to={`/events/${event.id}`} className="block relative overflow-hidden h-[150px] sm:h-[170px] shrink-0 bg-[#1a0824]">
+        <div
+          className="absolute top-1/2 left-1/2 origin-center pointer-events-none w-[1080px] -translate-x-1/2 -translate-y-1/2 scale-[0.21] sm:scale-[0.26] lg:scale-[0.32]"
+        >
+          <MiniHompyLive mode="banner" />
         </div>
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
         <span className="absolute top-2 left-2 badge bg-warm-500 text-white text-[9px] sm:text-[10px] font-semibold z-10">★ 운영자 추천</span>
       </Link>
       <div className="p-2 sm:p-3 flex flex-col flex-1">

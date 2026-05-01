@@ -108,12 +108,13 @@ const FAVORITES = [
   { emoji: '🪩', label: '글리터 매니큐어' },
 ];
 
-function FavoritesCard() {
+function FavoritesCard({ limit }) {
+  const items = typeof limit === 'number' ? FAVORITES.slice(0, limit) : FAVORITES;
   return (
     <div className={`${s.card} ${s.favoritesCard}`}>
       <div className={s.cardTitle}>♡ MY FAVORITE THINGS ♡</div>
       <ul className={s.favList}>
-        {FAVORITES.map((f, i) => (
+        {items.map((f, i) => (
           <li key={i} className={s.favItem}>
             <span className={s.favEmoji} aria-hidden="true">{f.emoji}</span>
             <span>{f.label}</span>
@@ -187,6 +188,23 @@ function HomePage() {
   );
 }
 
+/* 16:8 banner mode — 헤더 위 + 3열 가로 (counter | photo | favorites×4). diary 제외. */
+function BannerHome() {
+  return (
+    <section className={`${s.page} ${s.bannerPage}`}>
+      <header className={s.pageHead}>
+        <h1 className={s.glitterTitle}>✦ KUROMI's MINIHOME ✦</h1>
+        <p className={s.subtitle}>welcome to my purple-pink corner of the web ♡</p>
+      </header>
+      <div className={s.bannerRow}>
+        <VisitorCounter />
+        <KuromiPhoto />
+        <FavoritesCard limit={4} />
+      </div>
+    </section>
+  );
+}
+
 function AboutPage() {
   return (
     <section className={s.page}>
@@ -232,9 +250,22 @@ function AboutPage() {
   );
 }
 
-export default function MiniHompyLive({ thumbnail = false }) {
+export default function MiniHompyLive({ thumbnail = false, mode }) {
   const [page, setPage] = useState('home');
-  if (thumbnail) {
+  const resolvedMode = mode ?? (thumbnail ? 'thumbnail' : 'full');
+
+  if (resolvedMode === 'banner') {
+    return (
+      <div className={`${s.frame} ${s.bannerMode}`}>
+        <StarParticles />
+        <div className={s.bannerLayout}>
+          <BannerHome />
+        </div>
+      </div>
+    );
+  }
+
+  if (resolvedMode === 'thumbnail') {
     return (
       <div className={`${s.frame} ${s.thumbnailMode}`}>
         <StarParticles />
