@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import GitHubGuide from './GitHubGuide';
 import MiniHompyGuide from './MiniHompyGuide';
 import VercelGuide from './VercelGuide';
+import CurriculumSignature from './CurriculumSignature';
 
 const TIMELINE = [
   {
@@ -141,6 +142,8 @@ export default function OnedayClassCurriculum({ kakaoUrl }) {
           수업 전 준비 가이드 보기 →
         </Link>
       </div>
+
+      <CurriculumSignature />
     </div>
   );
 }

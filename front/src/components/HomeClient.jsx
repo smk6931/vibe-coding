@@ -3,6 +3,7 @@ import { useMemo, useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EventCard from './EventCard';
 import Accordion from './Accordion';
+import OperatorIntroCard from './OperatorIntroCard';
 import MiniHompy from '../pages/guide/oneday/MiniHompy';
 import MiniHompyLive from '../pages/guide/oneday/MiniHompyLive';
 import dynamic from '@/lib/dynamic';
@@ -92,6 +93,10 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
   const dateRef = useRef(null);
 
   const today = useMemo(() => new Date('2026-04-25T12:00:00+09:00'), []);
+  const publishedEvents = useMemo(
+    () => events.filter(e => e.isPublished !== false),
+    [events]
+  );
 
   // 날짜 드롭다운 바깥 클릭 닫기
   useEffect(() => {
@@ -105,7 +110,7 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
   }, []);
 
   const filtered = useMemo(() => {
-    return events.filter(e => {
+    return publishedEvents.filter(e => {
       const ed = new Date(e.startAt);
       if (sourceFilter !== 'all' && e.source !== sourceFilter) return false;
       if (region !== '전체' && e.region !== region) return false;
@@ -117,16 +122,16 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
       if (!inDateRange(ed, dateFilter, today)) return false;
       return true;
     }).sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
-  }, [events, dateFilter, sourceFilter, region, type, price, today]);
+  }, [publishedEvents, dateFilter, sourceFilter, region, type, price, today]);
 
   const internalCount = filtered.filter(e => e.source === 'internal').length;
   const externalCount = filtered.length - internalCount;
 
   const recommended = useMemo(() => {
-    return events
+    return publishedEvents
       .filter(e => e.source === 'internal' && new Date(e.startAt) >= today)
       .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime())[0] ?? null;
-  }, [events, today]);
+  }, [publishedEvents, today]);
 
   const filterCount = (region !== '전체' ? 1 : 0) + (type !== 'all' ? 1 : 0) + (price !== 'all' ? 1 : 0);
   const activeDateLabel = DATE_FILTERS.find(f => f.v === dateFilter)?.l ?? '날짜 전체';
@@ -159,12 +164,15 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
       {/* === 컴팩트 히어로 === */}
       <section className="bg-white border-b border-slate-100">
         <div className="container-wide pt-4 pb-3">
-          <h1 className="text-[20px] sm:text-2xl font-bold tracking-tight text-slate-900">
-            지금 이 동네에서, <span className="text-brand-600">뭐 하지</span>
+          <h1 className="text-[18px] sm:text-2xl font-bold tracking-tight text-slate-900 break-keep">
+            지금 이 동네에서,&nbsp;<span className="text-brand-600 whitespace-nowrap">뭐 하지</span>
           </h1>
           <p className="mt-0.5 text-[12px] text-slate-500">
             수원·서울 라이트 클래스 + 수도권 외부 모임을 지도·카드로 한눈에.
           </p>
+
+          {/* 운영자 명함 — 도용 방지 시그니처 (홈 상단) */}
+          <OperatorIntroCard className="mt-3 max-w-md" />
 
           {/* 통계 + 자체/외부 토글 + 필터 */}
           <div className="mt-3 flex items-center gap-2 flex-wrap">

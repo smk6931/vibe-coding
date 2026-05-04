@@ -3,11 +3,13 @@ import eventsData from '../../public/data/events.json';
 import siteData from '../../public/data/site.json';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '../lib/format';
 import OnedayClassCurriculum from '../components/OnedayClassCurriculum';
+import InstructorMicroCard from '../components/InstructorMicroCard';
+import ClassRegistration from '../components/ClassRegistration';
 import MiniHompyLive from './guide/oneday/MiniHompyLive';
 
 export default function EventDetail() {
   const { id } = useParams();
-  const event = eventsData.find(e => e.id === id);
+  const event = eventsData.find(e => e.id === id && e.isPublished !== false);
 
   if (!event) {
     return (
@@ -19,9 +21,10 @@ export default function EventDetail() {
     );
   }
 
-  const isInternal     = event.source === 'internal';
-  const sold           = event.remaining === 0;
-  const showCurriculum = isInternal && event.type === 'oneday_class';
+  const isInternal       = event.source === 'internal';
+  const sold             = event.remaining === 0;
+  const showCurriculum   = isInternal && event.type === 'oneday_class';
+  const showRegistration = isInternal && Boolean(event.curriculumId);
 
   return (
     <div className="container-page py-5 sm:py-8">
@@ -52,6 +55,11 @@ export default function EventDetail() {
 
         <div className="card p-4 sm:p-6">
           <h1 className="text-[18px] sm:text-2xl font-bold tracking-tight leading-snug">{event.title}</h1>
+          {isInternal && (
+            <div className="mt-3">
+              <InstructorMicroCard />
+            </div>
+          )}
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 mt-4 text-[13px] sm:text-sm">
             <Field label="일시">{formatDateTime(event.startAt)} ~ {formatDateTime(event.endAt).slice(11)}</Field>
             <Field label="장소">{event.venue.name}</Field>
@@ -77,6 +85,10 @@ export default function EventDetail() {
                 <span key={t} className="badge bg-slate-100 text-slate-600 text-[11px]">#{t}</span>
               ))}
             </div>
+          )}
+
+          {showRegistration && (
+            <ClassRegistration event={event} />
           )}
 
           {showCurriculum && (

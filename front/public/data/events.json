@@ -1,6 +1,53 @@
 [
   {
+    "id": "evt-week1-2026-05-10",
+    "isPublished": true,
+    "source": "internal",
+    "type": "oneday_class",
+    "curriculumId": "oneday-week-1",
+    "title": "Claude로 첫 웹사이트 만들기 — 5/10(일) 1회차",
+    "host": { "name": "손명관", "handle": "@vibe_session" },
+    "startAt": "2026-05-10T14:00:00+09:00",
+    "endAt":   "2026-05-10T17:00:00+09:00",
+    "venue": {
+      "name": "커피에스터디 서초 스터디룸 회의실 (Tall Room)",
+      "address": "서초중학교 정류장 도보 1분",
+      "lat": 37.4843,
+      "lng": 127.0067,
+      "url": "https://www.spacecloud.kr/space/69933",
+      "directions": "전자칠판이 있는 회의실. 입장 직전 카톡으로 정확한 호실 안내드립니다."
+    },
+    "region": "수도권",
+    "price": 25000,
+    "capacity": 4,
+    "remaining": 4,
+    "minHeads": 3,
+    "level": "비전공자 첫 강의",
+    "description": "Claude로 빈 폴더에서 첫 화면 띄우고 → 미니홈피 한 채 만들고 → Vercel로 인터넷 공개까지. 코드 한 줄 몰라도 됩니다. 끝나면 친구한테 카톡으로 보낼 수 있는 진짜 URL이 남습니다.",
+    "tags": ["Claude", "Vite+React", "미니홈피", "Vercel", "1회차"],
+    "thumbnail": "/images/event-thumbnails/evt-001-minihome.png",
+    "applyUrl": "https://open.kakao.com/o/suOWUYsi",
+    "payment": {
+      "method": "계좌이체",
+      "bank": "TODO 은행명 입력",
+      "account": "TODO 계좌번호 입력",
+      "holder": "손명관",
+      "memoFormat": "이름+휴대폰뒷4자리",
+      "guide": "신청 카톡 후 운영자가 입금 안내드립니다. 입금 확인되면 좌석 확정."
+    },
+    "policies": {
+      "minHeadsNotice": "최소 인원 3명 미만 시 다음 회차로 자동 연기, 입금액 100% 환불",
+      "refund": [
+        "강의 24시간 전까지: 100% 환불",
+        "강의 24시간 이내: 50% 환불",
+        "강의 시작 후 / 노쇼: 환불 불가"
+      ]
+    },
+    "ctaUrl": null
+  },
+  {
     "id": "evt-001",
+    "isPublished": false,
     "source": "internal",
     "type": "oneday_class",
     "title": "AI랑 만드는 내 미니홈피 + 인터넷 공개 (2시간)",
@@ -20,6 +67,7 @@
   },
   {
     "id": "evt-002",
+    "isPublished": false,
     "source": "internal",
     "type": "oneday_class",
     "title": "Claude로 비전공자도 만드는 토이 SaaS 랜딩",
@@ -39,6 +87,7 @@
   },
   {
     "id": "evt-003",
+    "isPublished": false,
     "source": "internal",
     "type": "study",
     "title": "스터디: 수요일 저녁 모각작 (수원)",
@@ -58,6 +107,7 @@
   },
   {
     "id": "evt-101",
+    "isPublished": false,
     "source": "external",
     "externalSource": "소모임",
     "type": "study",
@@ -78,6 +128,7 @@
   },
   {
     "id": "evt-102",
+    "isPublished": false,
     "source": "external",
     "externalSource": "소모임",
     "type": "oneday_class",
@@ -98,6 +149,7 @@
   },
   {
     "id": "evt-103",
+    "isPublished": false,
     "source": "external",
     "externalSource": "소모임",
     "type": "oneday_class",
@@ -118,6 +170,7 @@
   },
   {
     "id": "evt-104",
+    "isPublished": false,
     "source": "external",
     "externalSource": "당근",
     "type": "study",
@@ -138,6 +191,7 @@
   },
   {
     "id": "evt-105",
+    "isPublished": false,
     "source": "external",
     "externalSource": "디스콰이엇",
     "type": "hackathon",
@@ -158,6 +212,7 @@
   },
   {
     "id": "evt-106",
+    "isPublished": false,
     "source": "external",
     "externalSource": "이벤터스",
     "type": "seminar",
@@ -178,6 +233,7 @@
   },
   {
     "id": "evt-107",
+    "isPublished": false,
     "source": "external",
     "externalSource": "당근",
     "type": "study",
@@ -198,6 +254,7 @@
   },
   {
     "id": "evt-108",
+    "isPublished": false,
     "source": "external",
     "externalSource": "소모임",
     "type": "oneday_class",
@@ -218,6 +275,7 @@
   },
   {
     "id": "evt-109",
+    "isPublished": false,
     "source": "external",
     "externalSource": "당근",
     "type": "study",
@@ -238,6 +296,7 @@
   },
   {
     "id": "evt-110",
+    "isPublished": false,
     "source": "external",
     "externalSource": "이벤터스",
     "type": "seminar",
@@ -258,6 +317,7 @@
   },
   {
     "id": "evt-111",
+    "isPublished": false,
     "source": "external",
     "externalSource": "소모임",
     "type": "study",

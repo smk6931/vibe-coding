@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import DevOperatorEditor from './components/DevOperatorEditor';
 import { communityRoutes, guideRoutes } from './routes';
 import { RoleProvider } from './lib/RoleContext';
 
@@ -39,6 +41,8 @@ export default function App() {
           {guideRoutes.map(r => <Route key={r.path} path={r.path} element={r.element} />)}
         </Routes>
       </Suspense>
+      <Footer />
+      <DevOperatorEditor />
       </RoleProvider>
     </BrowserRouter>
   );

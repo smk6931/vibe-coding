@@ -12,8 +12,10 @@
 | MiniHompy/MiniHompyLive 수정 또는 외부 프로젝트 통합 | `agents/ui/mini-hompy-demo.md` |
 | 새 챕터·주차 강의 교안 가이드 컴포넌트 만들 때 | `agents/ui/lecture-guide-component.md` |
 | 라이트/다크 테마 토글 + 와이드 데스크탑 반응형 | `agents/ui/theme-toggle-filter.md` |
+| 운영자/강사 프로필 위치/카피 변경, 도용 방지 시그니처 손볼 때 | `agents/ui/operator-profile-module.md` |
 | 새 컴포넌트 파일 위치 결정 | `agents/frontend/component-placement.md` |
 | 가이드 페이지 레이아웃 수정 | `agents/frontend/guide-page-structure.md` |
+| 새 강의 회차 추가 / ClassRegistration / 같은 교안으로 N회차 열기 | `agents/frontend/class-registration-pattern.md` |
 
 ## 1. 디자인 원칙 — **모바일 우선**
 
