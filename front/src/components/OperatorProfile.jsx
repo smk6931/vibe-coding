@@ -15,23 +15,21 @@ export default function OperatorProfile({
   const operator = operatorProp ?? operatorFromHook;
   const inner = (
     <div className="max-w-3xl mx-auto px-4 sm:px-6">
-      <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-center sm:items-start">
-        <img
-          src={operator.photo}
-          alt={`운영자 ${operator.name}`}
-          className="w-40 h-40 rounded-2xl object-cover shrink-0 ring-4 ring-white shadow-md bg-slate-100"
-        />
-        <div className="text-center sm:text-left min-w-0">
-          <h2 className="text-[18px] sm:text-2xl font-bold text-slate-900">
-            {operator.name}
-            {operator.experience && (
-              <span className="text-slate-400 font-normal"> · {operator.experience}</span>
-            )}
-          </h2>
-          <blockquote className="mt-3 text-[14px] sm:text-base italic text-slate-700 leading-relaxed sm:border-l-2 sm:border-brand-300 sm:pl-4">
-            "{operator.intro}"
-          </blockquote>
-        </div>
+      <div className="text-center sm:text-left min-w-0">
+        <p className="text-[12px] font-semibold text-brand-600 mb-2">
+          바이브코딩 모임 운영자
+        </p>
+        <h2 className="text-[22px] sm:text-3xl font-bold text-slate-900">
+          {operator.name}
+          {operator.experience && (
+            <span className="block sm:inline text-slate-400 font-normal sm:ml-2 text-[17px] sm:text-2xl">
+              {operator.experience}
+            </span>
+          )}
+        </h2>
+        <blockquote className="mt-4 text-[14px] sm:text-base italic text-slate-700 leading-relaxed sm:border-l-2 sm:border-brand-300 sm:pl-4">
+          "{operator.intro}"
+        </blockquote>
       </div>
 
       {operator.story?.length > 0 && (
@@ -69,7 +67,7 @@ export default function OperatorProfile({
                     rel="noreferrer"
                     className="hover:text-brand-600"
                   >
-                    인스타그램
+                    인스타그램 · 활동/후기 확인
                   </a>
                 </li>
               )}
@@ -81,7 +79,7 @@ export default function OperatorProfile({
                     rel="noreferrer"
                     className="hover:text-brand-600"
                   >
-                    카카오 오픈채팅
+                    문의하기 · 카카오 오픈채팅
                   </a>
                 </li>
               )}

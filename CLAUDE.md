@@ -16,6 +16,7 @@
 | 새 컴포넌트 파일 위치 결정 | `agents/frontend/component-placement.md` |
 | 가이드 페이지 레이아웃 수정 | `agents/frontend/guide-page-structure.md` |
 | 새 강의 회차 추가 / ClassRegistration / 같은 교안으로 N회차 열기 | `agents/frontend/class-registration-pattern.md` |
+| 강의 CRUD inline UI / AdminOnly 가드 / useEvents / ClassEditor / /admin 보조 뷰 | `agents/frontend/admin-inline-editing-pattern.md` |
 
 ## 1. 디자인 원칙 — **모바일 우선**
 

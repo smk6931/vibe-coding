@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import EventCard from './EventCard';
 import Accordion from './Accordion';
 import OperatorIntroCard from './OperatorIntroCard';
+import { AdminDevOnly } from './AdminOnly';
+import ClassEditor from './ClassEditor';
 import MiniHompy from '../pages/guide/oneday/MiniHompy';
 import MiniHompyLive from '../pages/guide/oneday/MiniHompyLive';
 import dynamic from '@/lib/dynamic';
@@ -471,23 +473,52 @@ function RecommendedHero({ event }) {
 }
 
 function CardsGrid({ events, selectedId, onHover, kakaoOpenChatUrl }) {
+  const [creatorOpen, setCreatorOpen] = useState(false);
+
   if (events.length === 0) {
     return (
-      <div className="card p-8 text-center text-slate-500 text-sm">
-        조건에 맞는 모임이 없어요.{' '}
-        <a href={kakaoOpenChatUrl} target="_blank" rel="noreferrer" className="text-brand-700 font-medium">카톡으로 알려주세요 →</a>
-      </div>
+      <>
+        <div className="card p-8 text-center text-slate-500 text-sm">
+          조건에 맞는 모임이 없어요.{' '}
+          <a href={kakaoOpenChatUrl} target="_blank" rel="noreferrer" className="text-brand-700 font-medium">카톡으로 알려주세요 →</a>
+        </div>
+        <AdminDevOnly>
+          <div className="mt-3">
+            <NewClassCard onClick={() => setCreatorOpen(true)} />
+          </div>
+        </AdminDevOnly>
+        {creatorOpen && <ClassEditor mode="create" onClose={() => setCreatorOpen(false)} />}
+      </>
     );
   }
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
-      {events.map(e => (
-        <div key={e.id} onMouseEnter={() => onHover(e.id)} onMouseLeave={() => onHover(null)}
-          className={`rounded-2xl transition-all ${selectedId === e.id ? 'ring-2 ring-brand-300 ring-offset-1' : ''}`}>
-          <EventCard event={e} />
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
+        {events.map(e => (
+          <div key={e.id} onMouseEnter={() => onHover(e.id)} onMouseLeave={() => onHover(null)}
+            className={`rounded-2xl transition-all ${selectedId === e.id ? 'ring-2 ring-brand-300 ring-offset-1' : ''}`}>
+            <EventCard event={e} />
+          </div>
+        ))}
+        <AdminDevOnly>
+          <NewClassCard onClick={() => setCreatorOpen(true)} />
+        </AdminDevOnly>
+      </div>
+      {creatorOpen && <ClassEditor mode="create" onClose={() => setCreatorOpen(false)} />}
+    </>
+  );
+}
+
+function NewClassCard({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="rounded-2xl border-2 border-dashed border-rose-300 bg-rose-50/50 hover:bg-rose-50 hover:border-rose-400 text-rose-600 flex flex-col items-center justify-center gap-2 min-h-[180px] sm:min-h-[220px] transition-colors group"
+    >
+      <span className="w-10 h-10 grid place-items-center rounded-full bg-rose-100 group-hover:bg-rose-200 text-rose-600 text-2xl font-bold">+</span>
+      <span className="text-[13px] font-bold">새 강의 추가</span>
+      <span className="text-[10px] text-rose-400">admin · dev only</span>
+    </button>
   );
 }
 

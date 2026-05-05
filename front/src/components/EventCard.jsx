@@ -1,5 +1,9 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '@/lib/format';
+import { AdminDevOnly } from './AdminOnly';
+import ClassEditor from './ClassEditor';
+import { togglePublish } from '@/lib/useEvents';
 
 const FALLBACK_GRADIENTS = [
   'from-brand-100 to-warm-50',
@@ -12,12 +16,43 @@ export default function EventCard({ event }) {
   const isInternal = event.source === 'internal';
   const sold = event.remaining === 0;
   const gradient = FALLBACK_GRADIENTS[event.id.charCodeAt(event.id.length - 1) % FALLBACK_GRADIENTS.length];
+  const [editorOpen, setEditorOpen] = useState(false);
+  const isHidden = event.isPublished === false;
 
   return (
-    <Link
-      to={`/events/${event.id}`}
-      className="card overflow-hidden flex flex-col group"
-    >
+    <div className="relative">
+      {isInternal && (
+        <AdminDevOnly>
+          <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1">
+            {isHidden && (
+              <span className="badge bg-slate-800 text-white text-[10px] shadow-md">미게시</span>
+            )}
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setEditorOpen(true); }}
+              title="강의 편집"
+              className="w-7 h-7 grid place-items-center rounded-full bg-white/95 text-rose-600 shadow-md hover:bg-rose-50 backdrop-blur"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+            </button>
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); togglePublish(event.id); }}
+              title={isHidden ? '게시 토글' : '게시 토글'}
+              className="w-7 h-7 grid place-items-center rounded-full bg-white/95 text-slate-600 shadow-md hover:bg-slate-100 backdrop-blur"
+            >
+              {isHidden
+                ? <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                : <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M14.12 14.12A3 3 0 1 1 9.88 9.88M1 1l22 22"/></svg>}
+            </button>
+          </div>
+        </AdminDevOnly>
+      )}
+      {editorOpen && (
+        <ClassEditor mode="edit" event={event} onClose={() => setEditorOpen(false)} />
+      )}
+      <Link
+        to={`/events/${event.id}`}
+        className={`card overflow-hidden flex flex-col group ${isHidden ? 'opacity-70' : ''}`}
+      >
       {/* Thumbnail */}
       <div className={`relative aspect-[16/10] bg-gradient-to-br ${gradient} overflow-hidden`}>
         {event.thumbnail && (
@@ -84,6 +119,7 @@ export default function EventCard({ event }) {
           )}
         </div>
       </div>
-    </Link>
+      </Link>
+    </div>
   );
 }

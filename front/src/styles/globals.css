@@ -21,6 +21,12 @@
   html.dark .preserve-color {
     filter: invert(1) hue-rotate(180deg);
   }
+
+  html.dark .preserve-color img,
+  html.dark .preserve-color video,
+  html.dark .preserve-color iframe {
+    filter: none;
+  }
 }
 
 @layer components {

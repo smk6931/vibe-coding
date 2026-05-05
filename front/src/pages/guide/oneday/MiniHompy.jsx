@@ -131,7 +131,7 @@ function DiarySection() {
 
 export default function MiniHompy() {
   return (
-    <div className={s.wrapper}>
+    <div className={`${s.wrapper} preserve-color`}>
       <StarParticles />
       <div className={s.minihompy}>
         <div className={s.hompyHeader}>

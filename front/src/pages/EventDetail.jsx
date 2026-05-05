@@ -1,15 +1,25 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import eventsData from '../../public/data/events.json';
 import siteData from '../../public/data/site.json';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '../lib/format';
 import OnedayClassCurriculum from '../components/OnedayClassCurriculum';
 import InstructorMicroCard from '../components/InstructorMicroCard';
 import ClassRegistration from '../components/ClassRegistration';
+import ClassEditor from '../components/ClassEditor';
+import { AdminDevOnly } from '../components/AdminOnly';
+import { useEvents } from '../lib/useEvents';
+import { useRole } from '../lib/RoleContext';
 import MiniHompyLive from './guide/oneday/MiniHompyLive';
 
 export default function EventDetail() {
   const { id } = useParams();
-  const event = eventsData.find(e => e.id === id && e.isPublished !== false);
+  const events = useEvents();
+  const { role } = useRole();
+  const [editorOpen, setEditorOpen] = useState(false);
+  const found = events.find(e => e.id === id);
+  // 미게시 강의는 admin 만 볼 수 있음 (편집·미리보기 목적)
+  const event = found && (found.isPublished !== false || role === 'admin') ? found : null;
+  const isHidden = event && event.isPublished === false;
 
   if (!event) {
     return (
@@ -28,9 +38,28 @@ export default function EventDetail() {
 
   return (
     <div className="container-page py-5 sm:py-8">
-      <div className="mb-3">
+      <div className="mb-3 flex items-center justify-between gap-2">
         <Link to="/" className="text-[13px] text-slate-400 hover:text-brand-700">← 전체 모임</Link>
+        {isInternal && (
+          <AdminDevOnly>
+            <div className="flex items-center gap-1.5">
+              {isHidden && (
+                <span className="badge bg-slate-800 text-white text-[10px]">미게시</span>
+              )}
+              <button
+                onClick={() => setEditorOpen(true)}
+                className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100"
+              >
+                ✎ 강의 편집
+              </button>
+            </div>
+          </AdminDevOnly>
+        )}
       </div>
+
+      {editorOpen && (
+        <ClassEditor mode="edit" event={event} onClose={() => setEditorOpen(false)} />
+      )}
 
       <article>
         {(event.thumbnail || showCurriculum) && (

@@ -47,15 +47,15 @@ export default function OperatorIntroCard({ className = '' }) {
                 href={op.contacts.kakao}
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-600 hover:text-brand-600"
+                className="text-brand-600 hover:underline"
               >
-                카톡 오픈채팅
+                문의하기
               </a>
             </>
           )}
           <span className="text-slate-300">·</span>
           <Link to="/about" className="text-brand-600 hover:underline">
-            더 알아보기 →
+            운영자 소개 →
           </Link>
         </div>
       </div>

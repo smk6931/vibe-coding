@@ -256,7 +256,7 @@ export default function MiniHompyLive({ thumbnail = false, mode }) {
 
   if (resolvedMode === 'banner') {
     return (
-      <div className={`${s.frame} ${s.bannerMode}`}>
+      <div className={`${s.frame} ${s.bannerMode} preserve-color`}>
         <StarParticles />
         <div className={s.bannerLayout}>
           <BannerHome />
@@ -267,7 +267,7 @@ export default function MiniHompyLive({ thumbnail = false, mode }) {
 
   if (resolvedMode === 'thumbnail') {
     return (
-      <div className={`${s.frame} ${s.thumbnailMode}`}>
+      <div className={`${s.frame} ${s.thumbnailMode} preserve-color`}>
         <StarParticles />
         <div className={s.layout}>
           <main className={s.main}><HomePage /></main>
@@ -276,7 +276,7 @@ export default function MiniHompyLive({ thumbnail = false, mode }) {
     );
   }
   return (
-    <div className={s.frame}>
+    <div className={`${s.frame} preserve-color`}>
       <StarParticles />
       <div className={s.layout}>
         <aside className={s.sidebar}>
