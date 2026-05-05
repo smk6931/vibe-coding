@@ -1,4 +1,5 @@
-import curriculumsData from '../../public/data/curriculums.json';
+import { Link } from 'react-router-dom';
+import curriculumsData from '@/data/curriculums.json';
 import { formatDateTime, formatKRW, dDay } from '../lib/format';
 
 /**
@@ -28,8 +29,36 @@ export default function ClassRegistration({ event }) {
       <PaymentBox event={event} />
       <PoliciesBox event={event} />
       <PrerequisitesBox curriculum={curriculum} />
+      {curriculum?.guideRoute && (
+        <CurriculumLinkBox curriculum={curriculum} className="sm:col-span-2" />
+      )}
       <ApplyCTA event={event} sold={sold} className="sm:col-span-2" />
     </section>
+  );
+}
+
+/* ─────────────── 박스 6: 교안 보러가기 ─────────────── */
+function CurriculumLinkBox({ curriculum, className = '' }) {
+  return (
+    <Link
+      to={curriculum.guideRoute}
+      className={`rounded-2xl border border-brand-200 bg-brand-50/50 p-4 sm:p-5 hover:border-brand-400 hover:bg-brand-50 transition group ${className}`}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-[11px] font-bold tracking-widest text-brand-600 uppercase">강의 교안</p>
+          <p className="mt-1 text-[14px] font-semibold text-slate-900 leading-snug">
+            {curriculum.title}
+          </p>
+          {curriculum.summary && (
+            <p className="mt-1 text-[12px] text-slate-600 leading-relaxed line-clamp-2">
+              {curriculum.summary}
+            </p>
+          )}
+        </div>
+        <span className="shrink-0 text-brand-600 text-2xl group-hover:translate-x-0.5 transition">→</span>
+      </div>
+    </Link>
   );
 }
 

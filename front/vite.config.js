@@ -13,6 +13,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * 운영(빌드)에는 포함되지 않음 (apply: 'serve').
  */
 function devSiteDataPlugin() {
+  async function writeJsonMirrors(fileName, data) {
+    const text = JSON.stringify(data, null, 2) + '\n';
+    await Promise.all([
+      fs.writeFile(path.resolve(__dirname, `public/data/${fileName}`), text, 'utf-8'),
+      fs.writeFile(path.resolve(__dirname, `src/data/${fileName}`), text, 'utf-8'),
+    ]);
+  }
+
   async function readJson(req) {
     const chunks = [];
     for await (const chunk of req) chunks.push(chunk);
@@ -41,7 +49,7 @@ function devSiteDataPlugin() {
           const raw = await fs.readFile(filePath, 'utf-8');
           const data = JSON.parse(raw);
           data.operator = operator;
-          await fs.writeFile(filePath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+          await writeJsonMirrors('site.json', data);
           ok(res);
         } catch (e) { fail(res, e); }
       });
@@ -51,8 +59,7 @@ function devSiteDataPlugin() {
         try {
           const events = await readJson(req);
           if (!Array.isArray(events)) throw new Error('events must be an array');
-          const filePath = path.resolve(__dirname, 'public/data/events.json');
-          await fs.writeFile(filePath, JSON.stringify(events, null, 2) + '\n', 'utf-8');
+          await writeJsonMirrors('events.json', events);
           ok(res, { ok: true, count: events.length });
         } catch (e) { fail(res, e); }
       });
@@ -72,7 +79,7 @@ export default defineConfig({
     port: 3200,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://localhost:8200',
         changeOrigin: true,
       },
     },

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MiniHompyDemo from './MiniHompyDemo';
+import MiniHompyDemo from './components/MiniHompyDemo';
 
 /**
  * 모객 썸네일/배너 캡처 전용 페이지.

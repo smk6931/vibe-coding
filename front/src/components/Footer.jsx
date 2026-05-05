@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import siteData from '../../public/data/site.json';
+import siteData from '@/data/site.json';
 
 /**
  * Footer — 사이트 전역 푸터.

@@ -7,10 +7,10 @@ import {
   commitEventsOverride,
   clearEventsOverride,
   hasPendingChanges,
-} from '../lib/useEvents';
-import { useRole } from '../lib/RoleContext';
-import { formatDateTime, formatKRW, dDay } from '../lib/format';
-import ClassEditor from '../components/ClassEditor';
+} from '../../lib/useEvents';
+import { useRole } from '../../lib/RoleContext';
+import { formatDateTime, formatKRW, dDay } from '../../lib/format';
+import ClassEditor from '../../components/ClassEditor';
 
 /**
  * Admin — 자체 강의 운영 보조 뷰.

@@ -1,5 +1,5 @@
 import HomeClient from '../components/HomeClient';
-import siteData from '../../public/data/site.json';
+import siteData from '@/data/site.json';
 import { useEvents } from '../lib/useEvents';
 
 export default function Home() {

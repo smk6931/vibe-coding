@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import MiniHompy from '../pages/guide/oneday/MiniHompy';
+import MiniHompy from '../pages/guide/oneday/components/MiniHompy';
 
 const STEPS_COMMON = [
   {

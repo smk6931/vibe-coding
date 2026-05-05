@@ -6,11 +6,11 @@ import DevOperatorEditor from './components/DevOperatorEditor';
 import { communityRoutes, guideRoutes } from './routes';
 import { RoleProvider } from './lib/RoleContext';
 
-const Home        = lazy(() => import('./pages/Home'));
-const EventDetail = lazy(() => import('./pages/EventDetail'));
-const Me          = lazy(() => import('./pages/Me'));
-const Admin       = lazy(() => import('./pages/Admin'));
-const About       = lazy(() => import('./pages/About'));
+const Home        = lazy(() => import('./pages/index'));
+const EventDetail = lazy(() => import('./pages/events/[id]'));
+const Me          = lazy(() => import('./pages/me/index'));
+const Admin       = lazy(() => import('./pages/admin/index'));
+const About       = lazy(() => import('./pages/about/index'));
 
 function LoadingSpinner() {
   return (

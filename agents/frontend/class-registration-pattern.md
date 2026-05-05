@@ -24,8 +24,19 @@ LMS 업계에서 흔히 쓰이는 "Course + Cohort/Session" 모델, 일반화하
 
 | 파일 | 역할 |
 |------|------|
-| `front/public/data/curriculums.json` | 교안 마스터 배열 (id, title, summary, outline, prerequisites, outcomes, guideRoute) |
+| `front/public/data/curriculums.json` | 교안 마스터 배열 (id, title, summary, outline, prerequisites, outcomes, **guideRoute**) |
 | `front/public/data/events.json` | 모든 이벤트 배열. 자체 강의는 `source: "internal"` + `curriculumId` 보유 |
+
+### 라우트 분리 (2026-05-05 정착)
+
+| 라우트 영역 | 책임 | 컴포넌트 |
+|-----------|------|---------|
+| `/guide/oneday/week{N}` | **Curriculum 본문** — 교안 콘텐츠, 챕터 가이드, 다음 회차 위젯 | `pages/guide/oneday/Week{N}.jsx` (GuideLayout 적용, 사이드바 노출) |
+| `/events/{classId}` | **Class 신청** — 일정·장소·결제·신청·교안 링크 | `pages/EventDetail.jsx` (단일 페이지, 사이드바 없음) |
+
+**양방향 연결**:
+- 교안 → 회차: `Week1.jsx` 가 `events.json` 에서 `curriculumId === 'oneday-week-1' && startAt > now` 필터해서 "예정된 회차" 카드 위젯 자동 노출
+- 회차 → 교안: `ClassRegistration` 의 `CurriculumLinkBox` 가 `curriculum.guideRoute` 로 이동하는 링크 자동 노출
 
 ## events.json — 자체 강의(Class instance) 필수 필드
 
@@ -76,15 +87,16 @@ LMS 업계에서 흔히 쓰이는 "Course + Cohort/Session" 모델, 일반화하
 
 ## ClassRegistration 컴포넌트 구조
 
-`front/src/components/ClassRegistration.jsx` — 한 파일, 5개 박스를 같은 파일 내 서브컴포넌트로 둠.
+`front/src/components/ClassRegistration.jsx` — 한 파일, 6개 박스를 같은 파일 내 서브컴포넌트로 둠.
 
 ```
 <ClassRegistration event={event} />
-  ├─ DateVenueBox       일시·장소·D-Day·길찾기 링크
-  ├─ PaymentBox         가격·은행·계좌·예금주·입금자명 규칙
-  ├─ PoliciesBox        인원 미달 연기 + 환불 정책
-  ├─ PrerequisitesBox   준비물 체크리스트 (curriculum.prerequisites 에서)
-  └─ ApplyCTA           카톡 오픈채팅 큰 버튼 (sold 시 "정원 마감")
+  ├─ DateVenueBox        일시·장소·D-Day·길찾기 링크
+  ├─ PaymentBox          가격·은행·계좌·예금주·입금자명 규칙
+  ├─ PoliciesBox         인원 미달 연기 + 환불 정책
+  ├─ PrerequisitesBox    준비물 체크리스트 (curriculum.prerequisites 에서)
+  ├─ CurriculumLinkBox   "강의 교안" → curriculum.guideRoute 로 이동 (양방향 연결)
+  └─ ApplyCTA            카톡 오픈채팅 큰 버튼 (sold 시 "정원 마감")
 ```
 
 **왜 분리 안 했나** — 5박스 모두 한 회차 신청 페이지에서만 같이 의미를 가짐. 다른 페이지에서 단독으로 재사용되지 않음. React 룰: 재사용 0이면 같은 파일 내 서브컴포넌트로 충분, 별도 컴포넌트로 빼지 마라.
@@ -103,14 +115,21 @@ const showRegistration = isInternal && Boolean(event.curriculumId);
 
 같은 교안으로 N번째 회차를 열 때:
 
-1. `front/public/data/events.json` 최상단(또는 의미상 적절한 위치)에 새 객체 추가
-   - `id` 는 `evt-week{N}-YYYY-MM-DD` 컨벤션
-   - `curriculumId` 는 기존 교안 id 그대로 (예: `"oneday-week-1"`)
-   - `startAt`/`endAt`/`venue`/`price`/`capacity`/`remaining`/`payment`/`policies` 는 회차별로 갱신
-2. 다음 회차로 홈에서 띄우려면 `front/public/data/site.json` 의 `nextEventId` 도 새 회차 id 로 변경
-3. 끝. 별도 컴포넌트 수정 0. 라우트 추가 0.
+1. **admin 모드**(헤더 토글) → 홈 자체 강의 그리드 끝의 "+ 새 강의" 카드 클릭 → `ClassEditor` 폼
+2. 또는 `/admin` 페이지의 기존 회차 행에서 "복제" → 일정·장소만 새 회차로 수정
+3. `curriculumId` 만 같으면 → **교안 페이지(`/guide/oneday/week{N}`) 의 "예정된 회차" 위젯에 자동 노출**
+4. "영구 저장" → events.json 갱신 → git push → 배포
 
-새 교안을 만들 때만 `curriculums.json` 에 객체 1개 추가하면 된다.
+별도 컴포넌트·라우트 수정 0. 교안 페이지 코드도 안 건드림 (위젯이 자동 필터링).
+
+## 새 교안(주차) 추가 워크플로우 (10분 + 본문 작성 시간)
+
+1. `front/public/data/curriculums.json` 에 객체 1개 추가 (id, title, summary, outline, prerequisites, outcomes, guideRoute)
+2. `front/src/pages/guide/oneday/Week{N}.jsx` 신규 — `Week1.jsx` 를 템플릿으로 복사 후 `CURRICULUM_ID` 만 교체
+3. `front/src/routes/guide.jsx` 에 라우트 등록
+4. `pages/guide/GuideSidebar.jsx` 의 `NAV_GROUPS` 에서 해당 주차의 `soon: true` 제거
+5. 본문 컴포넌트 작성 (1주차의 `OnedayClassCurriculum` 같은 위치)
+6. 끝. 새 회차는 위 "회차 추가 워크플로우" 그대로
 
 ## 인원/신청 자동화는 Phase 1+ (DB 도입 트리거 도달 시)
 

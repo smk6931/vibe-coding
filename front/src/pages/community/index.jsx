@@ -1,6 +1,6 @@
 import CommunityLayout from './CommunityLayout';
-import showcaseData from '../../../public/data/showcase.json';
-import membersData from '../../../public/data/members.json';
+import showcaseData from '@/data/showcase.json';
+import membersData from '@/data/members.json';
 import Avatar from '../../components/Avatar';
 
 export default function CommunityShowcase() {

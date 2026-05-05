@@ -83,7 +83,7 @@ cd front && npm install && npm run dev   # → http://localhost:3200
 
 # 백엔드
 cd back && venv/Scripts/activate
-python manage.py runserver               # → http://localhost:8000
+python manage.py runserver 8200          # → http://localhost:8200
 ```
 
 ---

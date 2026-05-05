@@ -1,5 +1,5 @@
 import CommunityLayout from './CommunityLayout';
-import membersData from '../../../public/data/members.json';
+import membersData from '@/data/members.json';
 import Avatar from '../../components/Avatar';
 
 export default function CommunityMembers() {

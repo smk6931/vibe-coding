@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import OperatorProfile from '../components/OperatorProfile';
+import OperatorProfile from '../../components/OperatorProfile';
 
 export default function About() {
   return (

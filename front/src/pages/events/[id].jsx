@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import siteData from '../../public/data/site.json';
-import { dDay, eventTypeLabel } from '../lib/format';
-import OnedayClassCurriculum from '../components/OnedayClassCurriculum';
-import InstructorMicroCard from '../components/InstructorMicroCard';
-import ClassRegistration from '../components/ClassRegistration';
-import ClassEditor from '../components/ClassEditor';
-import { AdminDevOnly } from '../components/AdminOnly';
-import { useEvents } from '../lib/useEvents';
-import { useRole } from '../lib/RoleContext';
-import MiniHompyDemo from './guide/oneday/MiniHompyDemo';
+import { dDay, eventTypeLabel } from '../../lib/format';
+import InstructorMicroCard from '../../components/InstructorMicroCard';
+import ClassRegistration from '../../components/ClassRegistration';
+import ClassEditor from '../../components/ClassEditor';
+import { AdminDevOnly } from '../../components/AdminOnly';
+import { useEvents } from '../../lib/useEvents';
+import { useRole } from '../../lib/RoleContext';
 
+/**
+ * EventDetail — 한 회차(Class instance)의 신청 페이지.
+ *
+ * Curriculum-Class 패턴의 "Class" 측 — 일정·장소·결제·신청만 담당.
+ * 교안 본문(Curriculum body)은 별도 라우트(/guide/oneday/week{N})에 있고,
+ * ClassRegistration 안에 "교안 보러가기" 링크로 연결됨.
+ */
 export default function EventDetail() {
   const { id } = useParams();
   const events = useEvents();
@@ -32,7 +36,6 @@ export default function EventDetail() {
   }
 
   const isInternal       = event.source === 'internal';
-  const showCurriculum   = isInternal && event.type === 'oneday_class';
   // 자체 강의는 무조건 ClassRegistration 박스로 정보 표시 (ClassEditor 와 단일 소스).
   // 내부 박스들이 각자 가드해서 빈 필드는 안전하게 처리됨.
   const showRegistration = isInternal;
@@ -63,16 +66,10 @@ export default function EventDetail() {
       )}
 
       <article>
-        {(event.thumbnail || showCurriculum) && (
-          <div className={`relative aspect-[16/8] rounded-2xl overflow-hidden mb-5 ${showCurriculum ? 'bg-[#1a0824]' : 'bg-slate-100'}`}>
-            {showCurriculum ? (
-              <MinihomeBanner />
-            ) : (
-              <>
-                <img src={event.thumbnail} alt={event.title} className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              </>
-            )}
+        {event.thumbnail && (
+          <div className="relative aspect-[16/8] rounded-2xl overflow-hidden mb-5 bg-slate-100">
+            <img src={event.thumbnail} alt={event.title} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5 z-10">
               <span className={`badge text-[11px] ${isInternal ? 'bg-brand-600 text-white' : 'bg-black/60 text-white'}`}>
                 {isInternal ? '★ 자체 운영' : `외부 · ${event.externalSource}`}
@@ -109,29 +106,8 @@ export default function EventDetail() {
           {showRegistration && (
             <ClassRegistration event={event} />
           )}
-
-          {showCurriculum && (
-            <OnedayClassCurriculum kakaoUrl={siteData.kakaoOpenChatUrl} />
-          )}
         </div>
       </article>
     </div>
   );
 }
-
-/* 16:8 배너 — banner 모드 (헤더 위 + 3열 가로). design width 1080px 기준 컨테이너 폭에 맞춰 스케일. */
-function MinihomeBanner() {
-  return (
-    <>
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute top-1/2 left-1/2 origin-center pointer-events-none w-[1080px] -translate-x-1/2 -translate-y-1/2 scale-[0.34] sm:scale-[0.58] md:scale-[0.70] lg:scale-[0.94] xl:scale-[1.16]"
-        >
-          <MiniHompyDemo mode="banner" />
-        </div>
-      </div>
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
-    </>
-  );
-}
-

@@ -33,7 +33,7 @@ export default function Week4() {
         </div>
 
         <div className={s.linkRow}>
-          <Link to="/events/evt-week1-2026-05-10" className={s.linkBtn}>← 1강 먼저 완료하기</Link>
+          <Link to="/guide/oneday/week1" className={s.linkBtn}>← 1강 교안 먼저 보기</Link>
         </div>
       </div>
     </GuideLayout>

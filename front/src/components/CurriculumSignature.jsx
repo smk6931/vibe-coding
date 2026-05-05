@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import siteData from '../../public/data/site.json';
+import siteData from '@/data/site.json';
 
 /**
  * CurriculumSignature — 교안 본문 마지막에 박는 강사 시그니처 1줄.

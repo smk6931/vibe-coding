@@ -12,10 +12,10 @@
     │  HTTP(S)
     ▼
 [Nginx — Oracle VM :80/:443]
-    ├── /api/*   → Django 백엔드 :8000
+    ├── /api/*   → Django 백엔드 :8200
     └── /*       → React 프론트엔드 (정적 빌드)
 
-[Django API :8000]
+[Django API :8200]
     └── PostgreSQL :5432 (동일 VM)
 ```  
 
@@ -179,7 +179,7 @@ python -m venv venv
 venv/Scripts/activate       # Windows
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py runserver  # http://localhost:8000
+python manage.py runserver 8200  # http://localhost:8200
 ```
 
 ---
@@ -215,5 +215,5 @@ python server.py --dry-run    # 명령만 출력 (전송 안 함)
 ### 백엔드
 ```bash
 cd back
-gunicorn config.wsgi:application --bind 127.0.0.1:8000 -w 4 -D
+gunicorn config.wsgi:application --bind 127.0.0.1:8200 -w 4 -D  # 운영도 8200 통일
 ```

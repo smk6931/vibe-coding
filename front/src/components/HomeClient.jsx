@@ -6,8 +6,8 @@ import Accordion from './Accordion';
 import OperatorIntroCard from './OperatorIntroCard';
 import { AdminDevOnly } from './AdminOnly';
 import ClassEditor from './ClassEditor';
-import MiniHompy from '../pages/guide/oneday/MiniHompy';
-import MiniHompyDemo from '../pages/guide/oneday/MiniHompyDemo';
+import MiniHompy from '../pages/guide/oneday/components/MiniHompy';
+import MiniHompyDemo from '../pages/guide/oneday/components/MiniHompyDemo';
 import dynamic from '@/lib/dynamic';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '@/lib/format';
 

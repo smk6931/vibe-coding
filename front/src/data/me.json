@@ -1,0 +1,38 @@
+{
+  "id": "mem-001",
+  "role": "admin",
+  "nickname": "도리",
+  "avatar": "🦦",
+  "email": "doree@example.com",
+  "joinedAt": "2026-02-10",
+  "enrollments": [
+    { "id": "enr-001", "eventId": "evt-001", "title": "Cursor로 2시간 만에 내 사이드프로젝트 시드 만들기", "startAt": "2026-04-27T15:00:00+09:00", "venue": "강남역 인근 스터디룸", "status": "upcoming", "qrToken": "QR-EVT001-MEM001-7F3A" },
+    { "id": "enr-002", "eventId": "evt-003", "title": "스터디: 수요일 저녁 모각작 (수원)", "startAt": "2026-04-29T19:00:00+09:00", "venue": "광교 카페 코너", "status": "upcoming", "qrToken": "QR-EVT003-MEM001-2D9C" },
+    { "id": "enr-003", "eventId": "evt-past-1", "title": "Claude로 비전공자 토이 SaaS 랜딩 (지난 회차)", "startAt": "2026-04-13T11:00:00+09:00", "venue": "수원역 인근 스터디룸", "status": "attended", "qrToken": "QR-PAST1-MEM001" }
+  ],
+  "payments": [
+    { "id": "pay-001", "enrollmentId": "enr-001", "amount": 25000, "method": "계좌송금(토스)", "status": "confirmed", "paidAt": "2026-04-22T19:30:00+09:00" },
+    { "id": "pay-002", "enrollmentId": "enr-003", "amount": 22000, "method": "계좌송금(토스)", "status": "confirmed", "paidAt": "2026-04-10T20:00:00+09:00" }
+  ],
+  "portfolios": [
+    { "id": "sc-001", "title": "사내 도서 신청 자동화", "description": "Slack에서 도서명 멘션하면 구글시트로 자동 적재.", "demoUrl": "https://example.com/demo1", "repoUrl": "https://github.com/example/book-bot", "tags": ["Next.js", "자동화"] }
+  ],
+  "attendance": {
+    "rate": 0.83,
+    "attended": 5,
+    "total": 6,
+    "noShow": 1
+  },
+  "badges": [
+    { "id": "bd-001", "name": "첫 강의 수료", "icon": "🎓", "earnedAt": "2026-02-22" },
+    { "id": "bd-002", "name": "포트폴리오 첫 공유", "icon": "🚀", "earnedAt": "2026-03-05" },
+    { "id": "bd-003", "name": "출석률 80% 클럽", "icon": "🔥", "earnedAt": "2026-04-15" }
+  ],
+  "notifications": {
+    "kakaoAlim": true,
+    "email": true,
+    "remindBefore24h": true,
+    "remindBefore2h": true,
+    "weeklyDigest": false
+  }
+}

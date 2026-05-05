@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import siteData from '../../public/data/site.json';
+import siteData from '@/data/site.json';
 
 /**
  * InstructorMicroCard — 강의(이벤트) 페이지 상단 1줄 강사 표기.

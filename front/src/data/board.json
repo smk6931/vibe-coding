@@ -1,0 +1,12 @@
+[
+  { "id": "post-001", "memberId": "mem-001", "title": "이번 주 토요일 강남 모각작 같이 가실 분?", "body": "오후 2시부터 5시까지. 카페 정해놨어요.", "createdAt": "2026-04-23T10:12:00+09:00", "comments": 8, "likes": 12 },
+  { "id": "post-002", "memberId": "mem-007", "title": "Stripe vs 토스페이먼츠 결제 붙여보신 분?", "body": "1인 SaaS 만드는데 어떤 게 더 편한지 후기 듣고 싶어요.", "createdAt": "2026-04-22T18:45:00+09:00", "comments": 14, "likes": 9 },
+  { "id": "post-003", "memberId": "mem-004", "title": ".cursorrules 다들 어떻게 쓰시나요", "body": "프로젝트별로 룰을 다르게 두고 있는데 다른 분들 패턴이 궁금합니다.", "createdAt": "2026-04-21T22:01:00+09:00", "comments": 21, "likes": 30 },
+  { "id": "post-004", "memberId": "mem-002", "title": "처음으로 Vercel 배포 성공 (글썼어요)", "body": "사이드프로젝트 처음 배포한 후기. 뿌듯해요.", "createdAt": "2026-04-20T09:30:00+09:00", "comments": 11, "likes": 25 },
+  { "id": "post-005", "memberId": "mem-003", "title": "디자이너인데 Cursor 익히는 데 얼마나 걸렸나요?", "body": "지금 1주차인데 막막해서요.", "createdAt": "2026-04-19T14:20:00+09:00", "comments": 17, "likes": 14 },
+  { "id": "post-006", "memberId": "mem-005", "title": "Claude API 호출 비용, 다들 한 달 얼마쯤 쓰세요?", "body": "사이드프로젝트에 토이로 붙였는데 비용 감이 안 와서요.", "createdAt": "2026-04-18T20:00:00+09:00", "comments": 9, "likes": 6 },
+  { "id": "post-007", "memberId": "mem-006", "title": "[부산] 모각작 운영 후기", "body": "부산에서 격주로 운영하고 있는데 사람 모으는 게 가장 어렵네요.", "createdAt": "2026-04-17T11:45:00+09:00", "comments": 6, "likes": 11 },
+  { "id": "post-008", "memberId": "mem-008", "title": "사내 자동화 사례 공유", "body": "데이터 분석가인데 Claude로 보고서 요약 자동화한 사례.", "createdAt": "2026-04-15T08:30:00+09:00", "comments": 12, "likes": 22 },
+  { "id": "post-009", "memberId": "mem-010", "title": "PM이 직접 사이드프로젝트 만드는 법", "body": "기획만 잘하던 PM이 직접 코드를 만져 본 1개월 회고.", "createdAt": "2026-04-13T19:10:00+09:00", "comments": 19, "likes": 33 },
+  { "id": "post-010", "memberId": "mem-012", "title": "[광주] 사이드프로젝트 회고 모임 5월 일정 안내", "body": "5월 9일 토요일 오후 4시. 동명동 카페에서 열어요.", "createdAt": "2026-04-12T15:00:00+09:00", "comments": 4, "likes": 8 }
+]

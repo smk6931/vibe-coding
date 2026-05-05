@@ -1,0 +1,8 @@
+[
+  { "id": "qa-001", "memberId": "mem-002", "title": "Cursor의 컴포저랑 채팅, 어떨 때 뭘 써야 하나요?", "body": "둘 다 비슷해 보이는데 차이가 헷갈려서요.", "answerCount": 5, "resolved": true, "createdAt": "2026-04-23T11:20:00+09:00" },
+  { "id": "qa-002", "memberId": "mem-005", "title": "Next.js App Router에서 클라이언트 상태 관리, 뭐가 표준이에요?", "body": "Zustand·Jotai·Redux 다 보이는데 처음 시작이면 뭐로 가야 하나요?", "answerCount": 8, "resolved": false, "createdAt": "2026-04-22T13:55:00+09:00" },
+  { "id": "qa-003", "memberId": "mem-003", "title": "디자인 시스템 없이 빠르게 예쁜 UI 만드는 팁?", "body": "Tailwind만으로 깔끔하게 가는 게 가능한가요?", "answerCount": 6, "resolved": true, "createdAt": "2026-04-21T16:00:00+09:00" },
+  { "id": "qa-004", "memberId": "mem-010", "title": "사이드프로젝트 첫 사용자 5명, 어떻게 모았는지 듣고 싶어요", "body": "코드보다 홍보가 더 어려운 것 같아요.", "answerCount": 11, "resolved": false, "createdAt": "2026-04-20T19:30:00+09:00" },
+  { "id": "qa-005", "memberId": "mem-001", "title": "Supabase RLS 정책 짜는 게 너무 어려워요", "body": "무료 인증은 쉬운데 권한이 헷갈립니다.", "answerCount": 4, "resolved": false, "createdAt": "2026-04-19T22:10:00+09:00" },
+  { "id": "qa-006", "memberId": "mem-008", "title": "Claude API 토큰 관리, 캐싱 어떻게 하시나요?", "body": "프롬프트 캐싱 활성화하면 비용이 얼마나 줄어드나요?", "answerCount": 7, "resolved": true, "createdAt": "2026-04-17T10:05:00+09:00" }
+]

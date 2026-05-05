@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import curriculumsData from '../../public/data/curriculums.json';
+import curriculumsData from '@/data/curriculums.json';
 import {
   addEvent,
   updateEvent,

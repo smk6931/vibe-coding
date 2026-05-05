@@ -133,6 +133,12 @@
 - 클라이언트 인터랙션이 있는 화면(필터·뷰 토글·맵 핸들러)은 별도 클라이언트 컴포넌트(`'use client'`).
 - 페이지 컴포넌트(`app/**/page.tsx`)는 가급적 서버 컴포넌트로 두고 데이터 import → props로 전달.
 
+### 4-3-1. 라우트 ↔ 파일 매핑 (필수)
+- URL 경로 = `pages/` 하위 폴더 경로. 파일명 = 마지막 세그먼트 / 동적 파라미터 / `index`.
+- 동적 라우트는 `[paramName].jsx` (Next.js 컨벤션). 정적 단일 페이지도 폴더화 + `index.jsx`.
+- 상세 매핑 표·예시: `agents/frontend/component-placement.md` (§ A 라우트 ↔ 파일 매핑).
+- 글로벌 추상 원칙: `~/.claude/rules/route-file-mapping.md`.
+
 ### 4-2. 데이터
 - Phase 1: `public/data/*.json` 직접 import (정적 번들).
 - Phase 2: 같은 스키마를 PostgreSQL로 그대로 옮긴다. 더미 JSON 필드명을 DB 컬럼명과 동일하게 유지.

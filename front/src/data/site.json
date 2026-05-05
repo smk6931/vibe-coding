@@ -1,0 +1,28 @@
+{
+  "brand": "바이브 세션",
+  "tagline": "수원-서울, 2시간으로 끝내는 바이브코딩 라이트 클래스",
+  "kakaoOpenChatUrl": "https://open.kakao.com/o/PLACEHOLDER",
+  "nextEventId": "evt-week1-2026-05-10",
+  "operator": {
+    "name": "손명관",
+    "title": "운영자",
+    "experience": "바이브코딩 스터디 운영",
+    "tagline": "AI랑 같이 코딩하는 법, 같이 익혀가는 모임",
+    "intro": "처음에는 'AI가 정말 코드까지 짜준다고?' 가 재밌어서 시작했어요. 지금은 그 방법을 정리해서 같이 해보는 모임으로 이어가고 있습니다.",
+    "photo": "/images/operator-photo.png",
+    "story": [
+      "AI로 직접 코딩을 배우면서 비전공자도 빠르게 결과물을 만들 수 있다는 걸 체감했어요. 그 과정에서 정리한 노하우를 같이 나누고 싶어 모임을 시작했습니다.",
+      "입문자에게는 AI랑 같이 만든 작은 결과물로 흥미를 붙이는 단계, 익숙해진 분에게는 본인 업무 안에 AI 코딩 에이전트를 녹여 워크플로우를 가볍게 만드는 단계까지 — 두 흐름으로 같이 연습합니다."
+    ],
+    "credentials": [
+      "AI 활용 코딩 자가 학습 (비전공 출발)",
+      "Claude · AI 코딩 에이전트 워크플로우 연구",
+      "입문자 대상 바이브코딩 원데이 클래스 운영",
+      "실무 적용 심화 스터디 운영"
+    ],
+    "contacts": {
+      "instagram": "https://www.instagram.com/duty_soon/",
+      "kakao": "https://open.kakao.com/o/suOWUYsi"
+    }
+  }
+}
