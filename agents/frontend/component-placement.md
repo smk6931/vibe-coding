@@ -22,18 +22,18 @@ URL 만 보고 어떤 .jsx 파일이 렌더되는지 추측 가능해야 한다.
 | `/about` | `pages/about/index.jsx` | 단일 라우트도 폴더화 |
 | `/admin` | `pages/admin/index.jsx` | 추후 sub-nav 가능성 |
 | `/me` | `pages/me/index.jsx` | 동일 |
-| `/events/:id` | `pages/events/[id].jsx` | **동적 라우트는 `[param].jsx`** (Next.js 컨벤션) |
+| `/events/:id` | `pages/events/EventDetail.jsx` | **동적 라우트는 의미 명사 (PascalCase)** |
 | `/guide` | `pages/guide/index.jsx` | |
-| `/guide/oneday/install` | `pages/guide/oneday/install.jsx` 또는 `Install.jsx` | 정적 세그먼트 |
+| `/guide/oneday/install` | `pages/guide/oneday/Install.jsx` | 정적 세그먼트 |
 | `/guide/oneday/week1` | `pages/guide/oneday/Week1.jsx` | 동일 |
 | `/community/board` | `pages/community/board.jsx` | 동일 |
 
-### 컨벤션 디테일 (이 프로젝트)
+### 컨벤션 디테일 (이 프로젝트 — Vite + React Router)
 
-- 동적 파라미터는 **`[paramName].jsx`** 형식 (Next.js App Router 호환)
-- 정적 세그먼트는 PascalCase 또는 lowercase 둘 다 OK (기존 패턴 따라)
-- 폴더의 루트 페이지는 **`index.jsx`** (Home/About/Me/Admin 모두 폴더 안 index)
-- 라우트 정의는 명시적: `routes/guide.jsx`, `routes/community.jsx`, `app.jsx` 가 lazy import
+- 라우트는 `routes/*.jsx` 또는 `app.jsx` 의 **명시적 lazy import** 로 등록.
+- **동적 파라미터는 의미 명사 (PascalCase)** — 예: `EventDetail.jsx`, `UserProfile.jsx`
+- 정적 세그먼트는 PascalCase (`Install.jsx`, `Week1.jsx`) 또는 lowercase (`board.jsx`) 둘 다 OK (기존 패턴 따라).
+- 폴더의 루트 페이지는 **`index.jsx`** (Home/About/Me/Admin 모두 폴더 안 index).
 
 ### 추상 원칙은 글로벌
 

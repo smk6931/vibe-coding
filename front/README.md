@@ -37,7 +37,7 @@ npm run dev
 
 ```bash
 npm run build
-# 산출물: ./out  (next.config.mjs 의 output:'export' 설정)
+# 산출물: ./dist  (Vite 기본 정적 빌드)
 ```
 
 ## 오라클 VM 배포
@@ -82,10 +82,10 @@ python server.py --dry-run
 
 ## 기술
 
-- Next.js 14 (App Router) — `output: 'export'` 정적 빌드
-- TypeScript
+- **React 18 + Vite + React Router (BrowserRouter) + JSX** — 정적 빌드 (`vite build` → `dist/`)
 - Tailwind CSS (커스텀 brand 팔레트, 모바일 우선)
-- `react-kakao-maps-sdk` — 카카오맵 (키 미설정 시 SVG 자체 구현으로 자동 fallback)
+- Leaflet (OpenStreetMap) 메인 지도. KakaoMap 코드는 보존(키 발급 시 활성).
+- 라우트 등록: `src/routes/*.jsx` + `src/app.jsx` 의 명시적 lazy import.
 
 ## 카카오맵 키 발급 (선택, 미발급 시 SVG fallback)
 
@@ -96,7 +96,7 @@ python server.py --dry-run
 3. JavaScript 키 복사
 4. `front/.env.local` 파일 생성, 한 줄 저장:
    ```
-   NEXT_PUBLIC_KAKAO_MAP_KEY=발급받은_JavaScript_키
+   VITE_KAKAO_MAP_KEY=발급받은_JavaScript_키
    ```
 5. `npm run dev` 재시작 → `/dashboard` 의 지도 뷰가 자동으로 카카오맵으로 전환
 

@@ -7,7 +7,7 @@ import { communityRoutes, guideRoutes } from './routes';
 import { RoleProvider } from './lib/RoleContext';
 
 const Home        = lazy(() => import('./pages/index'));
-const EventDetail = lazy(() => import('./pages/events/[id]'));
+const EventDetail = lazy(() => import('./pages/events/EventDetail'));
 const Me          = lazy(() => import('./pages/me/index'));
 const Admin       = lazy(() => import('./pages/admin/index'));
 const About       = lazy(() => import('./pages/about/index'));

@@ -58,7 +58,7 @@
 
 ### 1-5-2. 모바일 아코디언 (섹션 접기/펼치기)
 - **지도 / 카드 리스트 / 추천 / 캘린더 같이 큰 섹션은 모바일에서 아코디언(접기/펼치기) 가능해야** 한다. 한 페이지에 세로로 다 보여주되, 사용자가 필요 없는 섹션은 접어서 컴팩트하게.
-- 컴포넌트: `components/Accordion.tsx`. 재사용. 데스크탑(`lg:`)에서는 항상 펼친 상태 유지(접기 버튼 숨김) — 데스크탑은 화면이 커서 접을 이유가 없음.
+- 컴포넌트: `components/Accordion.jsx`. 재사용. 데스크탑(`lg:`)에서는 항상 펼친 상태 유지(접기 버튼 숨김) — 데스크탑은 화면이 커서 접을 이유가 없음.
 - 기본 펼침 상태:
   - 모바일: 첫 진입 시 핵심 1개 섹션(예: 카드 리스트)만 펼침. 나머지는 접힘.
   - 데스크탑: 모두 펼침.
@@ -69,14 +69,14 @@
 - 톤 키워드: **거창하지 않고 / 친근하고 / 비싸 보이지 않으며 / 찍먹 가능한** 작은 코딩 모임.
 - 레퍼런스: 토스(친근 미니멀) + 당근(따뜻 컬러) + Airbnb(사진 위주 카드) 의 혼합. 노션/Linear 같은 차가운 미니멀은 피한다.
 - 카드는 **사진 상단 + 텍스트 하단** 구조. 더미 이미지는 Unsplash 직링크 사용, 운영 시 본인이 찍은 사진으로 교체.
-- **이모지 금지** (마커의 ★ 와 위치 📍 같은 기능적 픽토그램만 예외). 회원 아바타는 `Avatar.tsx` 의 이니셜+컬러 사용.
+- **이모지 금지** (마커의 ★ 와 위치 📍 같은 기능적 픽토그램만 예외). 회원 아바타는 `Avatar.jsx` 의 이니셜+컬러 사용.
 - 컬러: brand(indigo) 주 + warm(amber) 보조. 자체 강의는 ★ + warm 톤으로 강조.
 - 그라디언트는 사진 위 오버레이용으로만. 면 단위 큰 그라디언트는 비싸 보여서 피함.
 
 ### 1-7. 사진 정책
 - Phase 1 (현재): Unsplash 직링크 (`https://images.unsplash.com/photo-{id}?auto=format&fit=crop&w=800&q=80`). 외부 의존 OK, 키 불필요.
 - Phase 2 (운영 후): 운영자 본인이 모임 현장에서 찍은 사진으로 교체. 자체 강의는 매 회차 1장 이상의 모임 후 사진 의무.
-- `next.config.mjs` 의 `images.unoptimized: true` 정책 유지 (정적 export 호환).
+- 이미지 최적화는 빌드 도구(Vite) 기본 동작 따라간다 — Unsplash 직링크는 외부 CDN이 처리.
 
 ## 2. 지도 정책
 
@@ -111,9 +111,11 @@
 ## 4. 코드 룰
 
 ### 4-0. 프레임워크 (확정)
-- 프론트엔드는 **React (Next.js 14, App Router)** 로 작성한다. 즉 모든 페이지·컴포넌트는 이미 React 컴포넌트.
-- 다른 프레임워크(Svelte/Vue/순수 HTML 등) 도입 금지. 단일 스택 유지가 1인 운영자 유지보수에 유리.
-- "리액트로 다시 짜야 하나" 같은 질문은 이미 React이니 불필요. 화면이 깨져 보이면 코드 문제가 아니라 **CSS/빌드/캐시/환경변수** 쪽을 먼저 의심.
+- 프론트엔드는 **React 18 + Vite + React Router (BrowserRouter) + JSX** 로 작성한다.
+- 단일 스택 유지가 1인 운영자 유지보수에 유리. 다른 프레임워크 도입 금지.
+- 라우트 등록은 `routes/*.jsx` + `app.jsx` 의 명시적 lazy import.
+- 환경변수는 `VITE_*` prefix (`import.meta.env.VITE_FOO` 로 접근).
+- 화면이 깨져 보이면 코드 문제가 아니라 **CSS/빌드/캐시/환경변수** 쪽을 먼저 의심.
 
 ### 4-1. `.next/` 동시 사용 금지
 - 같은 프로젝트(`front/`)에 dev 서버를 **2개 이상 동시에 띄우지 않는다**. 같은 `.next/` 캐시를 공유해 manifest·CSS 해시가 깨짐.
@@ -126,32 +128,33 @@
 - `GET /.well-known/appspecific/com.chrome.devtools.json 404` — Chrome DevTools가 워크스페이스 자동 매핑용으로 보내는 요청. 처리 안 해도 됨.
 
 ### 4-2. 환경변수 적용
-- `.env.local` 변경 후엔 **반드시 dev 서버 재시작** (Hot reload 안 됨).
-- `NEXT_PUBLIC_*` 만 클라이언트에 노출. 그 외는 서버 전용.
+- `.env` / `.env.local` 변경 후엔 **반드시 dev 서버 재시작** (Hot reload 안 됨).
+- `VITE_*` prefix 만 클라이언트에 노출 (`import.meta.env.VITE_FOO` 로 접근). 그 외는 빌드 산출물에서 제외됨.
 
 ### 4-3. 컴포넌트 분리
-- 클라이언트 인터랙션이 있는 화면(필터·뷰 토글·맵 핸들러)은 별도 클라이언트 컴포넌트(`'use client'`).
-- 페이지 컴포넌트(`app/**/page.tsx`)는 가급적 서버 컴포넌트로 두고 데이터 import → props로 전달.
+- 클라이언트 인터랙션이 있는 화면(필터·뷰 토글·맵 핸들러)은 자체 hook · 상태 관리 컴포넌트로 분리해 라우트 페이지를 가볍게.
+- 라우트 페이지(`pages/{section}/{Name}.jsx`)는 데이터 import + 1~2개 컴포넌트 조립 정도로 슬림하게 둠.
 
 ### 4-3-1. 라우트 ↔ 파일 매핑 (필수)
-- URL 경로 = `pages/` 하위 폴더 경로. 파일명 = 마지막 세그먼트 / 동적 파라미터 / `index`.
-- 동적 라우트는 `[paramName].jsx` (Next.js 컨벤션). 정적 단일 페이지도 폴더화 + `index.jsx`.
+- URL 경로 = `pages/` 하위 폴더 경로. 파일명 = 의미 명사 (PascalCase) 또는 폴더 루트의 `index`.
+- 동적 라우트(`/events/:id` 등)는 **의미 명사 (`EventDetail.jsx`)** 로 짓고 `routes/*.jsx` 에서 매핑.
 - 상세 매핑 표·예시: `agents/frontend/component-placement.md` (§ A 라우트 ↔ 파일 매핑).
 - 글로벌 추상 원칙: `~/.claude/rules/route-file-mapping.md`.
 
-### 4-2. 데이터
-- Phase 1: `public/data/*.json` 직접 import (정적 번들).
-- Phase 2: 같은 스키마를 PostgreSQL로 그대로 옮긴다. 더미 JSON 필드명을 DB 컬럼명과 동일하게 유지.
+### 4-3-2. 데이터
+- Phase 1: `front/src/data/*.json` 직접 import (정적 번들). 클라이언트 인라인 편집은 `lib/useEvents.js` 패턴 (localStorage 오버라이드 + dev 미들웨어).
+- Phase 2: 같은 스키마를 PostgreSQL로 그대로 옮긴다. JSON 필드명을 DB 컬럼명과 동일하게 유지.
 - 자체/외부 이벤트는 같은 테이블에 `source = 'internal' | 'external'` 컬럼으로 구분.
 
-### 4-3. 한국어 / 인코딩
+### 4-3-3. 한국어 / 인코딩
 - 모든 사용자 노출 텍스트는 한국어 우선. 영문 보조 OK.
 - Windows 환경에서 한글 파일/콘솔 출력 시 글로벌 룰의 UTF-8 강제 정책 따름.
 
-### 4-4. Next.js
-- 14.x App Router, `output: 'export'` (Phase 1 정적 빌드).
-- `trailingSlash: true` 유지 (Nginx `try_files` 와 호환).
-- 동적 라우트는 `generateStaticParams` 로 prerender.
+### 4-4. Vite + React Router 운영 룰
+- 라우트 정의는 명시적 — `front/src/routes/{section}.jsx` 가 lazy import + path 매핑 배열.
+- 동적 라우트는 `path: '/events/:id'` + `useParams()` 로 받음.
+- 정적 빌드 산출물은 `front/dist/` (Vite 기본). Nginx 가 SPA fallback (`try_files $uri /index.html`) 해줘야 새로고침 시 404 안 남.
+- Dev 미들웨어는 `vite.config.js` 의 `configureServer` + `apply: 'serve'` 로 작성 (배포 산출물에 안 포함).
 
 ## 5. 배포 정책
 

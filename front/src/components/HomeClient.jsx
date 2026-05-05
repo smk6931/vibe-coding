@@ -173,9 +173,6 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
             수원·서울 라이트 클래스 + 수도권 외부 모임을 지도·카드로 한눈에.
           </p>
 
-          {/* 운영자 명함 — 도용 방지 시그니처 (홈 상단) */}
-          <OperatorIntroCard className="mt-3 max-w-md" />
-
           {/* 통계 + 자체/외부 토글 + 필터 */}
           <div className="mt-3 flex items-center gap-2 flex-wrap">
             <span className="text-[12px] text-slate-500">
@@ -236,9 +233,12 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
         </div>
       </section>
 
-      {/* === 운영자 추천 + 준비가이드 === */}
+      {/* === 상단 카드 3종 — 운영자 명함 / 사전 가이드 / 운영자 추천 ===
+           모바일: 운영자 명함은 가로 풀폭(col-span-2) 1행, 그 아래 사전·추천 2x1.
+           데스크톱(lg+): 가로 3등분 한 줄. */}
       <section className="container-wide pt-3">
-        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+          <OperatorIntroCard className="col-span-2 lg:col-span-1" />
           <GuidePreviewCard />
           {recommended && <RecommendedHero event={recommended} />}
         </div>
@@ -304,7 +304,12 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
                 </button>
               </div>
 
-              <CardsGrid events={filtered} selectedId={selectedId} onHover={setSelectedId} kakaoOpenChatUrl={kakaoOpenChatUrl} />
+              <CardsGrid
+                events={filtered.filter(e => e.id !== recommended?.id)}
+                selectedId={selectedId}
+                onHover={setSelectedId}
+                kakaoOpenChatUrl={kakaoOpenChatUrl}
+              />
             </Accordion>
 
             {/* 처음이세요? — 모바일만 */}
