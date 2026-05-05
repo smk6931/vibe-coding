@@ -5,7 +5,6 @@
     "subtitle": "VSCode·Claude 설치부터 미니홈피 한 채 + 인터넷 공개까지",
     "summary": "비전공자도 두 시간 안에 첫 화면을 띄우고 진짜 URL 한 개를 가져갑니다.",
     "guideRoute": "/guide/oneday/week1",
-    "demoComponent": "MiniHompyLive",
     "duration": "3시간",
     "level": "비전공자 첫 강의",
     "outline": [
