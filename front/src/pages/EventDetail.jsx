@@ -9,7 +9,7 @@ import ClassEditor from '../components/ClassEditor';
 import { AdminDevOnly } from '../components/AdminOnly';
 import { useEvents } from '../lib/useEvents';
 import { useRole } from '../lib/RoleContext';
-import MiniHompyLive from './guide/oneday/MiniHompyLive';
+import MiniHompyDemo from './guide/oneday/MiniHompyDemo';
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -127,7 +127,7 @@ function MinihomeBanner() {
         <div
           className="absolute top-1/2 left-1/2 origin-center pointer-events-none w-[1080px] -translate-x-1/2 -translate-y-1/2 scale-[0.34] sm:scale-[0.58] md:scale-[0.70] lg:scale-[0.94] xl:scale-[1.16]"
         >
-          <MiniHompyLive mode="banner" />
+          <MiniHompyDemo mode="banner" />
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />

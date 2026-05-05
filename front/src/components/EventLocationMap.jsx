@@ -1,8 +1,8 @@
 
 import dynamic from '@/lib/dynamic';
 
-const LeafletSingleMap = dynamic(
-  () => import('./LeafletMap').then(m => m.LeafletSingleMap),
+const KakaoSingleMap = dynamic(
+  () => import('./KakaoMap').then(m => m.KakaoSingleMap),
   {
     ssr: false,
     loading: () => (
@@ -14,5 +14,5 @@ const LeafletSingleMap = dynamic(
 );
 
 export default function EventLocationMap(props) {
-  return <LeafletSingleMap {...props} />;
+  return <KakaoSingleMap {...props} />;
 }

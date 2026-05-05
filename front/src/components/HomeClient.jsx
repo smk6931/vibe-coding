@@ -7,12 +7,12 @@ import OperatorIntroCard from './OperatorIntroCard';
 import { AdminDevOnly } from './AdminOnly';
 import ClassEditor from './ClassEditor';
 import MiniHompy from '../pages/guide/oneday/MiniHompy';
-import MiniHompyLive from '../pages/guide/oneday/MiniHompyLive';
+import MiniHompyDemo from '../pages/guide/oneday/MiniHompyDemo';
 import dynamic from '@/lib/dynamic';
 import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '@/lib/format';
 
-const LeafletMultiMap = dynamic(
-  () => import('./LeafletMap').then(m => m.LeafletMultiMap),
+const KakaoMultiMap = dynamic(
+  () => import('./KakaoMap').then(m => m.KakaoMultiMap),
   {
     ssr: false,
     loading: () => (
@@ -255,7 +255,7 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
             <div className="lg:hidden">
               <Accordion title="지도" count={filtered.length} defaultOpen={true}>
                 <div className="h-[360px] pb-2">
-                  <LeafletMultiMap events={filtered} selectedId={selectedId} onSelect={setSelectedId} fillHeight />
+                  <KakaoMultiMap events={filtered} selectedId={selectedId} onSelect={setSelectedId} fillHeight />
                 </div>
                 <MapLegend />
               </Accordion>
@@ -321,7 +321,7 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
           <aside className="order-1 lg:order-2 hidden lg:flex flex-col gap-3 lg:sticky lg:top-[52px] lg:self-start lg:max-h-[calc(100vh-72px)]">
             <div className="flex-1 min-h-[300px] flex flex-col">
               <div className="flex-1 min-h-[300px]">
-                <LeafletMultiMap events={filtered} selectedId={selectedId} onSelect={setSelectedId} fillHeight />
+                <KakaoMultiMap events={filtered} selectedId={selectedId} onSelect={setSelectedId} fillHeight />
               </div>
               <MapLegend />
             </div>
@@ -434,7 +434,7 @@ function RecommendedHero({ event }) {
         <div
           className="absolute top-1/2 left-1/2 origin-center pointer-events-none w-[1080px] -translate-x-1/2 -translate-y-1/2 scale-[0.21] sm:scale-[0.26] lg:scale-[0.32]"
         >
-          <MiniHompyLive mode="banner" />
+          <MiniHompyDemo mode="banner" />
         </div>
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
         <span className="absolute top-2 left-2 badge bg-warm-500 text-white text-[9px] sm:text-[10px] font-semibold z-10">★ 운영자 추천</span>

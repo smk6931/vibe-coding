@@ -1,5 +1,5 @@
 import s from './GitHubGuide.module.css';
-import MiniHompyLive from '../pages/guide/oneday/MiniHompyLive';
+import MiniHompyDemo from '../pages/guide/oneday/MiniHompyDemo';
 import PromptRef from './PromptRef';
 
 const SECTIONS = [
@@ -177,7 +177,7 @@ export default function MiniHompyGuide({ isAdmin = false }) {
           위 5단계로 AI가 만든 실제 결과물 (vibe-coding-minihome). 사이드바 클릭으로 홈/소개 전환,
           방문자수는 실제로 카운트되고 다이어리는 직접 입력해보세요 (브라우저에 저장됨).
         </p>
-        <MiniHompyLive />
+        <MiniHompyDemo />
       </div>
     </div>
   );

@@ -3,31 +3,13 @@ import GuideLayout from './GuideLayout';
 
 const SECTIONS = [
   {
-    title: '원데이 클래스',
+    title: '원데이 클래스 — 4주차 미니홈피 시리즈',
     badge: '진행중',
     badgeColor: 'bg-amber-100 text-amber-700',
-    desc: '수업 당일 바로 코딩을 시작할 수 있도록 사전 준비 가이드와 강의 맛보기를 제공합니다.',
+    desc: '1주차 수업을 베이스로 2~4주차까지 같은 프로젝트를 키워가는 연계 클래스. 1회만 들어도 결과물이 남고, 이어 들으면 본인 사이드프로젝트로 발전합니다.',
     links: [
       { label: '수업 전 준비 가이드', to: '/guide/oneday/install', active: true },
-      { label: '강의 맛보기', to: '/guide/oneday/preview', active: true },
-    ],
-  },
-  {
-    title: '입문',
-    badge: '준비중',
-    badgeColor: 'bg-slate-100 text-slate-500',
-    desc: '코딩을 처음 시작하는 분들을 위한 기초 강의입니다. 커리큘럼 확정 후 공개됩니다.',
-    links: [
-      { label: '강의 목록', to: '/guide/beginner', active: false },
-    ],
-  },
-  {
-    title: 'Cursor · Claude 활용',
-    badge: '준비중',
-    badgeColor: 'bg-slate-100 text-slate-500',
-    desc: 'Cursor와 Claude를 활용한 AI 코딩 실전 강의입니다.',
-    links: [
-      { label: '강의 목록', to: '/guide/claude', active: false },
+      { label: '1주차 강의 보기', to: '/events/evt-week1-2026-05-10', active: true },
     ],
   },
 ];
@@ -38,22 +20,15 @@ const FOLDER_ROWS = [
   { depth: 1, icon: '📄', text: 'GuideLayout.jsx', note: '공통 레이아웃' },
   { depth: 1, icon: '📁', text: 'oneday/' },
   { depth: 2, icon: '📄', text: 'Install.jsx', note: '→ /guide/oneday/install', to: '/guide/oneday/install' },
-  { depth: 2, icon: '📄', text: 'Preview.jsx', note: '→ /guide/oneday/preview', to: '/guide/oneday/preview' },
-  { depth: 1, icon: '📁', text: 'beginner/' },
-  { depth: 2, icon: '📄', text: 'index.jsx', note: '→ /guide/beginner (준비중)' },
-  { depth: 1, icon: '📁', text: 'claude/' },
-  { depth: 2, icon: '📄', text: 'index.jsx', note: '→ /guide/claude (준비중)' },
+  { depth: 2, icon: '📄', text: 'Week2~4.jsx', note: '→ /guide/oneday/week2~4 (준비중)' },
 ];
 
 const NAV_ROWS = [
   { depth: 0, text: '지식', to: '/guide', active: true },
   { depth: 1, text: '원데이 클래스', group: true },
   { depth: 2, text: '수업 전 준비 가이드', to: '/guide/oneday/install' },
-  { depth: 2, text: '강의 맛보기', to: '/guide/oneday/preview' },
-  { depth: 1, text: '입문', group: true, soon: true },
-  { depth: 2, text: '강의 목록', soon: true },
-  { depth: 1, text: 'Cursor · Claude 활용', group: true, soon: true },
-  { depth: 2, text: '강의 목록', soon: true },
+  { depth: 2, text: '1주차 (5/10)', to: '/events/evt-week1-2026-05-10' },
+  { depth: 2, text: '2~4주차', soon: true },
 ];
 
 export default function GuideIndex() {

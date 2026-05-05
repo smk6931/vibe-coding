@@ -14,8 +14,13 @@ Priority: high
 |----------|------|------|
 | `MiniHompy` | `pages/guide/oneday/MiniHompy.jsx` | install 페이지 5단계 마무리 시연 + 홈 좌측 카드 썸네일 (단일 페이지 보라 톤) |
 | `MiniHompyLive` | `pages/guide/oneday/MiniHompyLive.jsx` | evt-001 Chapter 2 가이드 마지막 라이브 데모 + 홈 우측 카드 썸네일 (KUROMI 미니홈피 — 사이드바 포함 풀버전) |
+| `MiniHompyDemo` | `pages/guide/oneday/MiniHompyDemo.jsx` | **외부 모객 + 사이트 노출 통합 데모** (산리오 IP 제거 / VIBE 브랜드 톤). 풀버전 8개 카드(VisitorCounter / MoodMeter / DemoPhoto / FavoritesCard / NowPlaying / StickerBoard / DiaryMemo / Guestbook). `/guide/oneday/demo` 페이지에서 모드 토글로 캡처. CSS는 `MiniHompyLive.module.css` + `MiniHompyDemoExtras.module.css` 분리 import. 사이트 메인 RecommendedHero 카드, EventDetail 배너, MiniHompyGuide 라이브 데모 — 전부 이걸로 교체됨. |
 
 둘 다 같은 다크 보라 톤이지만 결과물이 다르므로 좌·우 카드 의미 구분이 됨.
+
+> 산리오(쿠로미) IP는 사이트 내부 학습용 데모(MiniHompy / MiniHompyLive)에만 한정한다.
+> 소모임 모집글, 인스타·당근 카드 등 **외부 모객 자료에는 절대 사용 금지** —
+> 그 용도엔 반드시 `MiniHompyDemo` (또는 1회차 후 참가자 결과물 사진)를 쓴다.
 
 # MiniHompy (단일 페이지 보라 미니홈피)
 

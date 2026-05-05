@@ -10,7 +10,7 @@ const NAV_GROUPS = [
     label: '4주차 미니홈피 클래스',
     base: '/guide/oneday/week',
     items: [
-      { to: '/events/evt-001', label: '1주차' },
+      { to: '/events/evt-week1-2026-05-10', label: '1주차 (5/10)' },
       { to: '/guide/oneday/week2', label: '2주차', soon: true },
       { to: '/guide/oneday/week3', label: '3주차', soon: true },
       { to: '/guide/oneday/week4', label: '4주차', soon: true },

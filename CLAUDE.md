@@ -80,26 +80,26 @@
 
 ## 2. 지도 정책
 
-### 2-1. 1순위 (현행): OpenStreetMap + Leaflet
-- **선택 이유**: 키 발급 0, 도메인 등록 0, 가입 0. 진입 장벽 0.
-- 라이브러리: `leaflet` + `react-leaflet`. `next/dynamic({ ssr: false })` 로 클라이언트 전용 import (Leaflet은 window 의존).
-- 컴포넌트: `front/components/LeafletMap.tsx` (`LeafletMultiMap`, `LeafletSingleMap`).
-- 마커는 `L.divIcon` 으로 Tailwind 컬러(brand-600 / slate-500)와 ★ 표식 사용 → 자체/외부 시각 구분 그대로 유지.
-- 모임 장소 이름(`venue.name`)은 마커 클릭 시 popup에서 강조 노출 ("📍 강남역 PLAY 스터디룸").
+### 2-1. 1순위 (현행): 카카오맵 JavaScript SDK
+- **선택 이유**: 한국 POI 자동 라벨링(카페·스터디룸·역·관공서) + 한국 사용자 익숙도 + 무료 한도 충분(월 30만건).
+- 라이브러리: 카카오 SDK CDN 동적 로드 (`//dapi.kakao.com/v2/maps/sdk.js?appkey=...&autoload=false&libraries=services`). npm 패키지 안 씀.
+- 컴포넌트: `front/src/components/KakaoMap.jsx` — `KakaoMultiMap`, `KakaoSingleMap` 두 export. SDK 로드 실패 시 빨간 안내 박스 fallback.
+- 마커: SVG dataURI + `kakao.maps.MarkerImage`. 자체(brand-600 ★) / 외부(slate-500) / 선택(amber 링) 시각 구분.
+- 모임 장소 이름(`venue.name`)은 마커 클릭 시 InfoWindow 에 강조 노출.
+- StrictMode 호환: vanilla JS SDK라 react-leaflet 같은 마운트 충돌 없음.
 
-### 2-2. 한계 (인지하고 가기)
-- 한국 POI 자동 라벨이 약함 (카페·스터디카페 자동 표시 X).
-- "근처 스터디카페 추천" 같은 검색 API 없음 (카카오/네이버 places API 필요한 영역).
-- 대신 **직접 등록한 venue.name + address + lat/lng만으로도 충분히 의미 전달**됨.
+### 2-2. 환경변수
+- `.env` (프로젝트 루트) 의 `VITE_KAKAO_MAP_KEY` 필수. 변경 시 dev 서버 재시작.
+- vite.config.js 의 `envDir: '../'` 로 루트 .env 를 Vite 가 읽음 (server.py 와 동일 파일 공유).
+- 카카오 콘솔 도메인 등록: `http://localhost:3200` + `https://vibe.me.kr` (포트까지 정확 매칭, 슬래시 X).
 
-### 2-3. 후순위 (장차 필요 시): 카카오맵 / 네이버 NCP Maps
-- 둘 다 도메인 등록 + 키 발급 필요.
-- 도입 트리거: "근처 스터디카페 자동 추천" 같은 places 검색 기능이 필요해질 때.
-- 카카오 도메인 검증은 포트까지 정확히 매칭. 네이버는 NCP 가입 + 카드 등록 필요.
+### 2-3. 보강 가능 기능 (필요 시)
+- `libraries=services` 로 좌표↔주소 변환·키워드 검색·카테고리 검색(CE7 카페, FD6 음식점 등) 가능.
+- "근처 스터디카페 자동 추천" 같은 places 검색은 추가 API 호출로 즉시 도입 가능.
 
-### 2-4. 환경변수
-- 현재 OSM 사용에는 환경변수 불필요. `front/.env.local` 의 `NEXT_PUBLIC_KAKAO_MAP_KEY` 는 미사용 상태로 둠 (장차 카카오 전환 시 활성).
-- `components/KakaoMap.tsx` 도 보존 (장차 재도입용 참고 코드). 활성 import 경로에서는 사용 안 함.
+### 2-4. 백업 / 갈아타기 시나리오
+- 카카오가 정책 급변하거나 키 회수 시 → 네이버 NCP Maps 로 이전. KakaoMap.jsx 의 props 인터페이스(events / selectedId / onSelect / fillHeight, lat / lng / venueName / address)를 동일하게 구현하면 import 경로만 바꿔서 갈아탈 수 있게 설계됨.
+- 이전(2026-05) 까지 사용했던 OpenStreetMap + Leaflet 은 한국 POI 라벨 부재로 이탈. 코드는 git 히스토리에만 남아 있음 (재도입 가능성 낮음).
 
 ## 3. 결제 정책 (선행 기획안 5-A 참조)
 

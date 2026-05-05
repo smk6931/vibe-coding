@@ -61,6 +61,7 @@ function devSiteDataPlugin() {
 }
 
 export default defineConfig({
+  envDir: path.resolve(__dirname, '..'),
   plugins: [react(), devSiteDataPlugin()],
   resolve: {
     alias: {
