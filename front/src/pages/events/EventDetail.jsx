@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { dDay, eventTypeLabel } from '../../lib/format';
-import InstructorMicroCard from '../../components/InstructorMicroCard';
-import ClassRegistration from '../../components/ClassRegistration';
-import ClassEditor from '../../components/ClassEditor';
-import { AdminDevOnly } from '../../components/AdminOnly';
+import InstructorMicroCard from '../../components/events/InstructorMicroCard';
+import ClassRegistration from '../../components/events/ClassRegistration';
+import ClassEditor from '../../components/admin/ClassEditor';
+import { AdminDevOnly } from '../../components/admin/AdminOnly';
 import { useEvents } from '../../lib/useEvents';
 import { useRole } from '../../lib/RoleContext';
 

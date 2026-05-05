@@ -28,7 +28,9 @@ AI가 작업 시 필요한 컨텍스트만 골라 읽는 참조용 문서 모음
 | 문서 | 언제 읽나 |
 |------|----------|
 | [컴포넌트 위치 규칙](frontend/component-placement.md) | 새 컴포넌트 파일 어디 만들지 결정할 때 |
+| [현재 components 인벤토리와 도메인 분류](frontend/component-inventory.md) | components 폴더 정리, 파일 이동, 중복/삭제 판단, 실제 사용처 확인할 때 |
 | [가이드 페이지 구조](frontend/guide-page-structure.md) | 가이드 페이지 수정, 사이드바/레이아웃 손볼 때 |
+| [/guide 지식 허브 + 도메인 라우트 확장](frontend/knowledge-hub-pattern.md) | 새 지식 카테고리 추가, 패턴 카탈로그에 패턴 추가, /guide 인덱스 갱신, GuideSidebar 그룹 추가 |
 | [EventDetail 모듈화 기획](frontend/event-detail-modularization.md) | EventDetail 수정, 신청·지도·강의안 컴포넌트 분리할 때 |
 | [Curriculum-Class 패턴 + ClassRegistration](frontend/class-registration-pattern.md) | 새 강의 회차 추가, ClassRegistration 컴포넌트 수정, 같은 교안으로 N회차 열 때, 결제·환불·신청 박스 변경 |
 | [Admin 인라인 편집 패턴 (Role-aware UI + JSON 영구 저장)](frontend/admin-inline-editing-pattern.md) | 강의 CRUD inline UI, AdminOnly 가드, useEvents 훅, ClassEditor 모달, /admin 보조 뷰, Vite dev 미들웨어 확장 |

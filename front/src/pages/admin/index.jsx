@@ -10,7 +10,7 @@ import {
 } from '../../lib/useEvents';
 import { useRole } from '../../lib/RoleContext';
 import { formatDateTime, formatKRW, dDay } from '../../lib/format';
-import ClassEditor from '../../components/ClassEditor';
+import ClassEditor from '../../components/admin/ClassEditor';
 
 /**
  * Admin — 자체 강의 운영 보조 뷰.

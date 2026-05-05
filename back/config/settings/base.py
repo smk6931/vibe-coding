@@ -18,12 +18,12 @@ INSTALLED_APPS = [
     # 서드파티
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',  # logout 시 refresh 폐기
     'corsheaders',
     # 앱
     'apps.accounts',
     'apps.events',
-    'apps.library',
-    'apps.community',
+    # apps.library / apps.community 는 5차 기획안에서 폐기 (Phase 2 결정 후 부활)
 ]
 
 MIDDLEWARE = [
@@ -60,13 +60,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'vibe_db'),
+        'NAME': os.environ.get('DB_NAME', 'vibe'),
         'USER': os.environ.get('DB_USER', 'vibe'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'vibe_dev_password'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'PORT': os.environ.get('DB_PORT', '5200'),  # 호스트 직접 접근 시 5200, docker 내부는 5432 (env override)
     }
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3200',
+    'http://127.0.0.1:3200',
+    'https://vibe.me.kr',
+]
+CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = 'accounts.Member'
 

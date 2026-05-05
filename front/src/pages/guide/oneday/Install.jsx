@@ -1,5 +1,5 @@
 import GuideLayout from '../GuideLayout';
-import GuideClient from '../../../components/GuideClient';
+import GuideClient from '../../../components/guide/GuideClient';
 
 export default function Install() {
   return (

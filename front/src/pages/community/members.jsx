@@ -1,6 +1,6 @@
 import CommunityLayout from './CommunityLayout';
 import membersData from '@/data/members.json';
-import Avatar from '../../components/Avatar';
+import Avatar from '../../components/common/Avatar';
 
 export default function CommunityMembers() {
   return (

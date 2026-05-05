@@ -15,6 +15,7 @@
 | 운영자/강사 프로필 위치/카피 변경, 도용 방지 시그니처 손볼 때 | `agents/ui/operator-profile-module.md` |
 | 새 컴포넌트 파일 위치 결정 | `agents/frontend/component-placement.md` |
 | 가이드 페이지 레이아웃 수정 | `agents/frontend/guide-page-structure.md` |
+| /guide 지식 허브 / 새 도메인(front/back/ai) / 패턴 카탈로그 추가 | `agents/frontend/knowledge-hub-pattern.md` |
 | 새 강의 회차 추가 / ClassRegistration / 같은 교안으로 N회차 열기 | `agents/frontend/class-registration-pattern.md` |
 | 강의 CRUD inline UI / AdminOnly 가드 / useEvents / ClassEditor / /admin 보조 뷰 | `agents/frontend/admin-inline-editing-pattern.md` |
 | 새 주차/페이지 폴더 만들 때 / 전용 컴포넌트 전역 정리 / meta.js 사이드카 / _curriculums 인덱스 | `agents/frontend/route-colocation-pattern.md` |

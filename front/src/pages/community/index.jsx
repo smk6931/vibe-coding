@@ -1,7 +1,7 @@
 import CommunityLayout from './CommunityLayout';
 import showcaseData from '@/data/showcase.json';
 import membersData from '@/data/members.json';
-import Avatar from '../../components/Avatar';
+import Avatar from '../../components/common/Avatar';
 
 export default function CommunityShowcase() {
   const memberMap = new Map(membersData.map(m => [m.id, m]));

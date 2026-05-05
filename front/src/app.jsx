@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import DevOperatorEditor from './components/DevOperatorEditor';
-import { communityRoutes, guideRoutes } from './routes';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import DevOperatorEditor from './components/admin/DevOperatorEditor';
+import { communityRoutes, guideRoutes, infoRoutes } from './routes';
 import { RoleProvider } from './lib/RoleContext';
 
 const Home        = lazy(() => import('./pages/index'));
@@ -39,6 +39,7 @@ export default function App() {
           <Route path="/about"      element={<About />} />
           {communityRoutes.map(r => <Route key={r.path} path={r.path} element={r.element} />)}
           {guideRoutes.map(r => <Route key={r.path} path={r.path} element={r.element} />)}
+          {infoRoutes.map(r => <Route key={r.path} path={r.path} element={r.element} />)}
         </Routes>
       </Suspense>
       <Footer />
