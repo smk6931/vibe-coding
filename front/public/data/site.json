@@ -1,10 +1,7 @@
 {
   "brand": "바이브 세션",
   "tagline": "수원-서울, 2시간으로 끝내는 바이브코딩 라이트 클래스",
-  "subTagline": "한국 바이브코딩 모임을 지도·캘린더로 한눈에",
   "kakaoOpenChatUrl": "https://open.kakao.com/o/PLACEHOLDER",
-  "instagramUrl": "https://instagram.com/PLACEHOLDER",
-  "danggeunUrl": "https://www.daangn.com/PLACEHOLDER",
   "nextEventId": "evt-week1-2026-05-10",
   "operator": {
     "name": "손명관",
@@ -27,10 +24,5 @@
       "instagram": "https://www.instagram.com/duty_soon/",
       "kakao": "https://open.kakao.com/o/suOWUYsi"
     }
-  },
-  "refundPolicy": [
-    "입금 마감: 모임 시작 72시간 전까지",
-    "환불 가능: 모임 시작 48시간 전까지 100% 환불",
-    "그 이후 (48시간 이내 / 시작 후 / 노쇼): 환불 불가"
-  ]
+  }
 }

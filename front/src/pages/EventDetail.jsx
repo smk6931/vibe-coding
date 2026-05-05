@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import siteData from '../../public/data/site.json';
-import { formatDateTime, formatKRW, dDay, eventTypeLabel } from '../lib/format';
+import { dDay, eventTypeLabel } from '../lib/format';
 import OnedayClassCurriculum from '../components/OnedayClassCurriculum';
 import InstructorMicroCard from '../components/InstructorMicroCard';
 import ClassRegistration from '../components/ClassRegistration';
@@ -32,9 +32,10 @@ export default function EventDetail() {
   }
 
   const isInternal       = event.source === 'internal';
-  const sold             = event.remaining === 0;
   const showCurriculum   = isInternal && event.type === 'oneday_class';
-  const showRegistration = isInternal && Boolean(event.curriculumId);
+  // 자체 강의는 무조건 ClassRegistration 박스로 정보 표시 (ClassEditor 와 단일 소스).
+  // 내부 박스들이 각자 가드해서 빈 필드는 안전하게 처리됨.
+  const showRegistration = isInternal;
 
   return (
     <div className="container-page py-5 sm:py-8">
@@ -89,24 +90,13 @@ export default function EventDetail() {
               <InstructorMicroCard />
             </div>
           )}
-          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 mt-4 text-[13px] sm:text-sm">
-            <Field label="일시">{formatDateTime(event.startAt)} ~ {formatDateTime(event.endAt).slice(11)}</Field>
-            <Field label="장소">{event.venue.name}</Field>
-            <Field label="주소">{event.venue.address}</Field>
-            <Field label="주최">{event.host.name}</Field>
-            <Field label="난이도">{event.level}</Field>
-            <Field label="가격" className="text-brand-700 font-semibold">{formatKRW(event.price)}</Field>
-            <Field label="정원">
-              {sold
-                ? <span className="text-rose-600 font-medium">정원 마감</span>
-                : <>잔여 <strong>{event.remaining}</strong> / {event.capacity}</>}
-            </Field>
-          </dl>
 
-          <div className="mt-5 pt-5 border-t border-slate-100">
-            <h2 className="text-[14px] font-bold text-slate-700 mb-2">소개</h2>
-            <p className="whitespace-pre-line text-[13px] sm:text-sm text-slate-700 leading-relaxed">{event.description}</p>
-          </div>
+          {event.description && (
+            <div className="mt-5 pt-5 border-t border-slate-100">
+              <h2 className="text-[14px] font-bold text-slate-700 mb-2">소개</h2>
+              <p className="whitespace-pre-line text-[13px] sm:text-sm text-slate-700 leading-relaxed">{event.description}</p>
+            </div>
+          )}
 
           {event.tags?.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-1.5">
@@ -145,11 +135,3 @@ function MinihomeBanner() {
   );
 }
 
-function Field({ label, children, className }) {
-  return (
-    <div className="flex gap-3">
-      <dt className="w-14 shrink-0 text-slate-400 text-[12px] sm:text-[13px]">{label}</dt>
-      <dd className={`text-[13px] sm:text-sm ${className ?? 'text-slate-700'}`}>{children}</dd>
-    </div>
-  );
-}

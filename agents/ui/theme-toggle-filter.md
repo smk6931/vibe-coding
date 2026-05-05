@@ -13,16 +13,19 @@ Priority: medium
 
 ## 1. filter invert 트릭이란
 
+이 프로젝트는 라이트가 기본 톤 → `html.dark` 일 때만 반전. (다크가 기본인 프로젝트라면 `html.light` 로 바꿔 쓰면 됨 — 트릭 자체는 동일.)
+
 ```css
-html.light {
+html.dark {
   filter: invert(0.92) hue-rotate(180deg);
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 /* 사진/영상은 다시 invert해서 원본 색 유지 */
-html.light img,
-html.light video,
-html.light .preserve-color {
+html.dark img,
+html.dark video,
+html.dark iframe,
+html.dark .preserve-color {
   filter: invert(1) hue-rotate(180deg);
 }
 ```
@@ -54,21 +57,21 @@ html.light .preserve-color {
 import { useEffect, useState } from 'react'
 
 function ThemeToggle() {
-  const [light, setLight] = useState(() => {
+  const [dark, setDark] = useState(() => {
     const saved = localStorage.getItem('theme-key')
-    if (saved) return saved === 'light'
+    if (saved) return saved === 'dark'
     // 시스템 선호 따라가기 (선택)
-    return window.matchMedia?.('(prefers-color-scheme: light)').matches ?? false
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
   })
 
   useEffect(() => {
-    document.documentElement.classList.toggle('light', light)
-    localStorage.setItem('theme-key', light ? 'light' : 'dark')
-  }, [light])
+    document.documentElement.classList.toggle('dark', dark)
+    localStorage.setItem('theme-key', dark ? 'dark' : 'light')
+  }, [dark])
 
   return (
-    <button onClick={() => setLight(v => !v)} aria-label={light ? '다크' : '라이트'}>
-      {light ? '☀' : '☾'}
+    <button onClick={() => setDark(v => !v)} aria-label={dark ? '라이트' : '다크'}>
+      {dark ? '☀' : '☾'}
     </button>
   )
 }

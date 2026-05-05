@@ -4,5 +4,5 @@ import { useEvents } from '../lib/useEvents';
 
 export default function Home() {
   const events = useEvents();
-  return <HomeClient events={events} site={siteData} />;
+  return <HomeClient events={events} kakaoOpenChatUrl={siteData.kakaoOpenChatUrl} />;
 }

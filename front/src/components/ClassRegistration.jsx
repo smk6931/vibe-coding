@@ -35,12 +35,15 @@ export default function ClassRegistration({ event }) {
 
 /* ─────────────── 박스 1: 일시 · 장소 ─────────────── */
 function DateVenueBox({ event, dday }) {
-  const venue = event.venue;
+  const venue = event.venue ?? {};
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 flex-wrap">
         <span className="text-[11px] font-bold tracking-widest text-brand-600 uppercase">일시 · 장소</span>
         <span className="badge bg-brand-50 text-brand-700 text-[11px] font-semibold">{dday}</span>
+        {event.level && (
+          <span className="badge bg-slate-100 text-slate-600 text-[10px]">{event.level}</span>
+        )}
       </div>
       <p className="mt-2 text-[15px] sm:text-base font-semibold text-slate-900 leading-snug">
         {formatDateTime(event.startAt)}
@@ -50,7 +53,7 @@ function DateVenueBox({ event, dday }) {
       </p>
       <div className="mt-3 pt-3 border-t border-slate-100">
         <p className="text-[14px] font-semibold text-slate-800 leading-snug">
-          {venue.name}
+          {venue.name || <span className="text-slate-400 italic">장소 미설정</span>}
         </p>
         {venue.address && (
           <p className="mt-1 text-[12px] text-slate-500">{venue.address}</p>
@@ -99,6 +102,10 @@ function PaymentBox({ event }) {
         <p className="mt-3 text-[12px] text-slate-500 leading-relaxed bg-slate-50 rounded-lg p-2.5">
           {p.guide}
         </p>
+      )}
+
+      {!p && (
+        <p className="mt-3 text-[11px] text-slate-400 italic">계좌 정보 미설정 (admin 편집)</p>
       )}
     </div>
   );
@@ -154,6 +161,15 @@ function ApplyCTA({ event, sold, className = '' }) {
       <div className={`rounded-2xl border border-rose-200 bg-rose-50 p-5 text-center ${className}`}>
         <p className="text-[14px] font-semibold text-rose-700">정원 마감</p>
         <p className="mt-1 text-[12px] text-rose-600">다음 회차 안내 받으려면 카톡 오픈채팅 입장</p>
+      </div>
+    );
+  }
+
+  if (!event.applyUrl) {
+    return (
+      <div className={`rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-5 text-center ${className}`}>
+        <p className="text-[13px] font-medium text-slate-500">신청 채널 미설정</p>
+        <p className="mt-1 text-[11px] text-slate-400">admin 편집에서 카톡 오픈채팅 URL 을 추가하세요</p>
       </div>
     );
   }

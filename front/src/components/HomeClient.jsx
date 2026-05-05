@@ -357,8 +357,8 @@ export default function HomeClient({ events, kakaoOpenChatUrl }) {
               className="btn bg-white text-slate-900 hover:bg-slate-100 px-5 py-2.5 font-semibold">
               오픈채팅 들어가기
             </a>
-            <Link to="/library" className="btn border border-white/30 text-white hover:bg-white/10 px-5 py-2.5">
-              지식 보러 가기
+            <Link to="/guide" className="btn border border-white/30 text-white hover:bg-white/10 px-5 py-2.5">
+              가이드 보러 가기
             </Link>
           </div>
         </div>

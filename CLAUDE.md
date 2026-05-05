@@ -150,13 +150,12 @@
 ## 5. 배포 정책
 
 - 배포 대상: 오라클 클라우드 VM 단독 + Nginx 정적 호스팅.
-- 1차 URL: IP 직주소 (`http://167.x.x.x/`). 도메인은 Phase 3.
-- 배포 스크립트 — 같은 `deploy.config.json` 을 읽고 동일 동작:
-  - `front/server.ps1` (Windows / PowerShell)
-  - `front/server.py` (cross-platform / Python, 한글 출력 UTF-8 강제)
-- 흐름: `npm run build` → `./out` → SSH로 `mkdir+chown` → rsync(없으면 scp) → `nginx -t && systemctl reload nginx` → `curl http://IP/` 응답 확인.
-- **비밀값 분리**: `deploy.config.example.json` 만 git 트래킹. 본인 IP/SSH 키 경로가 들어간 `deploy.config.json` 과 `deploy.config.local.ps1` 은 `.gitignore` 로 절대 커밋 금지.
-- 1주 내 세팅 필수: PostgreSQL(추후 백엔드 추가 시) 일일 백업, ufw + 오라클 Security List 동시 열기, SSL은 도메인 붙는 시점에.
+- 운영 URL: `https://vibe.me.kr/` (도메인 + Let's Encrypt SSL 적용 완료).
+- 배포 스크립트: **루트 `server.py`** (Python, cross-platform, 한글 출력 UTF-8 강제). 슬래시 커맨드 `/deploy` 도 이 스크립트를 호출.
+  - 사용법: `python server.py` (full), `--skip-build`, `--dry-run`, `--bootstrap-nginx`.
+- 흐름: `cd front && npm install && npm run build` → `front/dist/` → SSH `mkdir+chown` → rsync(없으면 scp 폴백) → `sudo nginx -t && sudo systemctl reload nginx` → `urllib`로 사이트 응답(HTTP 200) 확인.
+- **비밀값 분리**: `.env.example` 만 git 트래킹. 본인 IP/SSH 키 경로가 들어간 `.env` 는 `.gitignore` 로 절대 커밋 금지.
+- 1주 내 세팅 필수: PostgreSQL(추후 백엔드 추가 시) 일일 백업, ufw + 오라클 Security List 동시 열기, SSL은 이미 적용됨.
 
 ## 6. 작업 진행 룰
 

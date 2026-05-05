@@ -50,12 +50,11 @@ Footer (전역)      ──┘
 **모든 프로필 컴포넌트는 이 객체만 참조한다.** 이름·사진·연락처를 바꾸려면
 이 파일 한 곳만 수정하면 5군데가 동시에 갱신됨.
 
-## 3. 3개 변형 컴포넌트
+## 3. 변형 컴포넌트
 
 | 컴포넌트 | 파일 | 크기 | 용도 |
 |---------|------|------|------|
-| `OperatorAboutHero` | `components/OperatorAboutHero.jsx` | 가로 hero (사진 좌 + 텍스트 우) | /about 최상단 헤더. 도용 방지 안내 prop 토글 |
-| `OperatorProfile` | `components/OperatorProfile.jsx` | 풀 섹션/카드 (사진 위 + 본문 아래) | /about 본문 (현재 단독), 향후 /me 사이드 등 |
+| `OperatorProfile` | `components/OperatorProfile.jsx` | 풀 섹션/카드 (사진 위 + 본문 아래) | /about 단독 마운트. variant prop으로 톤 조절 |
 | `OperatorIntroCard` | `components/OperatorIntroCard.jsx` | 명함형 카드 (사진 좌 + 텍스트 우 + 인스타/카톡/더 알아보기 인라인 링크) | 홈 히어로 컴팩트 섹션 안 (h1+tagline 아래), 향후 사이드바/마이페이지에도 재사용 |
 | `InstructorMicroCard` | `components/InstructorMicroCard.jsx` | 1줄 인라인 | EventDetail (자체 강의에만), 가이드 페이지 상단 |
 | `CurriculumSignature` | `components/CurriculumSignature.jsx` | 본문 끝 1줄 시그니처 (아바타 + 강사명 + CC BY) | 교안 컴포넌트 끝 (OnedayClassCurriculum, 향후 주차별 교안) |
@@ -66,30 +65,17 @@ Footer (전역)      ──┘
 ```jsx
 <OperatorProfile
   variant="section"            // 'section' | 'card' (기본 'section')
-  showAntiPlagiarismNotice     // boolean (기본 false). About에서만 true
   operator={...}               // 기본 siteData.operator. 외부 강사 노출 시 override 가능
 />
 ```
 
-### OperatorAboutHero props
+> 도용 방지 카피·CC BY 표기는 `Footer` 와 `CurriculumSignature` 에서만 노출한다 (전 페이지·교안 본문 끝). About 페이지는 풀 프로필만, 별도 안내 박스는 두지 않는다 — 톤 가볍게 유지.
 
-```jsx
-<OperatorAboutHero
-  showAntiPlagiarismNotice    // boolean (기본 true). 도용 방지 1줄 안내. 톤 가볍게 가려면 false
-/>
-```
-
-`showAntiPlagiarismNotice` — 도용 방지 안내 노출.
-- `OperatorProfile`: 박스 형태 (긴 문단). About 본문에서만 true.
-- `OperatorAboutHero`: 1줄 인용 형태 (헤더 톤). About 최상단에서 기본 true, 부담스러우면 false.
-홈 등 다른 페이지에서는 두 컴포넌트 모두 false 권장.
-
-## 4. 현재 마운트 지점 (2026-05-01 기준)
+## 4. 현재 마운트 지점 (2026-05-05 기준)
 
 | 위치 | 사용 컴포넌트 | 조건 |
 |------|--------------|------|
-| `pages/About.jsx` 최상단 | `OperatorAboutHero` (`showAntiPlagiarismNotice`) | 항상 |
-| `pages/About.jsx` 본문 | `OperatorProfile` (`showAntiPlagiarismNotice`) | 항상 |
+| `pages/About.jsx` 본문 | `OperatorProfile` (`variant="section"`) | 항상 |
 | `components/HomeClient.jsx` 컴팩트 히어로 안 (h1+tagline 아래) | `OperatorIntroCard` (`max-w-md`) | 항상 (명함 톤) |
 | `pages/EventDetail.jsx` (제목 아래) | `InstructorMicroCard` | `event.source === 'internal'` 일 때만 |
 | `components/OnedayClassCurriculum.jsx` 끝 | `CurriculumSignature` | 항상 (교안 본문 마지막) |
@@ -119,10 +105,9 @@ Footer (전역)      ──┘
 라이선스 문구가 노출되는 곳:
 
 1. `Footer.jsx` — "교안·코드·디자인은 출처 표기 시 자유 사용 (CC BY 4.0)"
-2. `OperatorProfile.jsx` — `showAntiPlagiarismNotice` 박스 안 (CC BY 4.0)
-3. `pages/About.jsx` — 페이지 상단 안내 문장 (자연어, 라이선스 코드 없음)
+2. `CurriculumSignature.jsx` — 교안 본문 끝 1줄 시그니처 (CC BY 4.0)
 
-라이선스를 바꿀 때는 위 3곳을 모두 일관되게 수정.
+라이선스를 바꿀 때는 위 2곳을 모두 일관되게 수정. About 페이지에 별도 박스를 두려면 `OperatorProfile` 에 prop을 추가하기보다 페이지 단에서 직접 `<p>` 한 줄 박는 쪽이 단순.
 
 ## 7. 사진/이미지
 
