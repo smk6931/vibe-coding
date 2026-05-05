@@ -1,30 +1,27 @@
 import { Link } from 'react-router-dom';
-import GuideLayout from '../GuideLayout';
-import OnedayClassCurriculum from '../../../components/OnedayClassCurriculum';
-import { useEvents } from '../../../lib/useEvents';
+import GuideLayout from '../../GuideLayout';
+import Curriculum from './Curriculum';
+import { META } from './meta';
+import { useEvents } from '../../../../lib/useEvents';
 import siteData from '@/data/site.json';
-import curriculumsData from '@/data/curriculums.json';
-import { formatDateTime, formatKRW, dDay } from '../../../lib/format';
-
-const CURRICULUM_ID = 'oneday-week-1';
+import { formatDateTime, formatKRW, dDay } from '../../../../lib/format';
 
 /**
- * Week1 — 1주차 교안 (Curriculum 본체).
+ * Week1 — 1주차 교안 페이지 (라우트 진입점).
+ * 같은 폴더의 다른 파일들과 짝:
+ *   - meta.js       카드용 메타 (title, prerequisites, outline, ...)
+ *   - Curriculum.jsx 교안 본문 (timeline + chapter accordion)
+ *   - components/   Chapter 컴포넌트 3개 + PromptRef + CurriculumSignature
  *
- * Curriculum-Class 패턴의 "Curriculum (Template)" 측 — 변하지 않는 본문.
- * 같은 curriculumId 를 가진 events 를 하단에 카드 위젯으로 노출 →
- * 교안 ↔ 회차 양방향 연결의 핵심.
- *
- * 회차 추가 = events.json 에 객체 1개 추가 (curriculumId 만 같으면 자동 노출).
+ * 회차(events) 추가 = events.json 에 객체 1개 추가 (curriculumId === META.id 면 자동 노출).
  * 라우트: /guide/oneday/week1
  */
 export default function Week1() {
-  const curriculum = curriculumsData.find((c) => c.id === CURRICULUM_ID);
   const events = useEvents();
   const now = new Date();
   const upcomingClasses = events
     .filter((e) =>
-      e.curriculumId === CURRICULUM_ID &&
+      e.curriculumId === META.id &&
       e.isPublished !== false &&
       new Date(e.startAt) >= now
     )
@@ -38,18 +35,16 @@ export default function Week1() {
             1주차 교안 · Curriculum
           </p>
           <h1 className="mt-1 text-[20px] sm:text-3xl font-bold text-slate-900 leading-tight">
-            {curriculum?.title ?? '1주차 교안'}
+            {META.title}
           </h1>
-          {curriculum?.subtitle && (
-            <p className="mt-2 text-[13px] sm:text-[15px] text-slate-600 leading-relaxed">
-              {curriculum.subtitle}
-            </p>
-          )}
+          <p className="mt-2 text-[13px] sm:text-[15px] text-slate-600 leading-relaxed">
+            {META.subtitle}
+          </p>
         </header>
 
         <UpcomingClasses classes={upcomingClasses} />
 
-        <OnedayClassCurriculum kakaoUrl={siteData.kakaoOpenChatUrl} />
+        <Curriculum kakaoUrl={siteData.kakaoOpenChatUrl} />
       </article>
     </GuideLayout>
   );

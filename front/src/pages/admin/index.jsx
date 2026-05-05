@@ -103,7 +103,12 @@ export default function Admin() {
             disabled={!pending || status === 'saving'}
             className="px-3 py-1.5 rounded-lg text-[12px] font-bold bg-brand-600 text-white hover:bg-brand-700 disabled:bg-slate-200 disabled:text-slate-400"
           >
-            {status === 'saving' ? '저장 중…' : status === 'saved' ? '저장됨' : 'events.json 영구 저장'}
+            {status === 'saving' ? '저장 중…' : status === 'saved' ? '저장됨' : (
+              <>
+                <span className="sm:hidden">영구 저장</span>
+                <span className="hidden sm:inline">events.json 영구 저장</span>
+              </>
+            )}
           </button>
           <button
             onClick={() => setEditor({ mode: 'create' })}

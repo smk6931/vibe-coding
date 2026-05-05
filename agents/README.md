@@ -32,3 +32,4 @@ AI가 작업 시 필요한 컨텍스트만 골라 읽는 참조용 문서 모음
 | [EventDetail 모듈화 기획](frontend/event-detail-modularization.md) | EventDetail 수정, 신청·지도·강의안 컴포넌트 분리할 때 |
 | [Curriculum-Class 패턴 + ClassRegistration](frontend/class-registration-pattern.md) | 새 강의 회차 추가, ClassRegistration 컴포넌트 수정, 같은 교안으로 N회차 열 때, 결제·환불·신청 박스 변경 |
 | [Admin 인라인 편집 패턴 (Role-aware UI + JSON 영구 저장)](frontend/admin-inline-editing-pattern.md) | 강의 CRUD inline UI, AdminOnly 가드, useEvents 훅, ClassEditor 모달, /admin 보조 뷰, Vite dev 미들웨어 확장 |
+| [라우트 폴더 co-location 패턴](frontend/route-colocation-pattern.md) | 새 주차/페이지 만들 때, 페이지 전용 컴포넌트가 전역 components/ 에 있는 걸 정리할 때, meta.js 사이드카 + _curriculums.js 인덱스 패턴, Week1 폴더 구조 따라 만들 때 |

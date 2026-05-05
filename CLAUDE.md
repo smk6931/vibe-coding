@@ -17,6 +17,7 @@
 | 가이드 페이지 레이아웃 수정 | `agents/frontend/guide-page-structure.md` |
 | 새 강의 회차 추가 / ClassRegistration / 같은 교안으로 N회차 열기 | `agents/frontend/class-registration-pattern.md` |
 | 강의 CRUD inline UI / AdminOnly 가드 / useEvents / ClassEditor / /admin 보조 뷰 | `agents/frontend/admin-inline-editing-pattern.md` |
+| 새 주차/페이지 폴더 만들 때 / 전용 컴포넌트 전역 정리 / meta.js 사이드카 / _curriculums 인덱스 | `agents/frontend/route-colocation-pattern.md` |
 
 ## 1. 디자인 원칙 — **모바일 우선**
 

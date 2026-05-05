@@ -1,5 +1,5 @@
-import s from './GitHubGuide.module.css';
-import MiniHompyDemo from '../pages/guide/oneday/components/MiniHompyDemo';
+import s from './ChapterGuide.module.css';
+import MiniHompyDemo from '../../components/MiniHompyDemo';
 import PromptRef from './PromptRef';
 
 const SECTIONS = [

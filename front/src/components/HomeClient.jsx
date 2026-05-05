@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import EventCard from './EventCard';
 import Accordion from './Accordion';
 import OperatorIntroCard from './OperatorIntroCard';
+import CurriculumGrid from './CurriculumGrid';
 import { AdminDevOnly } from './AdminOnly';
 import ClassEditor from './ClassEditor';
 import MiniHompy from '../pages/guide/oneday/components/MiniHompy';
@@ -483,10 +484,18 @@ function CardsGrid({ events, selectedId, onHover, kakaoOpenChatUrl }) {
   if (events.length === 0) {
     return (
       <>
-        <div className="card p-8 text-center text-slate-500 text-sm">
-          조건에 맞는 모임이 없어요.{' '}
-          <a href={kakaoOpenChatUrl} target="_blank" rel="noreferrer" className="text-brand-700 font-medium">카톡으로 알려주세요 →</a>
+        <div className="mb-3">
+          <p className="text-[12px] font-bold text-slate-700 mb-2 mt-1">
+            다음 강의 미리보기 (1주차 시리즈)
+          </p>
+          <CurriculumGrid />
         </div>
+        <p className="mt-2 text-center text-[11px] text-slate-400">
+          신청 가능한 회차는 위 ★ 운영자 추천 카드에서 보실 수 있어요.{' '}
+          <a href={kakaoOpenChatUrl} target="_blank" rel="noreferrer" className="text-brand-600 font-medium">
+            새 회차 알림 받기 →
+          </a>
+        </p>
         <AdminDevOnly>
           <div className="mt-3">
             <NewClassCard onClick={() => setCreatorOpen(true)} />

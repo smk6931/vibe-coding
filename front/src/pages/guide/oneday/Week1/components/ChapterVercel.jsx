@@ -1,4 +1,4 @@
-import s from './GitHubGuide.module.css';
+import s from './ChapterGuide.module.css';
 import PromptRef from './PromptRef';
 
 const SECTIONS = [

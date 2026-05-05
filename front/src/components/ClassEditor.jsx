@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import curriculumsData from '@/data/curriculums.json';
+import { CURRICULUMS } from '../pages/guide/oneday/_curriculums';
 import {
   addEvent,
   updateEvent,
@@ -98,24 +98,24 @@ export default function ClassEditor({ mode, event = null, onClose }) {
               {draft.title || '제목 없음'}
             </h2>
           </div>
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 flex-wrap justify-end">
             {pending && (
-              <span className="badge bg-amber-100 text-amber-700 text-[11px]">미저장</span>
+              <span className="badge bg-amber-100 text-amber-700 text-[10px] sm:text-[11px]">미저장</span>
             )}
             <button
               onClick={handleApplyToOverride}
-              className="px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700"
+              className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-[12px] font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700"
             >
-              미리보기 반영
+              미리보기
             </button>
             <button
               onClick={handleCommit}
               disabled={status === 'saving' || !pending}
-              className="px-3 py-1.5 rounded-lg text-[12px] font-bold bg-brand-600 text-white hover:bg-brand-700 disabled:bg-slate-200 disabled:text-slate-400"
+              className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-[12px] font-bold bg-brand-600 text-white hover:bg-brand-700 disabled:bg-slate-200 disabled:text-slate-400"
             >
               {status === 'saving' ? '저장 중…' : status === 'saved' ? '저장됨' : '영구 저장'}
             </button>
-            <button onClick={onClose} className="ml-1 p-1.5 rounded-lg text-slate-400 hover:bg-slate-100" aria-label="닫기">
+            <button onClick={onClose} className="ml-0.5 sm:ml-1 p-1 sm:p-1.5 rounded-lg text-slate-400 hover:bg-slate-100" aria-label="닫기">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
           </div>
@@ -252,7 +252,7 @@ export default function ClassEditor({ mode, event = null, onClose }) {
             <Field label="교안 (curriculumId)">
               <select value={draft.curriculumId ?? ''} onChange={(e) => patch('curriculumId', e.target.value || null)} className={inputCls}>
                 <option value="">— 연결 없음 —</option>
-                {curriculumsData.map((c) => <option key={c.id} value={c.id}>{c.id} · {c.title}</option>)}
+                {CURRICULUMS.map((c) => <option key={c.id} value={c.id}>{c.id} · {c.title}</option>)}
               </select>
             </Field>
             <Field label="게시 상태">

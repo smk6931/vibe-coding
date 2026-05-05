@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import curriculumsData from '@/data/curriculums.json';
+import { getCurriculum } from '../pages/guide/oneday/_curriculums';
 import { formatDateTime, formatKRW, dDay } from '../lib/format';
 
 /**
@@ -19,7 +19,7 @@ import { formatDateTime, formatKRW, dDay } from '../lib/format';
  *   - event: events.json 의 자체 강의 1건 (curriculumId 필수)
  */
 export default function ClassRegistration({ event }) {
-  const curriculum = curriculumsData.find((c) => c.id === event.curriculumId);
+  const curriculum = getCurriculum(event.curriculumId);
   const sold = event.remaining === 0;
   const dday = dDay(event.startAt);
 

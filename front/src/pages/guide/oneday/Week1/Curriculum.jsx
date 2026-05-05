@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import GitHubGuide from './GitHubGuide';
-import MiniHompyGuide from './MiniHompyGuide';
-import VercelGuide from './VercelGuide';
-import CurriculumSignature from './CurriculumSignature';
+import GitHubGuide from './components/ChapterGitHub';
+import MiniHompyGuide from './components/ChapterMiniHompy';
+import VercelGuide from './components/ChapterVercel';
+import CurriculumSignature from './components/CurriculumSignature';
 
 const TIMELINE = [
   {

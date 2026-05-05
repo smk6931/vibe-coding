@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import GuideLayout from '../GuideLayout';
+import GuideLayout from '../../GuideLayout';
 import s from './Week3.module.css';
 
 const TOPICS = [

@@ -13,7 +13,13 @@ export default function CommunityLayout({ children }) {
   return (
     <div className="container-wide py-5 sm:py-8">
       <header className="mb-4">
-        <h1 className="page-title">커뮤니티</h1>
+        <div className="flex items-center gap-2 flex-wrap">
+          <h1 className="page-title">커뮤니티</h1>
+          <span className="badge bg-slate-100 text-slate-500 text-[11px]">준비중 · 더미 데이터</span>
+        </div>
+        <p className="mt-1 text-[12px] text-slate-500">
+          1차 강의 N회 운영 후 활성화. 지금은 카톡 오픈채팅으로 모임을 운영합니다.
+        </p>
       </header>
       <nav className="flex gap-1 mb-5 border-b border-slate-100 pb-1">
         {TABS.map(t => {

@@ -5,7 +5,9 @@ import ThemeToggle from './ThemeToggle';
 const MAIN_NAV = [
   { href: '/',          label: '모임' },
   { href: '/guide',     label: '지식' },
-  { href: '/community', label: '커뮤니티' },
+  // 커뮤니티 — 운영 전이라 헤더에서 숨김. URL 직진입은 가능 (admin 미리보기용).
+  // 1차 강의 N회 운영 후 멤버·QA 데이터 쌓이면 활성화.
+  // { href: '/community', label: '커뮤니티' },
 ];
 
 const KAKAO_URL = import.meta.env.VITE_KAKAO_OPENCHAT_URL || '#';
